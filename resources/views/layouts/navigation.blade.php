@@ -1,100 +1,382 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                    </a>
+<div x-data="{ mobileMenuOpen: false }">
+    <!-- Mobile  -->
+    <div x-cloak class="relative z-40 lg:hidden" role="dialog" aria-modal="true">
+        <div x-show="mobileMenuOpen" x-transition:enter="transition-opacity ease-linear duration-300"
+            x-transition:enter-start="opacity-0 " x-transition:enter-end="opacity-100 "
+            x-transition:leave="transition-opacity ease-linear duration-300"
+            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+            class="fixed inset-0 bg-black bg-opacity-25"></div>
+
+        <!-- <div class="fixed inset-0 z-40 flex"> -->
+        <div x-show="mobileMenuOpen" x-transition:enter="transition ease-in-out duration-300 transform"
+            x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
+            x-transition:leave="transition ease-in-out duration-300 transform"
+            x-transition:leave-start="translate-x-0 " x-transition:leave-end="-translate-x-full "
+            class="fixed inset-0 z-40 flex">
+            <div @click.away="mobileMenuOpen = false"
+                class="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl">
+                <div class="flex px-4 pb-2 pt-5">
+                    <button @click="mobileMenuOpen = false" type="button"
+                        class="relative -m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400">
+                        <span class="absolute -inset-0.5"></span>
+                        <span class="sr-only">Close menu</span>
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
-            </div>
+                <!-- Links -->
+                <div class="mt-2" x-data="{ selectedTab: 'kategori' }">
+                    <div class="border-b border-gray-200">
+                        <div class="-mb-px flex space-x-8 px-4" aria-orientation="horizontal" role="tablist">
+                            <button @click="selectedTab = 'kategori'" id="tabs-1-tab-1"
+                                :class="selectedTab === 'kategori' ? 'border-baut-color-red-200 text-baut-color-red-200' : 'border-transparent text-gray-900'"
+                                class="flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium"
+                                aria-controls="tabs-1-panel-1" role="tab" type="button">
+                                Kategori
+                            </button>
+                        </div>
+                    </div>
 
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
-
-                            <div class="ml-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
+                    <!-- 'kategori' tab panel, show/hide based on tab state. -->
+                    <div x-show="selectedTab === 'kategori'" id="tabs-1-panel-1"
+                        class="space-y-10 px-4 pb-8 pt-10" aria-labelledby="tabs-1-tab-1" role="tabpanel"
+                        tabindex="0">
+                        <div class="grid grid-cols-2 gap-x-4">
+                            <div class="group relative text-sm">
+                                <div
+                                    class="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
+                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg"
+                                        alt="Models sitting back to back, wearing Basic Tee in black and bone."
+                                        class="object-cover object-center">
+                                </div>
+                                <a href="#" class="mt-6 block font-medium text-gray-900">
+                                    <span class="absolute inset-0 z-10" aria-hidden="true"></span>
+                                    New Arrivals
+                                </a>
+                                <p aria-hidden="true" class="mt-1">Shop now</p>
                             </div>
-                        </button>
-                    </x-slot>
+                            <div class="group relative text-sm">
+                                <div
+                                    class="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
+                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg"
+                                        alt="Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees."
+                                        class="object-cover object-center">
+                                </div>
+                                <a href="#" class="mt-6 block font-medium text-gray-900">
+                                    <span class="absolute inset-0 z-10" aria-hidden="true"></span>
+                                    Basic Tees
+                                </a>
+                                <p aria-hidden="true" class="mt-1">Shop now</p>
+                            </div>
+                        </div>
+                        <div>
+                            <p id="kategori-clothing-heading-mobile" class="font-medium text-gray-900">
+                                Clothing
+                            </p>
+                            <ul role="list" aria-labelledby="kategori-clothing-heading-mobile"
+                                class="mt-6 flex flex-col space-y-6">
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">Tops</a>
+                                </li>
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">Dresses</a>
+                                </li>
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">Pants</a>
+                                </li>
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">Denim</a>
+                                </li>
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">Sweaters</a>
+                                </li>
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">T-Shirts</a>
+                                </li>
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">Jackets</a>
+                                </li>
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">Activewear</a>
+                                </li>
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">Browse All</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p id="kategori-accessories-heading-mobile" class="font-medium text-gray-900">
+                                Accessories</p>
+                            <ul role="list" aria-labelledby="kategori-accessories-heading-mobile"
+                                class="mt-6 flex flex-col space-y-6">
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">Watches</a>
+                                </li>
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">Wallets</a>
+                                </li>
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">Bags</a>
+                                </li>
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">Sunglasses</a>
+                                </li>
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">Hats</a>
+                                </li>
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">Belts</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p id="kategori-brands-heading-mobile" class="font-medium text-gray-900">Brands
+                            </p>
+                            <ul role="list" aria-labelledby="kategori-brands-heading-mobile"
+                                class="mt-6 flex flex-col space-y-6">
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">Full Nelson</a>
+                                </li>
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">My Way</a>
+                                </li>
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">Re-Arranged</a>
+                                </li>
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">Counterfeit</a>
+                                </li>
+                                <li class="flow-root">
+                                    <a href="#" class="-m-2 block p-2 text-gray-500">Significant Other</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
+                <div class="space-y-6 border-t border-gray-200 px-4 py-6">
+                    <div class="flow-root">
+                        <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Katalog</a>
+                    </div>
+                    <div class="flow-root">
+                        <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Tentang Kami</a>
+                    </div>
+                </div>
 
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
+                <div class="space-y-6 border-t border-gray-200 px-4 py-6">
+                    <div class="flow-root">
+                        @if (!Auth::guest())
+                            <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Profil</a>
+                        @else
+                            <a href="{{ route('login') }}" class="-m-2 block p-2 font-medium text-gray-900">Masuk</a>
+                        @endif
+                    </div>
+                    <div class="flow-root">
+                        @if (!Auth::guest())
+                            <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Order History</a>
+                        @else
+                            <a href="{{ route('register') }}" class="-m-2 block p-2 font-medium text-gray-900">Daftar</a>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-200 px-4 py-6">
+                    @if (!Auth::guest())
+                        <form action="{{ route('logout') }}" method="post">
                             @csrf
-
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
+                            <button type="submit" class="-m-2 flex items-center p-2">
+                                <span class="block text-base font-medium text-gray-900">Keluar</span>
+                            </button>
                         </form>
-                    </x-slot>
-                </x-dropdown>
-            </div>
-
-            <!-- Hamburger -->
-            <div class="-mr-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
+                    @endif
+                </div>
             </div>
         </div>
+        <!-- </div> -->
     </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
+    <!-- Website  -->
+    <!-- <header class="inset-x-0 top-0 z-50"> -->
+    <!-- <header class="relative overflow-hidden"> -->
+    <header class="relative bg-white">
+        <!-- Top navigation -->
+        <!-- <nav aria-label="Top" class="relative z-20 bg-white bg-opacity-90 backdrop-blur-xl backdrop-filter"> -->
+        <!-- <nav aria-label="Top"
+            class="relative z-20 bg-gradient-to-b from-white to-transparent bg-opacity-90 backdrop-blur-xl backdrop-filter transition duration-300 ease-in-out"> -->
+        <nav aria-label="Top"
+            class="relative z-20 bg-gradient-to-b from-white to-transparent bg-opacity-90 backdrop-blur-xl">
+            <!-- <nav aria-label="Top" class="relative z-20 bg-gradient-to-b from-white to-transparent bg-opacity-90 backdrop-blur-xl backdrop-filter transition duration-300 ease-in-out"> -->
+            <!-- <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 "> -->
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 border-b border-gray-200">
+                <div class="flex h-16 items-center">
+                    <!-- Mobile menu toggle, controls the 'mobileMenuOpen' state. -->
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" type="button"
+                        class="relative rounded-md bg-white p-2 text-gray-400 lg:hidden">
+                        <span class="absolute -inset-0.5"></span>
+                        <span class="sr-only">Open menu</span>
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </button>
 
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                    <!-- Logo -->
+                    <div class="ml-4 flex lg:ml-0">
+                        <a href="{{route('home')}}">
+                            <span class="sr-only">Logo</span>
+                            <img class="h-8 w-auto"
+                                src="/src/img/DALL·E 2023-10-26 21.14.57 - Vector illustration of an e-commerce logo featuring a stylized shopping cart filled with bolts and nuts. The design incorporates a gradient transition.png"
+                                alt="">
+                        </a>
+                    </div>
+
+                    <!-- Flyout menus -->
+                    <div class="hidden lg:ml-8 lg:block lg:self-stretch">
+                        <div class="flex h-full space-x-8" x-data="{ isOn: null }">
+                            <div class="flex" x-data="{ isOn: false }" @click.away="isOn = false">
+                                <div class="relative flex">
+                                    <button type="button"
+                                        @click="isOn = (isOn === 'kategori' ? null : 'kategori')"
+                                        :class="{'border-baut-color-red-200 text-baut-color-red-200': isOn === 'kategori', 'border-transparent text-gray-700 hover:text-baut-color-red-200': isOn !== 'kategori' }"
+                                        class="border-transparent text-gray-700 relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out"
+                                        aria-expanded="false">
+                                        Kategori
+                                    </button>
+                                </div>
+
+                                <div x-show="isOn" x-transition:enter="transition ease-out duration-200"
+                                    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                                    x-transition:leave="transition ease-in duration-200"
+                                    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                                    x-cloak
+                                    class="absolute inset-x-0 top-full z-20 bg-white text-sm text-gray-500">
+                                    <div class="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true">
+                                    </div>
+
+                                    <!-- <div class="absolute inset-0 top-0 mx-auto h-px max-w-7xl px-8"
+                                        aria-hidden="true"> -->
+                                    <!-- Open: "bg-gray-200", Closed: "bg-transparent" -->
+                                    <!-- <div :class="{'bg-gray-200': isOn, 'bg-transparent': !isOn}"
+                                            class="bg-transparent h-px w-full transition-colors duration-200 ease-out">
+                                        </div>
+                                    </div> -->
+
+                                    <div class="relative bg-white" x-data="dropdown()">
+                                        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                                            <div class="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
+                                                <div class="col-start-2 grid grid-cols-2 gap-x-8">
+                                                    <div class="group relative text-base sm:text-sm"
+                                                        x-show="showImage">
+                                                        <div
+                                                            class="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
+                                                            <img x-bind:src="selectedMenu && selectedMenu.image ? selectedMenu.image : '/src/img/DALL·E 2023-10-26 21.14.57 - Vector illustration of an e-commerce logo featuring a stylized shopping cart filled with bolts and nuts. The design incorporates a gradient transition.png'"
+                                                                alt="Models sitting back to back, wearing Basic Tee in black and bone."
+                                                                class="object-cover object-center">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div @mouseleave="selectedMenu ? null : activeMenu = null"
+                                                    class="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
+                                                    <div>
+                                                        <p id="Clothing-heading"
+                                                            class="font-medium text-gray-900">
+                                                            Clothing</p>
+                                                        <ul role="list" aria-labelledby="Clothing-heading"
+                                                            class="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
+                                                            <template x-for="(item, index) in clothingMenu"
+                                                                :key="index">
+                                                                <li class="flex">
+                                                                    <a href="#"
+                                                                        class="hover:text-baut-color-red-200"
+                                                                        :class="{'text-red-500 ': selectedMenu === item}"
+                                                                        @click.prevent="setActiveClothing(item)"
+                                                                        x-text="item.name">
+                                                                    </a>
+                                                                </li>
+                                                            </template>
+                                                        </ul>
+                                                    </div>
+                                                    <div x-show="activeMenu" @mouseleave="handleMouseLeave()">
+                                                        <p id="Accessories-heading"
+                                                            class="font-medium text-gray-900">Accessories</p>
+                                                        <ul role="list" aria-labelledby="Accessories-heading"
+                                                            class="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
+                                                            <template x-for="(item, index) in accessoriesMenu"
+                                                                :key="index">
+                                                                <li class="flex">
+                                                                    <a href="#"
+                                                                        class="hover:text-baut-color-red-200"
+                                                                        :class="{'text-red-500 ':tempSelectedAccessory === item}"
+                                                                        @click.prevent="setActiveAccessory(item)"
+                                                                        x-text="item.name"></a>
+                                                                </li>
+                                                            </template>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a href="/src/category.html"
+                                class="flex items-center text-sm font-medium text-gray-700 hover:text-baut-color-red-200">Katalog</a>
+                            <a href="/src/about.html"
+                                class="flex items-center text-sm font-medium text-gray-700 hover:text-baut-color-red-200">Tentang
+                                Kami</a>
+                        </div>
+                    </div>
+                    <div class="ml-auto flex items-center">
+                        <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                            @if (!Auth::guest())
+                                <a href="#" class="text-sm font-medium text-gray-700 hover:text-baut-color-red-200">Profil</a>
+                            @else
+                                <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-baut-color-red-200">Masuk</a>
+                            @endif
+                            <span class="h-6 w-px bg-gray-200" aria-hidden="true"></span>
+                            @if (!Auth::guest())
+                                <a href="#" class="text-sm font-medium text-gray-700 hover:text-baut-color-red-200">
+                                    Order History
+                                </a>
+                            @else
+                                <a href="{{ route('register') }}" class="text-sm font-medium text-gray-700 hover:text-baut-color-red-200">Daftar</a>
+                            @endif
+                        </div>
+
+                        <div class="hidden lg:ml-8 lg:flex">
+                            @if (!Auth::guest())
+                                <form action="{{ route('logout') }}" method="post">
+                                    @csrf
+                                    <button type="submit" class="flex items-center text-gray-700 hover:text-baut-color-red-200">
+                                        <span class="ml-3 block text-sm font-medium">Keluar</span>
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
+
+                        <!-- Cart -->
+                        <div class="ml-4 flow-root lg:ml-6">
+                            <a href="/src/cart.html" class="group -m-2 flex items-center p-2">
+                                <svg class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-baut-color-red-200"
+                                    fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                    aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                                </svg>
+                                <span x-show="$store.header.cartItems" x-transition
+                                    x-text="$store.header.cartItems"
+                                    class="ml-2 text-sm font-medium text-gray-700 group-hover:text-baut-color-red-200"></span>
+                                <span class="sr-only">items in cart, view bag</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
-            </div>
-        </div>
-    </div>
-</nav>
+        </nav>
+    </header>
+</div>
