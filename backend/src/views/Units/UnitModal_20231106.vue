@@ -1,6 +1,6 @@
 <template>
     <TransitionRoot appear :show="show" as="template">
-        <Dialog as="div" @close="closeModal" class="relative z-50">
+        <Dialog as="div" @close="closeModal" class="relative z-10">
             <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0" enter-to="opacity-100"
                 leave="duration-200 ease-in" leave-from="opacity-100" leave-to="opacity-0">
                 <div class="fixed inset-0 bg-black bg-opacity-75" />
@@ -17,7 +17,7 @@
                                 class="absolute left-0 top-0 bg-white right-0 bottom-0 flex items-center justify-center" />
                             <header class="py-3 px-4 flex justify-between items-center">
                                 <DialogTitle as="h3" class="text-lg leading-6 font-medium text-gray-900">
-                                    {{ product.id ? `Update Produk: "${props.product.title}"` : 'Tambah Produk Baru' }}
+                                    {{ unit.id ? `Update Satuan: "${props.unit.full_name}"` : 'Tambah Satuan Baru' }}
                                 </DialogTitle>
                                 <button @click="closeModal()"
                                     class="w-8 h-8 flex items-center justify-center rounded-full transition-colors cursor-pointer hover:bg-[rgba(0,0,0,0.2)]">
@@ -29,19 +29,10 @@
                             </header>
                             <form @submit.prevent="onSubmit">
                                 <div class="bg-white px-4 pt-5 pb-4">
-                                    <!-- <CustomInput class="mb-2" v-model="product.type_id" label="Jenis" /> -->
-                                    <CustomInput class="mb-2" v-model="product.code" label="Kode Produk" />
-                                    <CustomInput class="mb-2" v-model="product.title" label="Judul Produk" />
-                                    <CustomInput type="file" class="mb-2" v-model="product.image" label="Gambar Produk"
-                                        @change="file => product.image = file" />
-                                    <CustomInput type="textarea" class="mb-2" v-model="product.description"
-                                        label="Deskripsi Produk" />
-                                    <CustomInput type="number" class="mb-2" v-model="product.price_retail"
-                                        label="Harga Eceran" prepend="Rp." />
-                                    <!-- <CustomInput type="number" class="mb-2" v-model="product.price_wholesale"
-                                        label="Harga Grosir" prepend="Rp." /> -->
-                                    <!-- <CustomInput type="number" class="mb-2" v-model="product.price_wholesale"
-                                        label="Harga Grosir" prepend="Rp." /> -->
+                                    <CustomInput class="mb-2" v-model="unit.symbol" label="Simbol" />
+                                    <CustomInput class="mb-2" v-model="unit.short_name" label="Satuan" />
+                                    <CustomInput type="textarea" class="mb-2" v-model="unit.full_name"
+                                        label="Nama Satuan" />
                                 </div>
                                 <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"
@@ -72,28 +63,18 @@ import Spinner from '../../components/core/Spinner.vue';
 import store from '../../store';
 import CustomInput from '../../components/core/CustomInput.vue';
 
-const product = ref({
-    id: props.product.id,
-    code: props.product.code,
-    title: props.product.title,
-    image: props.product.image,
-    description: props.product.description,
-    price_retail: props.product.price_retail,
-    // price_wholesale: props.product.price_wholesale,
-    // quantity_limit: props.product.quantity_limit,
-    // category_id: props.product.category_id,
-    // unit_id: props.product.unit_id,
-    // type_short_name: props.product.type_short_name,
-    // type_full_name: props.product.type_full_name,
-    // type_symbol: props.product.type_symbol,
-    // material_id: props.product.material_id,
+const unit = ref({
+    id: props.unit.id,
+    symbol: props.unit.symbol,
+    short_name: props.unit.short_name,
+    description: props.unit.full_name,
 })
 
 const loading = ref(false)
 
 const props = defineProps({
     modelValue: Boolean,
-    product: {
+    unit: {
         required: true,
         type: Object,
     }
@@ -107,40 +88,38 @@ const show = computed({
 })
 
 onUpdated(() => {
-    product.value = {
-        id: props.product.id,
-        code: props.product.code,
-        title: props.product.title,
-        image: props.product.image,
-        description: props.product.description,
-        price_retail: props.product.price_retail,
+    unit.value = {
+        id: props.unit.id,
+        symbol: props.unit.symbol,
+        short_name: props.unit.short_name,
+        full_name: props.unit.full_name,
     }
 })
 
 function closeModal() {
     show.value = false
-    emit('close')
+    emit('clsoe')
 }
 
 function onSubmit() {
     loading.value = true
-    if (product.value.id) {
-        store.dispatch('updateProduct', product.value)
+    if (unit.value.id) {
+        store.dispatch('updateUnit', unit.value)
             .then(response => {
                 loading.value = false;
                 if (response.status === 200) {
                     // TODO show notification 
-                    store.dispatch('getProducts')
+                    store.dispatch('getUnits')
                     closeModal()
                 }
             })
     } else {
-        store.dispatch('createProduct', product.value)
+        store.dispatch('createUnit', unit.value)
             .then(response => {
                 loading.value = false;
                 if (response.status === 201) {
                     // TODO show notification 
-                    store.dispatch('getProducts')
+                    store.dispatch('getUnits')
                     closeModal()
                 }
             })

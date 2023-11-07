@@ -4,7 +4,7 @@ export function setUser(state, user) {
 
 export function setToken(state, token) {
     state.user.token = token;
-    if(token) {
+    if (token) {
         sessionStorage.setItem('TOKEN', token);
     } else {
         sessionStorage.removeItem('TOKEN');
@@ -12,7 +12,7 @@ export function setToken(state, token) {
 }
 
 export function setProducts(state, [loading, response = null]) {
-    if(response) {
+    if (response) {
         state.products = {
             data: response.data,
             links: response.meta.links,
@@ -28,7 +28,7 @@ export function setProducts(state, [loading, response = null]) {
 }
 
 export function setTypes(state, [loading, response = null]) {
-    if(response) {
+    if (response) {
         state.types = {
             data: response.data,
             links: response.meta.links,
@@ -44,7 +44,7 @@ export function setTypes(state, [loading, response = null]) {
 }
 
 export function setCategories(state, [loading, response = null]) {
-    if(response) {
+    if (response) {
         state.categories = {
             data: response.data,
             links: response.meta.links,
@@ -59,7 +59,7 @@ export function setCategories(state, [loading, response = null]) {
 }
 
 export function setMaterials(state, [loading, response = null]) {
-    if(response) {
+    if (response) {
         state.materials = {
             data: response.data,
             links: response.meta.links,
@@ -75,7 +75,7 @@ export function setMaterials(state, [loading, response = null]) {
 }
 
 export function setUnits(state, [loading, response = null]) {
-    if(response) {
+    if (response) {
         state.units = {
             data: response.data,
             links: response.meta.links,
@@ -91,7 +91,7 @@ export function setUnits(state, [loading, response = null]) {
 }
 
 export function setColors(state, [loading, response = null]) {
-    if(response) {
+    if (response) {
         state.colors = {
             data: response.data,
             links: response.meta.links,
@@ -107,7 +107,7 @@ export function setColors(state, [loading, response = null]) {
 }
 
 export function setThreadDensities(state, [loading, response = null]) {
-    if(response) {
+    if (response) {
         state.threadDensities = {
             data: response.data,
             links: response.meta.links,
@@ -123,7 +123,7 @@ export function setThreadDensities(state, [loading, response = null]) {
 }
 
 export function setThreadDirections(state, [loading, response = null]) {
-    if(response) {
+    if (response) {
         state.threadDirections = {
             data: response.data,
             links: response.meta.links,

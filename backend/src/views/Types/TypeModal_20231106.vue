@@ -17,7 +17,7 @@
                                 class="absolute left-0 top-0 bg-white right-0 bottom-0 flex items-center justify-center" />
                             <header class="py-3 px-4 flex justify-between items-center">
                                 <DialogTitle as="h3" class="text-lg leading-6 font-medium text-gray-900">
-                                    {{ product.id ? `Update Produk: "${props.product.title}"` : 'Tambah Produk Baru' }}
+                                    {{ type.id ? `Update Jenis: "${props.type.name}"` : 'Tambah Jenis Baru' }}
                                 </DialogTitle>
                                 <button @click="closeModal()"
                                     class="w-8 h-8 flex items-center justify-center rounded-full transition-colors cursor-pointer hover:bg-[rgba(0,0,0,0.2)]">
@@ -29,19 +29,11 @@
                             </header>
                             <form @submit.prevent="onSubmit">
                                 <div class="bg-white px-4 pt-5 pb-4">
-                                    <!-- <CustomInput class="mb-2" v-model="product.type_id" label="Jenis" /> -->
-                                    <CustomInput class="mb-2" v-model="product.code" label="Kode Produk" />
-                                    <CustomInput class="mb-2" v-model="product.title" label="Judul Produk" />
-                                    <CustomInput type="file" class="mb-2" v-model="product.image" label="Gambar Produk"
-                                        @change="file => product.image = file" />
-                                    <CustomInput type="textarea" class="mb-2" v-model="product.description"
-                                        label="Deskripsi Produk" />
-                                    <CustomInput type="number" class="mb-2" v-model="product.price_retail"
-                                        label="Harga Eceran" prepend="Rp." />
-                                    <!-- <CustomInput type="number" class="mb-2" v-model="product.price_wholesale"
-                                        label="Harga Grosir" prepend="Rp." /> -->
-                                    <!-- <CustomInput type="number" class="mb-2" v-model="product.price_wholesale"
-                                        label="Harga Grosir" prepend="Rp." /> -->
+                                    <CustomInput class="mb-2" label="Kategori" />
+                                    <CustomInput class="mb-2" v-model="type.code" label="Kode Jenis" />
+                                    <CustomInput class="mb-2" v-model="type.name" label="Nama Jenis" />
+                                    <CustomInput type="textarea" class="mb-2" v-model="type.description"
+                                        label="Deskripsi Jenis" />
                                 </div>
                                 <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"
@@ -72,28 +64,18 @@ import Spinner from '../../components/core/Spinner.vue';
 import store from '../../store';
 import CustomInput from '../../components/core/CustomInput.vue';
 
-const product = ref({
-    id: props.product.id,
-    code: props.product.code,
-    title: props.product.title,
-    image: props.product.image,
-    description: props.product.description,
-    price_retail: props.product.price_retail,
-    // price_wholesale: props.product.price_wholesale,
-    // quantity_limit: props.product.quantity_limit,
-    // category_id: props.product.category_id,
-    // unit_id: props.product.unit_id,
-    // type_short_name: props.product.type_short_name,
-    // type_full_name: props.product.type_full_name,
-    // type_symbol: props.product.type_symbol,
-    // material_id: props.product.material_id,
+const type = ref({
+    id: props.type.id,
+    code: props.type.code,
+    name: props.type.name,
+    description: props.type.description,
 })
 
 const loading = ref(false)
 
 const props = defineProps({
     modelValue: Boolean,
-    product: {
+    type: {
         required: true,
         type: Object,
     }
@@ -107,40 +89,38 @@ const show = computed({
 })
 
 onUpdated(() => {
-    product.value = {
-        id: props.product.id,
-        code: props.product.code,
-        title: props.product.title,
-        image: props.product.image,
-        description: props.product.description,
-        price_retail: props.product.price_retail,
+    type.value = {
+        id: props.type.id,
+        code: props.type.code,
+        name: props.type.name,
+        description: props.type.description,
     }
 })
 
 function closeModal() {
     show.value = false
-    emit('close')
+    emit('clsoe')
 }
 
 function onSubmit() {
     loading.value = true
-    if (product.value.id) {
-        store.dispatch('updateProduct', product.value)
+    if (type.value.id) {
+        store.dispatch('updateType', type.value)
             .then(response => {
                 loading.value = false;
                 if (response.status === 200) {
                     // TODO show notification 
-                    store.dispatch('getProducts')
+                    store.dispatch('getTypes')
                     closeModal()
                 }
             })
     } else {
-        store.dispatch('createProduct', product.value)
+        store.dispatch('createType', type.value)
             .then(response => {
                 loading.value = false;
                 if (response.status === 201) {
                     // TODO show notification 
-                    store.dispatch('getProducts')
+                    store.dispatch('getTypes')
                     closeModal()
                 }
             })
