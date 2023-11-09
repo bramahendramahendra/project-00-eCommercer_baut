@@ -67,6 +67,21 @@ export function getTypes({ commit }, { url = null, search = '', perPage = 10, so
         })
 }
 
+export function getOptionCategories({ commit }) {
+    commit('setOptionCategories', [true]);
+    return axiosClient.get('/categories/options')
+        .then(res => {
+            // debugger;
+            commit('setOptionCategories', [false, res.data]);
+            return res.data.data; // res.data sudah merupakan array dari kategori
+        })
+        .catch(error => {
+            commit('setOptionCategories', [false]);
+            // console.error('Error fetching categories:', error);
+            // Menangani error lebih lanjut
+        })
+}
+
 export function getCategories({ commit }, { url = null, search = '', perPage = 10, sort_field, sort_direction } = {}) {
     commit('setCategories', [true])
     url = url || '/categories';
@@ -241,6 +256,8 @@ export function createType({ commit }, type) {
     form.append('name', type.name);
     form.append('description', type.description);
     type = form;
+    console.log(type)
+    debugger;
 
     return axiosClient.post('/types', type)
 }
@@ -261,7 +278,9 @@ export function createMaterial({ commit }, material) {
     const form = new FormData();
     form.append('name', material.name);
     material = form;
-
+    console.log(material)
+    debugger;
+    // debugger;
     return axiosClient.post('/materials', material)
 }
 
@@ -457,3 +476,4 @@ export function deleteThreadDirection({ commit }, id) {
     // return axiosClient.delete('/categories/${id}')
     return axiosClient.delete(`/threadDirections/${id}`)
 }
+

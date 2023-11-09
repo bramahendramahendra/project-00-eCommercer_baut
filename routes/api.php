@@ -29,6 +29,7 @@ Route::middleware(['auth:sanctum', 'admin'])
         // Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
         Route::get('/user', [AuthController::class, 'getUser']);
         Route::post('/logout', [AuthController::class, 'logout']);
+        Route::get('/categories/options', [CategoryController::class, 'getOptionCategory']);
 
         Route::apiResource('products', ProductController::class);
         Route::apiResource('types', TypeController::class);
@@ -38,6 +39,7 @@ Route::middleware(['auth:sanctum', 'admin'])
         Route::apiResource('colors', ColorController::class);
         Route::apiResource('threadDensities', ThreadDensityController::class);
         Route::apiResource('threadDirections', ThreadDirectionController::class);
+
     });
 
 Route::post('/login',[AuthController::class, 'login']);

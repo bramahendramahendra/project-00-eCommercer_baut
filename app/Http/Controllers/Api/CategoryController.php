@@ -10,6 +10,19 @@ use App\Http\Resources\CategoryResource;
 
 class CategoryController extends Controller
 {
+    public function getOptionCategory()
+    {
+        // You might want to apply some filtering, searching, or pagination here.
+        // For simplicity, I'll fetch all categories.
+        $categories = Category::all(['id', 'code', 'name', 'updated_at']);
+        // $categories = Category::all(['id', 'name']);
+
+        // Assuming you want to return a simple JSON response with the categories.
+        // return response()->json($categories);
+        return CategoryListResource::collection($categories);
+        // return CategoryListResource::all($query->paginate($perPage));
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -28,7 +41,6 @@ class CategoryController extends Controller
         }
         return CategoryListResource::collection($query->paginate($perPage));
     }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -43,7 +55,6 @@ class CategoryController extends Controller
 
         return new CategoryResource($category);
     }
-
     /**
      * Display the specified resource.
      */
@@ -83,4 +94,6 @@ class CategoryController extends Controller
         $category->delete();
         return response()->noContent();
     }
+
+
 }

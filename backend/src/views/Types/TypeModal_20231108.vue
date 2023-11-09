@@ -1,4 +1,3 @@
-
 <template>
     <TransitionRoot appear :show="show" as="template">
         <Dialog as="div" @close="closeModal" class="relative z-50">
@@ -30,15 +29,7 @@
                             </header>
                             <form @submit.prevent="onSubmit">
                                 <div class="bg-white px-4 pt-5 pb-4">
-                                   <CustomInput 
-                                        class="mb-2" 
-                                        type="combobox" 
-                                        v-model="selectedCategory" 
-                                        :options="categories" 
-                                        optionValue="id" 
-                                        optionText="name"
-                                        placeholder="Select a category" 
-                                    />
+                                    <CustomInput class="mb-2" v-model="type.category_id" label="Kategori" />
                                     <CustomInput class="mb-2" v-model="type.code" label="Kode Jenis" />
                                     <CustomInput class="mb-2" v-model="type.name" label="Nama Jenis" />
                                     <CustomInput type="textarea" class="mb-2" v-model="type.description"
@@ -61,21 +52,14 @@
 </template>
   
 <script setup>
-import { computed, onUpdated, ref, onMounted, watch } from 'vue'
+import { computed, onUpdated, ref } from 'vue'
 import {
     TransitionRoot,
     TransitionChild,
     Dialog,
     DialogPanel,
     DialogTitle,
-    Combobox,
-    ComboboxButton,
-    ComboboxInput,
-    ComboboxLabel,
-    ComboboxOption,
-    ComboboxOptions,
 } from '@headlessui/vue'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 import Spinner from '../../components/core/Spinner.vue';
 import store from '../../store';
 import CustomInput from '../../components/core/CustomInput.vue';
@@ -105,37 +89,6 @@ const show = computed({
     set: (value) => emit('update:modelValue', value)
 })
 
-const categories = ref([]);
-onMounted(() => {
-    store.dispatch('getOptionCategories').then(data => {
-        categories.value = data; // Asumsi data adalah array langsung dari kategori
-    });
-});
-
-// const selectedCategory = ref(null);
-const selectedCategory = ref('');
-watch(selectedCategory, (newCategory) => {
-    if (newCategory) {
-        type.value.category_id = newCategory.id; // Pastikan Anda memperbarui ini dengan property ID yang benar dari objek category
-    } else {
-        type.value.category_id = null; // Atau nilai default yang sesuai jika tidak ada yang dipilih
-    }
-});
-onMounted(async () => {
-    categories.value = await store.dispatch('getOptionCategories');
-    // Initialize selectedCategory if needed, for example when editing:
-    // selectedCategory.value = type.value.category_id;
-});
-
-// const filteredCategories = ref(categories.value)
-
-// function filterCategories(event) {
-//     const query = event.target.value.toLowerCase()
-//     filteredCategories.value = categories.value.filter((category) =>
-//         category.name.toLowerCase().includes(query)
-//     )
-// }
-
 onUpdated(() => {
     type.value = {
         category_id: props.type.category_id,
@@ -164,11 +117,9 @@ function onSubmit() {
                 }
             })
     } else {
-        debugger;
         store.dispatch('createType', type.value)
             .then(response => {
                 loading.value = false;
-
                 if (response.status === 201) {
                     // TODO show notification 
                     store.dispatch('getTypes')

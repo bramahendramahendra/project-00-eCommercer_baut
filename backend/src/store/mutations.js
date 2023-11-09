@@ -11,6 +11,19 @@ export function setToken(state, token) {
     }
 }
 
+export function setCategoriesLoading(state, isLoading) {
+    state.categories.loading = isLoading;
+}
+
+export function setOptionCategories(state, [loading, response = null]) {
+    if (response) {
+        state.categories = {
+            data: response.data,
+        };
+    }
+    state.categories.loading = loading;
+}
+
 export function setProducts(state, [loading, response = null]) {
     if (response) {
         state.products = {
