@@ -8,7 +8,8 @@
 
             <template v-if="type === 'combobox'">
                 <div class="relative w-full">
-                    <Combobox as="div" v-model="innerValue" @update:model-value="emit('update:modelValue', $event)">
+                    <!-- <Combobox as="div" v-model="innerValue" @update:model-value="emit('update:modelValue', $event)"> -->
+                    <Combobox as="div" v-model="innerValue" >
                         <ComboboxInput
                             :placeholder="placeholder"
                             class="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"

@@ -61,21 +61,14 @@
 </template>
   
 <script setup>
-import { computed, onUpdated, ref, onMounted, watch } from 'vue'
+import { computed, onUpdated, ref, onMounted, watch, watchEffect } from 'vue'
 import {
     TransitionRoot,
     TransitionChild,
     Dialog,
     DialogPanel,
     DialogTitle,
-    Combobox,
-    ComboboxButton,
-    ComboboxInput,
-    ComboboxLabel,
-    ComboboxOption,
-    ComboboxOptions,
 } from '@headlessui/vue'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 import Spinner from '../../components/core/Spinner.vue';
 import store from '../../store';
 import CustomInput from '../../components/core/CustomInput.vue';
@@ -106,35 +99,60 @@ const show = computed({
 })
 
 const categories = ref([]);
-onMounted(() => {
-    store.dispatch('getOptionCategories').then(data => {
-        categories.value = data; // Asumsi data adalah array langsung dari kategori
-    });
+// onMounted(() => {
+//     store.dispatch('getOptionCategories').then(data => {
+//         categories.value = data; // Asumsi data adalah array langsung dari kategori
+//     });
+// });
+
+onMounted(async () => {
+    categories.value = await store.dispatch('getOptionCategories');
+    if (type.value.category_id) {
+        // Pastikan ini sesuai dengan bagaimana Anda mendapatkan kategori yang sesuai
+        selectedCategory.value = categories.value.find(c => c.id === type.value.category_id) || null;
+    }
 });
 
 // const selectedCategory = ref(null);
 const selectedCategory = ref('');
-watch(selectedCategory, (newCategory) => {
-    if (newCategory) {
-        type.value.category_id = newCategory.id; // Pastikan Anda memperbarui ini dengan property ID yang benar dari objek category
-    } else {
-        type.value.category_id = null; // Atau nilai default yang sesuai jika tidak ada yang dipilih
-    }
-});
+// watch(selectedCategory, (newCategory) => {
+//     if (newCategory) {
+//         type.value.category_id = newCategory.id; // Pastikan Anda memperbarui ini dengan property ID yang benar dari objek category
+//     } else {
+//         type.value.category_id = null; // Atau nilai default yang sesuai jika tidak ada yang dipilih
+//     }
+// });
+
 onMounted(async () => {
     categories.value = await store.dispatch('getOptionCategories');
-    // Initialize selectedCategory if needed, for example when editing:
-    // selectedCategory.value = type.value.category_id;
+    setSelectedCategory();
 });
 
-// const filteredCategories = ref(categories.value)
+watch(selectedCategory, (newCategory) => {
+    if (newCategory) {
+        type.value.category_id = newCategory.id;
+    } else {
+        type.value.category_id = null;
+    }
+});
 
-// function filterCategories(event) {
-//     const query = event.target.value.toLowerCase()
-//     filteredCategories.value = categories.value.filter((category) =>
-//         category.name.toLowerCase().includes(query)
-//     )
-// }
+watchEffect(() => {
+    type.value = { ...props.type };
+    // setSelectedCategory();  /// error bug disini
+});
+
+function setSelectedCategory() {
+    if (type.value && type.value.category_id) {
+        const category = categories.value.find(c => c.id === type.value.category_id);
+        selectedCategory.value = category || null;
+    } else {
+        selectedCategory.value = null;
+    }
+}
+
+// Mengikuti nilai selectedCategory untuk memperbarui type.category_id
+
+
 
 onUpdated(() => {
     type.value = {
@@ -147,6 +165,7 @@ onUpdated(() => {
 })
 
 function closeModal() {
+    selectedCategory.value = null;
     show.value = false
     emit('close')
 }
@@ -154,6 +173,7 @@ function closeModal() {
 function onSubmit() {
     loading.value = true
     if (type.value.id) {
+        debugger;
         store.dispatch('updateType', type.value)
             .then(response => {
                 loading.value = false;

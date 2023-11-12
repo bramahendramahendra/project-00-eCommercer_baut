@@ -3,7 +3,6 @@ import axiosClient from "../axios";
 export function getUser({ commit }, data) {
     return axiosClient.get('/user', data)
         .then(({ data }) => {
-            // debugger;
             commit('setUser', data);
             return data;
         })
@@ -26,15 +25,21 @@ export function logout({ commit }) {
         })
 }
 
-export function getProducts({ commit }, { url = null, search = '', perPage = 10, sort_field, sort_direction } = {}) {
+export function getProducts({ commit }, { url = null, search = '', per_page, sort_field, sort_direction } = {}) {
     commit('setProducts', [true])
     url = url || '/products';
-    // debugger
     // return axiosClient.get('product')
+    // debugger
+    // if(!per_page) {
+        // const params = {
+            // per_page = null
+        // }
+    // }
     return axiosClient.get(url, {
         params: {
+            // params,
             search,
-            per_page: perPage,
+            per_page,
             sort_field,
             sort_direction
         }
@@ -201,7 +206,7 @@ export function getThreadDirections({ commit }, { url = null, search = '', perPa
         })
 }
 
-export function getProduct({ }, id) {
+export function getProduct({ commit }, id) {
     return axiosClient.get(`/products/${id}`)
 }
 

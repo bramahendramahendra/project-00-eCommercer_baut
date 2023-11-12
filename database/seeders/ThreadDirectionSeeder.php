@@ -13,6 +13,6 @@ class ThreadDirectionSeeder extends Seeder
      */
     public function run(): void
     {
-        ThreadDirection::factory(30)->create();
+        ThreadDirection::factory(10)->create();
     }
 }

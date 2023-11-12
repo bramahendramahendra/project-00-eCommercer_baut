@@ -1,27 +1,42 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
-    </div>
+<x-app-layout>
+    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                Konfirmasi Password
+            </h2>
+        </div>
+        <div class="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
+            <p class="text-center text-sm leading-6 text-gray-500">
+                Silahkan konfirmasi password anda terlebih dahulu.                
+            </p>
+        </div>
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <form 
+                action="{{ route('password.confirm') }}" 
+                method="POST"
+                class="space-y-6" 
+            >
+                @csrf
 
-    <form method="POST" action="{{ route('password.confirm') }}">
-        @csrf
-
-        <!-- Password -->
-        <div>
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
+                <div>
+                    <x-input-label for="password" :value="__('Password')" />
+                    <div class="mt-2">
+                        <x-text-input 
+                            id="password" 
+                            name="password" 
                             type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                            autocomplete="current-password" 
+                            required 
+                        />
+                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                    </div>
+                </div>
+                <div>
+                    <x-primary-button>
+                        {{ __('Konfirmasi') }}
+                    </x-primary-button>
+                </div>
+            </form>
         </div>
-
-        <div class="flex justify-end mt-4">
-            <x-primary-button>
-                {{ __('Confirm') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    </div>
+</x-app-layout>

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\User::class, 'user_id');
             $table->foreignId('product_id')->references('id')->on('products');
             $table->integer('quantity');
-            $table->decimal('total_price', 20, 2); 
+            // $table->decimal('total_price', 20, 2); 
             $table->timestamps();
         });
     }

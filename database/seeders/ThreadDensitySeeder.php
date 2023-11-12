@@ -13,6 +13,6 @@ class ThreadDensitySeeder extends Seeder
      */
     public function run(): void
     {
-        ThreadDensity::factory(30)->create();
+        ThreadDensity::factory(10)->create();
     }
 }

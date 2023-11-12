@@ -3,6 +3,7 @@ import './bootstrap';
 import Alpine from 'alpinejs';
 import persist from '@alpinejs/persist'
 import collapse from '@alpinejs/collapse'
+import { get, post } from "./http.js";
 
 Alpine.plugin(persist)
 Alpine.plugin(collapse)
@@ -10,14 +11,6 @@ Alpine.plugin(collapse)
 window.Alpine = Alpine;
 
 document.addEventListener('alpine:init', () => {
-    Alpine.store("header", {
-        cartItemsObject: Alpine.$persist({}),
-        get cartItems() {
-            return Object.values(this.cartItemsObject)
-                .reduce((accum, next) => accum + parseInt(next.quantity), 0)
-        },
-    });
-
     Alpine.data("toast", () => ({
         visible: false,
         delay: 5000,
@@ -60,23 +53,44 @@ document.addEventListener('alpine:init', () => {
 
     Alpine.data('productItem', (product) => {
         return {
-            id: product.id,
             product,
-            quantity: 1,
-            addToCart(id, quantity = 1) {
-                this.$store.header.cartItemsObject[id] = this.$store.header.cartItemsObject[id] || { ...product, quantity: 0 };
-                this.$store.header.cartItemsObject[id].quantity = parseInt(this.$store.header.cartItemsObject[id].quantity) + parseInt(quantity);
-                this.$dispatch('notify', {
-                    message: "Produk anda ditambahkan ke keranjang"
-                })
+            addToCart(quantity = 1) {
+                post(this.product.addToCartUrl, {quantity})
+                    .then(result => {
+                        // debugger;
+                        this.$dispatch('cart-change', {count: result.count})
+                        this.$dispatch("notify", {
+                            message: "Produk anda ditambahkan ke keranjang",
+                        });
+                    })
+                    .catch(response => {
+                        console.log(response);
+                        // this.$dispatch('notify', {
+                        //     message: response.message || 'Server Error. Please try again.',
+                        //     // type: 'error'
+                        // })
+                    })
             },
             removeItemFromCart() {
-                delete this.$store.header.cartItemsObject[this.id]
-                this.$dispatch('notify', {
-                    message: "Produk anda dihapus dari keranjang"
-                })
+                post(this.product.removeUrl)
+                    .then(result => {
+                        this.$dispatch("notify", {
+                            message: "Produk anda dihapus dari keranjang",
+                        });
+                        this.$dispatch('cart-change', {count: result.count})
+                        this.cartItems = this.cartItems.filter(p => p.id !== product.id)
+                    })
+            },
+            changeQuantity() {
+                post(this.product.updateQuantityUrl, {quantity: product.quantity})
+                    .then(result => {
+                        this.$dispatch('cart-change', {count: result.count})
+                        this.$dispatch("notify", {
+                            message: "Jumlah Prodok diupdate",
+                        });
+                    })
             }
-        }
+        };
     });
 
     Alpine.data('dropdown', () => ({

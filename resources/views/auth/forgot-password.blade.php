@@ -1,5 +1,4 @@
 <x-app-layout>
-    <x-auth-session-status class="mb-4" :status="session('status')" />
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -14,6 +13,7 @@
                 </a>
             </p>
         </div>
+        <x-auth-session-status class="mb-4 text-center" :status="session('status')" />
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <form class="space-y-6" action="{{ route('password.email') }}" method="POST">
                 @csrf
@@ -34,7 +34,7 @@
                 </div>   
                 <div>
                     <x-primary-button>
-                        {{ __('Login') }}
+                        {{ __('Kirim Email') }}
                     </x-primary-button>
                 </div>
             </form>

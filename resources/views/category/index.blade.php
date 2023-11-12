@@ -1,22 +1,6 @@
 <x-app-layout>
    <div x-data="{ mobileMenuOpen: false }">
-        <!-- Mobile  -->
-        <!--
-        Mobile filter dialog
-    
-        Off-canvas filters for mobile, show/hide based on off-canvas filters state.
-        -->
         <div x-cloak class="relative z-40 lg:hidden" role="dialog" aria-modal="true">
-            <!--
-                        Off-canvas menu backdrop, show/hide based on off-canvas menu state.
-                
-                        Entering: "transition-opacity ease-linear duration-300"
-                        From: "opacity-0"
-                        To: "opacity-100"
-                        Leaving: "transition-opacity ease-linear duration-300"
-                        From: "opacity-100"
-                        To: "opacity-0"
-                    -->
             <div x-show="mobileMenuOpen" x-transition:enter="transition-opacity ease-linear duration-300"
                 x-transition:enter-start="opacity-0 " x-transition:enter-end="opacity-100 "
                 x-transition:leave="transition-opacity ease-linear duration-300"
@@ -28,16 +12,6 @@
                 x-transition:leave="transition ease-in-out duration-300 transform"
                 x-transition:leave-start="translate-x-0 " x-transition:leave-end="translate-x-full "
                 class="fixed inset-0 z-40 flex">
-                <!--
-                        Off-canvas menu, show/hide based on off-canvas menu state.
-                
-                        Entering: "transition ease-in-out duration-300 transform"
-                            From: "translate-x-full"
-                            To: "translate-x-0"
-                        Leaving: "transition ease-in-out duration-300 transform"
-                            From: "translate-x-0"
-                            To: "translate-x-full"
-                        -->
                 <div @click.away="mobileMenuOpen = false"
                     class="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
                     <div class="flex items-center justify-between px-4">

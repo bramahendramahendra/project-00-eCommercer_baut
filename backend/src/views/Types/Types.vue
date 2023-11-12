@@ -26,6 +26,7 @@ import store from '../../store';
 const DEFAULT_EMPTY_OBJECT = {
     id: '',
     category_id: '',
+    selectedCategory: '',
     code: '',
     name: '',
     description: '',

@@ -159,22 +159,22 @@ onMounted(() => {
     getProducts();
 })
 
-function getProducts(url = null) {
-    store.dispatch('getProducts', {
-        url,
-        sort_field: sortField.value,
-        sort_direction: sortDirection.value,
-        search: search.value,
-        perPage: perPage.value
-    })
-}
-
 function getForPage(ev, link) {
     if (!link.url || link.active) {
         // ev.preventDefault();
         return
     }
     getProducts(link.url)
+}
+
+function getProducts(url = null) {
+    store.dispatch('getProducts', {
+        url,
+        search: search.value,
+        per_page: perPage.value,
+        sort_field: sortField.value,
+        sort_direction: sortDirection.value,
+    })
 }
 
 function sortProduct(field) {

@@ -198,21 +198,11 @@
         <!-- </div> -->
     </div>
 
-    <!-- Website  -->
-    <!-- <header class="inset-x-0 top-0 z-50"> -->
-    <!-- <header class="relative overflow-hidden"> -->
     <header class="relative bg-white">
-        <!-- Top navigation -->
-        <!-- <nav aria-label="Top" class="relative z-20 bg-white bg-opacity-90 backdrop-blur-xl backdrop-filter"> -->
-        <!-- <nav aria-label="Top"
-            class="relative z-20 bg-gradient-to-b from-white to-transparent bg-opacity-90 backdrop-blur-xl backdrop-filter transition duration-300 ease-in-out"> -->
         <nav aria-label="Top"
             class="relative z-20 bg-gradient-to-b from-white to-transparent bg-opacity-90 backdrop-blur-xl">
-            <!-- <nav aria-label="Top" class="relative z-20 bg-gradient-to-b from-white to-transparent bg-opacity-90 backdrop-blur-xl backdrop-filter transition duration-300 ease-in-out"> -->
-            <!-- <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 "> -->
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 border-b border-gray-200">
                 <div class="flex h-16 items-center">
-                    <!-- Mobile menu toggle, controls the 'mobileMenuOpen' state. -->
                     <button @click="mobileMenuOpen = !mobileMenuOpen" type="button"
                         class="relative rounded-md bg-white p-2 text-gray-400 lg:hidden">
                         <span class="absolute -inset-0.5"></span>
@@ -224,15 +214,13 @@
                         </svg>
                     </button>
 
-                    <!-- Logo -->
                     <div class="ml-4 flex lg:ml-0">
                         <a href="{{route('home')}}">
                             <span class="sr-only">Logo</span>
-                            <img class="h-8 w-auto"
-                                src="/src/img/DALL·E 2023-10-26 21.14.57 - Vector illustration of an e-commerce logo featuring a stylized shopping cart filled with bolts and nuts. The design incorporates a gradient transition.png"
-                                alt="">
+                            <x-application-logo class="h-8 w-auto" />
                         </a>
                     </div>
+
 
                     <!-- Flyout menus -->
                     <div class="hidden lg:ml-8 lg:block lg:self-stretch">
@@ -254,16 +242,7 @@
                                     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                                     x-cloak
                                     class="absolute inset-x-0 top-full z-20 bg-white text-sm text-gray-500">
-                                    <div class="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true">
-                                    </div>
-
-                                    <!-- <div class="absolute inset-0 top-0 mx-auto h-px max-w-7xl px-8"
-                                        aria-hidden="true"> -->
-                                    <!-- Open: "bg-gray-200", Closed: "bg-transparent" -->
-                                    <!-- <div :class="{'bg-gray-200': isOn, 'bg-transparent': !isOn}"
-                                            class="bg-transparent h-px w-full transition-colors duration-200 ease-out">
-                                        </div>
-                                    </div> -->
+                                    <div class="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true"></div>
 
                                     <div class="relative bg-white" x-data="dropdown()">
                                         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -360,16 +339,23 @@
                         </div>
 
                         <!-- Cart -->
-                        <div class="ml-4 flow-root lg:ml-6">
-                            <a href="/src/cart.html" class="group -m-2 flex items-center p-2">
+                        <div 
+                            x-data="{
+                                cartItemsCount: {{ \App\Http\Helpers\Cart::getCartItemsCount() }}
+                            }"
+                            @cart-change.window="cartItemsCount = $event.detail.count"
+                            class="ml-4 flow-root lg:ml-6">
+                            <a href="{{ route('cart.index') }}" class="group -m-2 flex items-center p-2">
                                 <svg class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-baut-color-red-200"
                                     fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                     aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                                 </svg>
-                                <span x-show="$store.header.cartItems" x-transition
-                                    x-text="$store.header.cartItems"
+                                <span 
+                                    x-show="cartItemsCount" 
+                                    x-transition
+                                    x-text="cartItemsCount"
                                     class="ml-2 text-sm font-medium text-gray-700 group-hover:text-baut-color-red-200"></span>
                                 <span class="sr-only">items in cart, view bag</span>
                             </a>
