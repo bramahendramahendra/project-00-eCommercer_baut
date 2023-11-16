@@ -35,4 +35,12 @@ class Type extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    /**
+     * Mendapatkan produk melalui tipe yang terkait dengan kategori ini.
+     */
+    // public function products()
+    // {
+    //     return $this->hasManyThrough(Product::class);
+    // }
 }

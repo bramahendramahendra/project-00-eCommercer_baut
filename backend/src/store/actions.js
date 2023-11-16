@@ -72,21 +72,6 @@ export function getTypes({ commit }, { url = null, search = '', perPage = 10, so
         })
 }
 
-export function getOptionCategories({ commit }) {
-    commit('setOptionCategories', [true]);
-    return axiosClient.get('/categories/options')
-        .then(res => {
-            // debugger;
-            commit('setOptionCategories', [false, res.data]);
-            return res.data.data; // res.data sudah merupakan array dari kategori
-        })
-        .catch(error => {
-            commit('setOptionCategories', [false]);
-            // console.error('Error fetching categories:', error);
-            // Menangani error lebih lanjut
-        })
-}
-
 export function getCategories({ commit }, { url = null, search = '', perPage = 10, sort_field, sort_direction } = {}) {
     commit('setCategories', [true])
     url = url || '/categories';
@@ -207,34 +192,35 @@ export function getThreadDirections({ commit }, { url = null, search = '', perPa
 }
 
 export function getProduct({ commit }, id) {
+    // commit('setProduct', [false])
     return axiosClient.get(`/products/${id}`)
 }
 
-export function getType({ }, id) {
+export function getType({ commit }, id) {
     return axiosClient.get(`/types/${id}`)
 }
 
-export function getCategory({ }, id) {
+export function getCategory({ commit }, id) {
     return axiosClient.get(`/categories/${id}`)
 }
 
-export function getMaterial({ }, id) {
+export function getMaterial({ commit }, id) {
     return axiosClient.get(`/materials/${id}`)
 }
 
-export function getUnit({ }, id) {
+export function getUnit({ commit }, id) {
     return axiosClient.get(`/units/${id}`)
 }
 
-export function getColor({ }, id) {
+export function getColor({ commit }, id) {
     return axiosClient.get(`/colors/${id}`)
 }
 
-export function getThreadDensity({ }, id) {
+export function getThreadDensity({ commit }, id) {
     return axiosClient.get(`/threadDensities/${id}`)
 }
 
-export function getThreadDirection({ }, id) {
+export function getThreadDirection({ commit }, id) {
     return axiosClient.get(`/threadDirections/${id}`)
 }
 
@@ -482,3 +468,89 @@ export function deleteThreadDirection({ commit }, id) {
     return axiosClient.delete(`/threadDirections/${id}`)
 }
 
+export function getOptionCategories({ commit }) {
+    commit('setOptionCategories', [true]);
+    return axiosClient.get('/categories/options')
+        .then(res => {
+            // debugger;
+            commit('setOptionCategories', [false, res.data]);
+            return res.data.data; // res.data sudah merupakan array dari kategori
+        })
+        .catch(error => {
+            commit('setOptionCategories', [false]);
+            // console.error('Error fetching categories:', error);
+            // Menangani error lebih lanjut
+        })
+}
+
+export function getOptionTypes({ commit }) {
+    commit('setOptionTypes', [true]);
+    return axiosClient.get('/types/options')
+        .then(res => {
+            commit('setOptionTypes', [false, res.data]);
+            return res.data.data; 
+        })
+        .catch(error => {
+            commit('setOptionTypes', [false]);
+        })
+}
+
+export function getOptionUnits({ commit }) {
+    commit('setOptionUnits', [true]);
+    return axiosClient.get('/units/options')
+        .then(res => {
+            commit('setOptionUnits', [false, res.data]);
+            return res.data.data;
+        })
+        .catch(error => {
+            commit('setOptionUnits', [false]);
+        })
+}
+
+export function getOptionMaterials({ commit }) {
+    commit('setOptionMaterials', [true]);
+    return axiosClient.get('/materials/options')
+        .then(res => {
+            commit('setOptionMaterials', [false, res.data]);
+            return res.data.data;
+        })
+        .catch(error => {
+            commit('setOptionMaterials', [false]);
+        })
+}
+
+export function getOptionColors({ commit }) {
+    commit('setOptionColors', [true]);
+    return axiosClient.get('/colors/options')
+        .then(res => {
+            commit('setOptionColors', [false, res.data]);
+            return res.data.data;
+        })
+        .catch(error => {
+            commit('setOptionColors', [false]);
+        })
+}
+
+export function getOptionThreadDensities({ commit }) {
+    commit('setOptionThreadDensities', [true]);
+    return axiosClient.get('/threadDensities/options')
+        .then(res => {
+            commit('setOptionThreadDensities', [false, res.data]);
+            return res.data.data;
+        })
+        .catch(error => {
+            commit('setOptionThreadDensities', [false]);
+        })
+}
+
+export function getOptionThreadDirections({ commit }) {
+    commit('setOptionThreadDirections', [true]);
+    return axiosClient.get('/threadDirections/options')
+        .then(res => {
+            commit('setOptionThreadDirections', [false, res.data]);
+            return res.data.data;
+        })
+        .catch(error => {
+            commit('setOptionThreadDirections', [false]);
+        })
+}

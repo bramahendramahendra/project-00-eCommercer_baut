@@ -1,6 +1,3 @@
-<script>
-    window.menu = @json($menu);
-</script>
 <div x-data="{ mobileMenuOpen: false }">
     <!-- Mobile  -->
     <div x-cloak class="relative z-40 lg:hidden" role="dialog" aria-modal="true">
@@ -254,8 +251,8 @@
                                                         x-show="showImage">
                                                         <div
                                                             class="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                                            <img x-bind:src="selectedMenu && selectedMenu.image ? selectedMenu.image : ''"
-                                                                alt="All Kategori"
+                                                            <img x-bind:src="selectedMenu && selectedMenu.image ? selectedMenu.image : '/src/img/DALL·E 2023-10-26 21.14.57 - Vector illustration of an e-commerce logo featuring a stylized shopping cart filled with bolts and nuts. The design incorporates a gradient transition.png'"
+                                                                alt="Models sitting back to back, wearing Basic Tee in black and bone."
                                                                 class="object-cover object-center">
                                                         </div>
                                                     </div>
@@ -268,13 +265,13 @@
                                                         </p>
                                                         <ul role="list" aria-labelledby="Categories-heading"
                                                             class="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
-                                                            <template x-for="(categoryItem, categoryIndex) in categoryMenus" :key="categoryIndex">
+                                                            <template x-for="(item, index) in categoryMenus" :key="index">
                                                                 <li class="flex">
-                                                                    <a :href="`/category/${categoryItem.slug}`"
-                                                                        @mouseenter="setActiveCategories(categoryItem)"
+                                                                    <a href="#"
+                                                                        @mouseenter="setActiveCategories(item)"
                                                                         class="hover:text-baut-color-red-200"
-                                                                        :class="{'text-red-500 ': activeMenu === categoryItem.name}"
-                                                                        x-text="categoryItem.name">
+                                                                        :class="{'text-red-500 ': selectedMenu === item}"
+                                                                        x-text="item.name">
                                                                     </a>
                                                                 </li>
                                                             </template>
@@ -286,13 +283,14 @@
                                                         </p>
                                                         <ul role="list" aria-labelledby="Types-heading"
                                                             class="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
-                                                            <template x-for="(typeItem, typeIndex) in typeMenus" :key="typeIndex">
+                                                            <template x-for="(item, index) in typeMenus"
+                                                                :key="index">
                                                                 <li class="flex">
-                                                                    <a :href="`/type/${typeItem.slug}`"
+                                                                    <a href="#"
                                                                         class="hover:text-baut-color-red-200"
-                                                                        :class="{'text-red-500 ':tempSelectedType === typeItem}"
-                                                                        @mouseenter="setActiveTypes(typeItem,selectedMenu)"
-                                                                        x-text="typeItem.name"></a>
+                                                                        :class="{'text-red-500 ':tempSelectedAccessory === item}"
+                                                                        @mouseenter="setActiveTypes(item)"
+                                                                        x-text="item.name"></a>
                                                                 </li>
                                                             </template>
                                                         </ul>

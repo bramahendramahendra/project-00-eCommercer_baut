@@ -10,6 +10,11 @@ use App\Http\Resources\TypeResource;
 
 class TypeController extends Controller
 {
+    public function getOptionTypes()
+    {
+        $types = Type::all(['id', 'code', 'name']);
+        return TypeListResource::collection($types);
+    }
     /**
      * Display a listing of the resource.
      */

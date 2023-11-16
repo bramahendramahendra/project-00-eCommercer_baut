@@ -11,9 +11,9 @@ export function setToken(state, token) {
     }
 }
 
-export function setCategoriesLoading(state, isLoading) {
-    state.categories.loading = isLoading;
-}
+// export function setCategoriesLoading(state, isLoading) {
+//     state.categories.loading = isLoading;
+// }
 
 export function setOptionCategories(state, [loading, response = null]) {
     if (response) {
@@ -23,6 +23,64 @@ export function setOptionCategories(state, [loading, response = null]) {
     }
     state.categories.loading = loading;
 }
+
+export function setOptionTypes(state, [loading, response = null]) {
+    if (response) {
+        state.types = {
+            data: response.data,
+        };
+    }
+    state.types.loading = loading;
+}
+
+export function setOptionUnits(state, [loading, response = null]) {
+    if (response) {
+        state.units = {
+            data: response.data,
+        };
+    }
+    state.units.loading = loading;
+}
+
+export function setOptionMaterials(state, [loading, response = null]) {
+    if (response) {
+        state.materials = {
+            data: response.data,
+        };
+    }
+    state.materials.loading = loading;
+}
+
+export function setOptionColors(state, [loading, response = null]) {
+    if (response) {
+        state.colors = {
+            data: response.data,
+        };
+    }
+    state.colors.loading = loading;
+}
+
+export function setOptionThreadDensities(state, [loading, response = null]) {
+    if (response) {
+        state.threadDensities = {
+            data: response.data,
+        };
+    }
+    state.threadDensities.loading = loading;
+}
+
+export function setOptionThreadDirections(state, [loading, response = null]) {
+    if (response) {
+        state.threadDirections = {
+            data: response.data,
+        };
+    }
+    state.threadDirections.loading = loading;
+}
+
+// export function setProduct(state, [loading]) {
+//     state.product.loading = loading;
+// }
 
 export function setProducts(state, [loading, data = null]) {
     if (data) {

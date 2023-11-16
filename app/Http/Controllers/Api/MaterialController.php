@@ -10,6 +10,11 @@ use App\Http\Resources\MaterialResource;
 
 class MaterialController extends Controller
 {
+    public function getOptionMaterials()
+    {
+        $materials = Material::all(['id', 'name']);
+        return MaterialListResource::collection($materials);
+    }
     /**
      * Display a listing of the resource.
      */

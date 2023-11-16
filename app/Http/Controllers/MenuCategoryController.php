@@ -1,24 +1,22 @@
 <?php
 
-namespace App\View\Components;
+namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\View\Component;
-use Illuminate\View\View;
+use Illuminate\Http\Request;
 
-class AppLayout extends Component
+class MenuCategoryController extends Controller
 {
-    /**
-     * Get the view / contents that represents the component.
-     */
-    public function render(): View
+    public function index()
     {
         $categories = Category::whereHas('type.product')->with('type.product')->get();
+
         foreach ($categories as $category) {
             foreach ($category->type as $type) {
                 $type->setRelation('product', $type->product->take(1));
             }
         }
-        return view('layouts.app',['menu' => $categories]);
+
+        return response()->json($categories);
     }
 }

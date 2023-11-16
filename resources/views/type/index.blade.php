@@ -2,7 +2,7 @@
     <script>
         window.Laravel = {
             routes: {
-                filterCheckbox: "{{ route('kategori.index', $category) }}"
+                filterCheckbox: "{{ route('jenis.index', $type) }}"
             }
             // Anda dapat menambahkan lebih banyak konfigurasi global jika diperlukan
         };
@@ -131,7 +131,7 @@
         <!-- Website  -->
         <main class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
             <div class="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-6">
-                <h1 class="text-4xl font-bold tracking-tight text-gray-900">Kategori {{ $category->name }}</h1>
+                <h1 class="text-4xl font-bold tracking-tight text-gray-900">Jenis {{ $type->name }}</h1>
                 <div class="flex items-center">
                     <div class="relative inline-block text-left"
                         x-data="{ dropdownOpen: false, selectedIndex: null }" @click.away="dropdownOpen = false">

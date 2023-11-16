@@ -31,7 +31,7 @@ class ProductController extends Controller
         }
         // return ProductListResource::collection(Product::with(['type'])->paginate(10));
         // return ProductListResource::collection(Product::with(['type.category'])->paginate(10));
-         return ProductListResource::collection($query->paginate($perPage));
+        return ProductListResource::collection($query->paginate($perPage));
     }
 
     /**

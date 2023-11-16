@@ -42,9 +42,9 @@
                             <TableHeaderCell @click="sortProduct" scope="col"
                                 class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" fieldimage="title"
                                 :sort-field="sortField" :sort-direction="sortDirection">Judul</TableHeaderCell>
-                            <TableHeaderCell @click="sortProduct" scope="col"
+                            <!-- <TableHeaderCell @click="sortProduct" scope="col"
                                 class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="price_retail"
-                                :sort-field="sortField" :sort-direction="sortDirection">Harga Eceran</TableHeaderCell>
+                                :sort-field="sortField" :sort-direction="sortDirection">Harga Eceran</TableHeaderCell> -->
                             <TableHeaderCell @click="sortProduct" scope="col"
                                 class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="updated_at"
                                 :sort-field="sortField" :sort-direction="sortDirection">Last Updated At</TableHeaderCell>
@@ -60,8 +60,9 @@
                     </tbody>
                     <tbody v-else class="bg-white">
                         <tr v-for="(product, index) of products.data" class="even:bg-gray-50">
-                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">{{
-                                product.id }}</td>
+                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
+                                {{ product.id }}
+                            </td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                 <img class="w-16" :src="product.image_url" :alt="product.title">
                             </td>
@@ -69,7 +70,7 @@
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.type_name }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.code }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.title }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.price_retail }}</td>
+                            <!-- <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.price_retail }}</td> -->
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.updated_at }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                 <Menu as="div" class="relative inline-block text-left ">
@@ -79,35 +80,44 @@
                                             <EllipsisVerticalIcon class="h-5 w-5 text-indigo-500" aria-hidden="true" />
                                         </MenuButton>
                                     </div>
-
                                     <transition enter-active-class="transition duration-100 ease-out"
                                         enter-from-class="transform scale-95 opacity-0"
                                         enter-to-class="transform scale-100 opacity-100"
                                         leave-active-class="transition duration-75 ease-in"
                                         leave-from-class="transform scale-100 opacity-100"
                                         leave-to-class="transform scale-95 opacity-0">
-                                        <MenuItems
-                                            class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                        <MenuItems class="absolute right-0 z-20 mt-0 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                             <div class="px-1 py-1">
                                                 <MenuItem v-slot="{ active }">
-                                                <button :class="[
-                                                    active ? 'bg-violet-500 text-white' : 'text-gray-900',
-                                                    'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                                                ]" @click="editProduct(product)">
-                                                    <PencilIcon :active="active" class="mr-2 h-5 w-5 text-violet-400"
-                                                        aria-hidden="true" />
-                                                    Edit
-                                                </button>
+                                                    <router-link :to="{ name: 'app.product.view', params: { id: product.id } }" 
+                                                        :class="[
+                                                            active ? 'bg-violet-500 text-white' : 'text-gray-900',
+                                                            'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                                        ]" >
+                                                            <EyeIcon :active="active" class="mr-2 h-5 w-5 text-violet-400"
+                                                                aria-hidden="true" />
+                                                            Detail
+                                                    </router-link>
                                                 </MenuItem>
                                                 <MenuItem v-slot="{ active }">
-                                                <button :class="[
-                                                    active ? 'bg-violet-500 text-white' : 'text-gray-900',
-                                                    'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                                                ]" @click="deleteProduct(product)">
-                                                    <TrashIcon :active="active" class="mr-2 h-5 w-5 text-violet-400"
-                                                        aria-hidden="true" />
-                                                    Delete
-                                                </button>
+                                                    <button :class="[
+                                                            active ? 'bg-violet-500 text-white' : 'text-gray-900',
+                                                            'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                                        ]" @click="editProduct(product)">
+                                                        <PencilIcon :active="active" class="mr-2 h-5 w-5 text-violet-400"
+                                                            aria-hidden="true" />
+                                                        Edit
+                                                    </button>
+                                                </MenuItem>
+                                                <MenuItem v-slot="{ active }">
+                                                    <button :class="[
+                                                            active ? 'bg-violet-500 text-white' : 'text-gray-900',
+                                                            'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                                        ]" @click="deleteProduct(product)">
+                                                        <TrashIcon :active="active" class="mr-2 h-5 w-5 text-violet-400"
+                                                            aria-hidden="true" />
+                                                        Delete
+                                                    </button>
                                                 </MenuItem>
                                             </div>
                                         </MenuItems>
@@ -145,7 +155,7 @@ import Spinner from '../../components/core/Spinner.vue';
 import { PRODUCTS_PER_PAGE } from "../../constants"
 import TableHeaderCell from '../../components/core/Table/TableHeaderCell.vue';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
-import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from '@heroicons/vue/20/solid'
+import { EllipsisVerticalIcon, EyeIcon, PencilIcon, TrashIcon } from '@heroicons/vue/20/solid'
 
 const emit = defineEmits(['clickEdit'])
 

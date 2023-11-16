@@ -10,6 +10,11 @@ use App\Http\Resources\ColorResource;
 
 class ColorController extends Controller
 {
+    public function getOptionColors()
+    {
+        $colors = Color::all(['id', 'name']);
+        return ColorListResource::collection($colors);
+    }
     /**
      * Display a listing of the resource.
      */

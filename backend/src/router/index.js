@@ -3,6 +3,7 @@ import AppLayout from '../components/AppLayout.vue';
 import Login from "../views/Login.vue";
 import Dashboard from "../views/Dashboard.vue";
 import Products from "../views/Products/Products.vue";
+import ProductView from "../views/Products/ProductView.vue";
 import Categories from "../views/Categories/Categories.vue";
 import Types from "../views/Types/Types.vue";
 import Materials from "../views/Materials/Materials.vue";
@@ -33,6 +34,11 @@ const routes = [
                 path: 'products',
                 name: 'app.products',
                 component: Products
+            },
+            {
+                path: 'products/:id',
+                name: 'app.product.view',
+                component: ProductView
             },
             {
                 path: 'categories',

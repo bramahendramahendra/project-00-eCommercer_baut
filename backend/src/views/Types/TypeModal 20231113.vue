@@ -14,7 +14,8 @@
                         leave-to="opacity-0 scale-95">
                         <DialogPanel
                             class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all">
-                            <Spinner v-if="loading" class="absolute left-0 top-0 bg-white right-0 bottom-0 flex items-center justify-center" />
+                            <Spinner v-if="loading"
+                                class="absolute left-0 top-0 bg-white right-0 bottom-0 flex items-center justify-center" />
                             <header class="py-3 px-4 flex justify-between items-center">
                                 <DialogTitle as="h3" class="text-lg leading-6 font-medium text-gray-900">
                                     {{ type.id ? `Update Jenis: "${props.type.name}"` : 'Tambah Jenis Baru' }}
@@ -29,7 +30,15 @@
                             </header>
                             <form @submit.prevent="onSubmit">
                                 <div class="bg-white px-4 pt-5 pb-4">
-                                    <CustomInput class="mb-2" type="combobox" v-model="selectedCategory" :options="categories" optionValue="id" optionText="name" placeholder="Pilih Kategori"  />
+                                   <CustomInput 
+                                        class="mb-2" 
+                                        type="combobox" 
+                                        v-model="selectedCategory" 
+                                        :options="categories" 
+                                        optionValue="id" 
+                                        optionText="name"
+                                        placeholder="Select a category" 
+                                    />
                                     <CustomInput class="mb-2" v-model="type.code" label="Kode Jenis" />
                                     <CustomInput class="mb-2" v-model="type.name" label="Nama Jenis" />
                                     <CustomInput type="textarea" class="mb-2" v-model="type.description"
@@ -52,7 +61,7 @@
 </template>
   
 <script setup>
-import { computed, ref, onMounted, watch } from 'vue'
+import { computed, onUpdated, ref, onMounted, watch, watchEffect } from 'vue'
 import {
     TransitionRoot,
     TransitionChild,
@@ -65,8 +74,8 @@ import store from '../../store';
 import CustomInput from '../../components/core/CustomInput.vue';
 
 const type = ref({
-    id: props.type.id,
     category_id: props.type.category_id,
+    id: props.type.id,
     code: props.type.code,
     name: props.type.name,
     description: props.type.description,
@@ -90,12 +99,27 @@ const show = computed({
 })
 
 const categories = ref([]);
-const selectedCategory = ref('');
+// onMounted(() => {
+//     store.dispatch('getOptionCategories').then(data => {
+//         categories.value = data; // Asumsi data adalah array langsung dari kategori
+//     });
+// });
 
-// onMounted(async () => {
-//     categories.value = await store.dispatch('getOptionCategories');
-//     if (type.value.category_id) {
-//         selectedCategory.value = categories.value.find(c => c.id === type.value.category_id) || null;
+onMounted(async () => {
+    categories.value = await store.dispatch('getOptionCategories');
+    if (type.value.category_id) {
+        // Pastikan ini sesuai dengan bagaimana Anda mendapatkan kategori yang sesuai
+        selectedCategory.value = categories.value.find(c => c.id === type.value.category_id) || null;
+    }
+});
+
+// const selectedCategory = ref(null);
+const selectedCategory = ref('');
+// watch(selectedCategory, (newCategory) => {
+//     if (newCategory) {
+//         type.value.category_id = newCategory.id; // Pastikan Anda memperbarui ini dengan property ID yang benar dari objek category
+//     } else {
+//         type.value.category_id = null; // Atau nilai default yang sesuai jika tidak ada yang dipilih
 //     }
 // });
 
@@ -104,9 +128,17 @@ onMounted(async () => {
     setSelectedCategory();
 });
 
-watch(() => props.type, (newType) => {
-    type.value = { ...newType };
-    setSelectedCategory();
+watch(selectedCategory, (newCategory) => {
+    if (newCategory) {
+        type.value.category_id = newCategory.id;
+    } else {
+        type.value.category_id = null;
+    }
+});
+
+watchEffect(() => {
+    type.value = { ...props.type };
+    // setSelectedCategory();  /// error bug disini
 });
 
 function setSelectedCategory() {
@@ -118,6 +150,20 @@ function setSelectedCategory() {
     }
 }
 
+// Mengikuti nilai selectedCategory untuk memperbarui type.category_id
+
+
+
+onUpdated(() => {
+    type.value = {
+        category_id: props.type.category_id,
+        id: props.type.id,
+        code: props.type.code,
+        name: props.type.name,
+        description: props.type.description,
+    }
+})
+
 function closeModal() {
     selectedCategory.value = null;
     show.value = false
@@ -126,20 +172,9 @@ function closeModal() {
 
 function onSubmit() {
     loading.value = true
-    if (selectedCategory.value) {
-        type.value.category_id = selectedCategory.value.id;
-    }
-
-    const payload = {
-        category_id: type.value.category_id,
-        code: type.value.code,
-        description: type.value.description,
-        id: type.value.id,
-        name: type.value.name,
-    };
     if (type.value.id) {
         debugger;
-        store.dispatch('updateType', payload)
+        store.dispatch('updateType', type.value)
             .then(response => {
                 loading.value = false;
                 if (response.status === 200) {
@@ -150,7 +185,7 @@ function onSubmit() {
             })
     } else {
         debugger;
-        store.dispatch('createType', payload)
+        store.dispatch('createType', type.value)
             .then(response => {
                 loading.value = false;
 

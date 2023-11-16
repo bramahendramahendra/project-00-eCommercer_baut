@@ -1,4 +1,12 @@
 <x-app-layout>
+    <script>
+        window.Laravel = {
+            routes: {
+                filterCheckbox: "{{ route('katalog') }}"
+            }
+            // Anda dapat menambahkan lebih banyak konfigurasi global jika diperlukan
+        };
+    </script>
    <div x-data="{ mobileMenuOpen: false }">
         <div x-cloak class="relative z-40 lg:hidden" role="dialog" aria-modal="true">
             <div x-show="mobileMenuOpen" x-transition:enter="transition-opacity ease-linear duration-300"
@@ -27,43 +35,22 @@
                     </div>
 
                     <!-- Filters -->
-                    <form class="mt-4 border-t border-gray-200">
-                        <h3 class="sr-only">Categories</h3>
-                        <ul role="list" class="px-2 py-3 font-medium text-gray-900">
-                            <li>
-                                <a href="#" class="block px-2 py-3">Totes</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-2 py-3">Backpacks</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-2 py-3">Travel Bags</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-2 py-3">Hip Bags</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-2 py-3">Laptop Sleeves</a>
-                            </li>
-                        </ul>
-
-                        <div x-data="{ isOpen: false }" class="border-t border-gray-200 px-4 py-6">
+                    <form x-data="filterState" class="mt-4 border-t border-gray-200">
+                        <h3 class="sr-only">Filter</h3>
+                        <div class="border-t border-gray-200 px-4 py-6">
                             <h3 class="-mx-2 -my-3 flow-root">
-                                <!-- Expand/collapse section button -->
-                                <button type="button" @click="isOpen = !isOpen"
+                                <button type="button" @click="isOpenMaterial = !isOpenMaterial"
                                     class="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500"
-                                    x-bind:aria-expanded="isOpen.toString()" aria-controls="filter-section-mobile-0"
+                                    x-bind:aria-expanded="isOpenMaterial.toString()" aria-controls="filter-section-mobile-0"
                                     aria-expanded="false">
-                                    <span class="font-medium text-gray-900">Color</span>
+                                    <span class="font-medium text-gray-900">Material</span>
                                     <span class="ml-6 flex items-center">
-                                        <!-- Expand icon, show/hide based on section open state. -->
-                                        <svg x-show="!isOpen" class="h-5 w-5" viewBox="0 0 20 20"
+                                        <svg x-show="!isOpenMaterial" class="h-5 w-5" viewBox="0 0 20 20"
                                             fill="currentColor" aria-hidden="true">
                                             <path
                                                 d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
                                         </svg>
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                        <svg x-show="isOpen" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
+                                        <svg x-show="isOpenMaterial" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
                                             aria-hidden="true">
                                             <path fill-rule="evenodd"
                                                 d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z"
@@ -72,71 +59,41 @@
                                     </span>
                                 </button>
                             </h3>
-                            <!-- Filter section, show/hide based on section state. -->
-                            <div x-show="isOpen" class="pt-6" id="filter-section-mobile-0">
+                            <div x-show="isOpenMaterial" class="pt-6" id="filter-section-mobile-0">
                                 <div class="space-y-6">
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-color-0" name="color[]" value="white"
-                                            type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-mobile-color-0"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">White</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-color-1" name="color[]" value="beige"
-                                            type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-mobile-color-1"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">Beige</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-color-2" name="color[]" value="blue"
-                                            type="checkbox" checked
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-mobile-color-2"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">Blue</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-color-3" name="color[]" value="brown"
-                                            type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-mobile-color-3"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">Brown</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-color-4" name="color[]" value="green"
-                                            type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-mobile-color-4"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">Green</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-color-5" name="color[]" value="purple"
-                                            type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-mobile-color-5"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">Purple</label>
-                                    </div>
+                                    @foreach ($materials as $material)
+                                        <div class="flex items-center">
+                                            <input 
+                                                id="filter-mobile-material-{{ $material->id }}" 
+                                                x-model="materialIds"
+                                                :checked="materialIds.includes('{{ $material->id }}')"
+                                                @change="submitFilter"
+                                                name="material_id[]" 
+                                                value="{{ $material->id }}"
+                                                type="checkbox"
+                                                class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
+                                            <label for="filter-mobile-material-{{ $material->id }}" class="ml-3 min-w-0 flex-1 text-gray-500"> 
+                                                {{ $material->name }}
+                                            </label>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
-                        <div x-data="{ isOpen: false }" class="border-t border-gray-200 px-4 py-6">
+                        <div class="border-t border-gray-200 px-4 py-6">
                             <h3 class="-mx-2 -my-3 flow-root">
-                                <!-- Expand/collapse section button -->
-                                <button type="button" @click="isOpen = !isOpen"
+                                <button type="button" @click="isOpenColor = !isOpenColor"
                                     class="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500"
-                                    x-bind:aria-expanded="isOpen.toString()" aria-controls="filter-section-mobile-1"
+                                    x-bind:aria-expanded="isOpenColor.toString()" aria-controls="filter-section-mobile-1"
                                     aria-expanded="false">
-                                    <span class="font-medium text-gray-900">Category</span>
+                                    <span class="font-medium text-gray-900">Warna</span>
                                     <span class="ml-6 flex items-center">
-                                        <!-- Expand icon, show/hide based on section open state. -->
-                                        <svg x-show="!isOpen" class="h-5 w-5" viewBox="0 0 20 20"
+                                        <svg x-show="!isOpenColor" class="h-5 w-5" viewBox="0 0 20 20"
                                             fill="currentColor" aria-hidden="true">
                                             <path
                                                 d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
                                         </svg>
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                        <svg x-show="isOpen" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
+                                        <svg x-show="isOpenColor" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
                                             aria-hidden="true">
                                             <path fill-rule="evenodd"
                                                 d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z"
@@ -145,113 +102,24 @@
                                     </span>
                                 </button>
                             </h3>
-                            <!-- Filter section, show/hide based on section state. -->
-                            <div x-show="isOpen" class="pt-6" id="filter-section-mobile-1">
+                            <div x-show="isOpenColor" class="pt-6" id="filter-section-mobile-1">
                                 <div class="space-y-6">
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-category-0" name="category[]" value="new-arrivals"
-                                            type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-mobile-category-0"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">New
-                                            Arrivals</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-category-1" name="category[]" value="sale"
-                                            type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-mobile-category-1"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">Sale</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-category-2" name="category[]" value="travel"
-                                            type="checkbox" checked
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-mobile-category-2"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">Travel</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-category-3" name="category[]" value="organization"
-                                            type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-mobile-category-3"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">Organization</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-category-4" name="category[]" value="accessories"
-                                            type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-mobile-category-4"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">Accessories</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div x-data="{ isOpen: false }" class="border-t border-gray-200 px-4 py-6">
-                            <h3 class="-mx-2 -my-3 flow-root">
-                                <!-- Expand/collapse section button -->
-                                <button type="button" @click="isOpen = !isOpen"
-                                    class="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500"
-                                    x-bind:aria-expanded="isOpen.toString()" aria-controls="filter-section-mobile-2"
-                                    aria-expanded="false">
-                                    <span class="font-medium text-gray-900">Size</span>
-                                    <span class="ml-6 flex items-center">
-                                        <!-- Expand icon, show/hide based on section open state. -->
-                                        <svg x-show="!isOpen" class="h-5 w-5" viewBox="0 0 20 20"
-                                            fill="currentColor" aria-hidden="true">
-                                            <path
-                                                d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
-                                        </svg>
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                        <svg x-show="isOpen" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
-                                            aria-hidden="true">
-                                            <path fill-rule="evenodd"
-                                                d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </span>
-                                </button>
-                            </h3>
-                            <!-- Filter section, show/hide based on section state. -->
-                            <div x-show="isOpen" class="pt-6" id="filter-section-mobile-2">
-                                <div class="space-y-6">
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-size-0" name="size[]" value="2l" type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-mobile-size-0"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">2L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-size-1" name="size[]" value="6l" type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-mobile-size-1"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">6L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-size-2" name="size[]" value="12l" type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-mobile-size-2"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">12L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-size-3" name="size[]" value="18l" type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-mobile-size-3"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">18L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-size-4" name="size[]" value="20l" type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-mobile-size-4"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">20L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-mobile-size-5" name="size[]" value="40l" type="checkbox"
-                                            checked
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-mobile-size-5"
-                                            class="ml-3 min-w-0 flex-1 text-gray-500">40L</label>
-                                    </div>
+                                    @foreach ($colors as $color)
+                                        <div class="flex items-center">
+                                            <input 
+                                                id="filter-mobile-color-{{ $color->id }}" 
+                                                x-model="colorIds"
+                                                :checked="colorIds.includes('{{ $color->id }}')"
+                                                @change="submitFilter"
+                                                name="color_id[]" 
+                                                value="{{ $color->id }}"
+                                                type="checkbox"
+                                                class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
+                                            <label for="filter-mobile-color-{{ $color->id }}" class="ml-3 min-w-0 flex-1 text-gray-500">
+                                                {{ $color->name }}
+                                            </label>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -263,7 +131,7 @@
         <!-- Website  -->
         <main class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
             <div class="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-6">
-                <h1 class="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
+                <h1 class="text-4xl font-bold tracking-tight text-gray-900">Katalog</h1>
                 <div class="flex items-center">
                     <div class="relative inline-block text-left"
                         x-data="{ dropdownOpen: false, selectedIndex: null }" @click.away="dropdownOpen = false">
@@ -324,45 +192,27 @@
             </div>
 
             <section aria-labelledby="products-heading" class=" pt-6">
-                <h2 id="products-heading" class="sr-only">Products</h2>
+                <h2 id="products-heading" class="sr-only">Filter</h2>
 
                 <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                     <!-- Filters -->
-                    <form class="hidden lg:block">
+                    <form x-data="filterState"  class="hidden lg:block">
+                        @csrf
                         <h3 class="sr-only">Categories</h3>
-                        <ul role="list"
-                            class="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
-                            <li>
-                                <a href="#">Totes</a>
-                            </li>
-                            <li>
-                                <a href="#">Backpacks</a>
-                            </li>
-                            <li>
-                                <a href="#">Travel Bags</a>
-                            </li>
-                            <li>
-                                <a href="#">Hip Bags</a>
-                            </li>
-                            <li>
-                                <a href="#">Laptop Sleeves</a>
-                            </li>
-                        </ul>
-
-                        <div x-data="{ isOpen: false }" class="border-b border-gray-200 py-6">
+                        <div class="border-b border-gray-200 py-6">
                             <h3 class="-my-3 flow-root">
-                                <button type="button" @click="isOpen = !isOpen"
+                                <button type="button" @click="isOpenMaterial = !isOpenMaterial"
                                     class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500"
-                                    x-bind:aria-expanded="isOpen.toString()" aria-controls="filter-section-0"
+                                    x-bind:aria-expanded="isOpenMaterial.toString()" aria-controls="filter-section-0"
                                     aria-expanded="false">
                                     <span class="font-medium text-gray-900">Material</span>
                                     <span class="ml-6 flex items-center">
-                                        <svg x-show="!isOpen" class="h-5 w-5" viewBox="0 0 20 20"
+                                        <svg x-show="!isOpenMaterial" class="h-5 w-5" viewBox="0 0 20 20"
                                             fill="currentColor" aria-hidden="true">
                                             <path
                                                 d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
                                         </svg>
-                                        <svg x-show="isOpen" x-cloak class="h-5 w-5" viewBox="0 0 20 20"
+                                        <svg x-show="isOpenMaterial" x-cloak class="h-5 w-5" viewBox="0 0 20 20"
                                             fill="currentColor" aria-hidden="true">
                                             <path fill-rule="evenodd"
                                                 d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z"
@@ -371,14 +221,21 @@
                                     </span>
                                 </button>
                             </h3>
-                            <div x-show="isOpen" x-cloak class="pt-6" id="filter-section-0">
+                            <div x-show="isOpenMaterial" x-cloak class="pt-6" id="filter-section-0">
                                 <div class="space-y-4">
                                     @foreach ($materials as $material)
                                         <div class="flex items-center">
-                                            <input id="filter-material-0" name="material[]" 
-                                                value="{{ $material->id }}" type="checkbox"
-                                                class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                            <label for="filter-material-0" class="ml-3 text-sm text-gray-600">
+                                            <input 
+                                                id="filter-material-{{ $material->id }}" 
+                                                x-model="materialIds"
+                                                :checked="materialIds.includes('{{ $material->id }}')"
+                                                @change="submitFilter"
+                                                name="material_id[]" 
+                                                value="{{ $material->id }}" 
+                                                type="checkbox"
+                                                class="material-checkbox h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200"
+                                            >
+                                            <label for="filter-material-{{ $material->id }}" class="ml-3 text-sm text-gray-600">
                                                 {{ $material->name }}
                                             </label>
                                         </div>
@@ -386,23 +243,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div x-data="{ isOpen: false }" class="border-b border-gray-200 py-6">
+                        <div class="border-b border-gray-200 py-6">
                             <h3 class="-my-3 flow-root">
-                                <!-- Expand/collapse section button -->
-                                <button type="button" @click="isOpen = !isOpen"
+                                <button type="button" @click="isOpenColor = !isOpenColor"
                                     class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500"
-                                    x-bind:aria-expanded="isOpen.toString()" aria-controls="filter-section-1"
+                                    x-bind:aria-expanded="isOpenColor.toString()" aria-controls="filter-section-1"
                                     aria-expanded="false">
                                     <span class="font-medium text-gray-900">Warna</span>
                                     <span class="ml-6 flex items-center">
-                                        <!-- Expand icon, show/hide based on section open state. -->
-                                        <svg x-show="!isOpen" class="h-5 w-5" viewBox="0 0 20 20"
+                                        <svg x-show="!isOpenColor" class="h-5 w-5" viewBox="0 0 20 20"
                                             fill="currentColor" aria-hidden="true">
                                             <path
                                                 d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
                                         </svg>
-                                        <!-- Collapse icon, show/hide based on section open state. -->
-                                        <svg x-show="isOpen" x-cloak class="h-5 w-5" viewBox="0 0 20 20"
+                                        <svg x-show="isOpenColor" x-cloak class="h-5 w-5" viewBox="0 0 20 20"
                                             fill="currentColor" aria-hidden="true">
                                             <path fill-rule="evenodd"
                                                 d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z"
@@ -411,14 +265,21 @@
                                     </span>
                                 </button>
                             </h3>
-                            <div x-show="isOpen" x-cloak class="pt-6" id="filter-section-1">
+                            <div x-show="isOpenColor" x-cloak class="pt-6" id="filter-section-1">
                                 <div class="space-y-4">
                                     @foreach ($colors as $color)
                                         <div class="flex items-center">
-                                            <input id="filter-color-0" name="color[]" 
-                                                value="{{ $color->id }}" type="checkbox"
-                                                class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                            <label for="filter-color-0" class="ml-3 text-sm text-gray-600">
+                                            <input 
+                                                id="filter-color-{{ $color->id }}" 
+                                                x-model="colorIds"
+                                                :checked="colorIds.includes('{{ $color->id }}')"
+                                                @change="submitFilter"
+                                                name="color_id[]" 
+                                                value="{{ $color->id }}" 
+                                                type="checkbox"
+                                                class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200"
+                                            >
+                                            <label for="filter-color-{{ $color->id }}" class="ml-3 text-sm text-gray-600">
                                                 {{ $color->name }}
                                             </label>
                                         </div>
@@ -426,65 +287,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div x-data="{ isOpen: false }" class="border-b border-gray-200 py-6">
-                            <h3 class="-my-3 flow-root">
-                                <button type="button" @click="isOpen = !isOpen"
-                                    class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500"
-                                    x-bind:aria-expanded="isOpen.toString()" aria-controls="filter-section-2"
-                                    aria-expanded="false">
-                                    <span class="font-medium text-gray-900">Size</span>
-                                    <span class="ml-6 flex items-center">
-                                        <svg x-show="!isOpen" class="h-5 w-5" viewBox="0 0 20 20"
-                                            fill="currentColor" aria-hidden="true">
-                                            <path
-                                                d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
-                                        </svg>
-                                        <svg x-show="isOpen" x-cloak class="h-5 w-5" viewBox="0 0 20 20"
-                                            fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd"
-                                                d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </span>
-                                </button>
-                            </h3>
-                            <div x-show="isOpen" x-cloak class="pt-6" id="filter-section-2">
-                                <div class="space-y-4">
-                                    <div class="flex items-center">
-                                        <input id="filter-size-0" name="size[]" value="2l" type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-size-0" class="ml-3 text-sm text-gray-600">2L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-size-1" name="size[]" value="6l" type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-size-1" class="ml-3 text-sm text-gray-600">6L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-size-2" name="size[]" value="12l" type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-size-2" class="ml-3 text-sm text-gray-600">12L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-size-3" name="size[]" value="18l" type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-size-3" class="ml-3 text-sm text-gray-600">18L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-size-4" name="size[]" value="20l" type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-size-4" class="ml-3 text-sm text-gray-600">20L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="filter-size-5" name="size[]" value="40l" type="checkbox" checked
-                                            class="h-4 w-4 rounded border-gray-300 text-baut-color-red-300 focus:ring-baut-color-red-200">
-                                        <label for="filter-size-5" class="ml-3 text-sm text-gray-600">40L</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </form>
-
                     <div class="lg:col-span-3">
                         <div class="relative mt-8 mb-11">
                             <div class="relative -mb-6 w-full overflow-x-auto pb-6">
@@ -500,7 +303,7 @@
                                                         class="h-full w-full object-cover object-center group-hover:opacity-75">
                                                 </div>
                                                 <div class="mt-6">
-                                                    <p class="text-sm text-gray-500">{{$product->material_id}}</p>
+                                                    <p class="text-sm text-gray-500">{{ $product->material->name }}</p>
                                                     <h3 class="mt-1 font-semibold text-gray-900">
                                                         <a href="{{ route('product.view', $product->slug) }}">
                                                             <span class="absolute inset-0"></span>

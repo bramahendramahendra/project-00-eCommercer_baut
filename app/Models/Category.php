@@ -30,4 +30,12 @@ class Category extends Model
     {
         return $this->hasMany(Type::class);
     }
+
+    /**
+     * Mendapatkan produk melalui tipe yang terkait dengan kategori ini.
+     */
+    public function product()
+    {
+        return $this->hasManyThrough(Product::class, Type::class);
+    }
 }

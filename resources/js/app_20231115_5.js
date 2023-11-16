@@ -102,33 +102,75 @@ document.addEventListener('alpine:init', () => {
         tempSelectedType: null, // Menyimpan sementara accessory terpilih
         isMouseInType: false, 
 
-        init() {
-            // Asumsikan bahwa data menu sudah disediakan oleh Laravel Blade sebagai variabel global `menu`
-            this.categoryMenus = window.menu.map(category => ({
-                name: category.name,
-                slug: category.slug,
-                types: category.type
-                    .filter(type => type.product && type.product.length > 0) // Filter jenis yang memiliki produk
-                    .map(type => ({
-                        name: type.name,
-                        slug: type.slug,
-                        image: type.product[0].image // Karena filter di atas, kita tahu setiap jenis memiliki produk
-                    }))
-            })).filter(category => category.types.length > 0); // Filter kategori yang memiliki jenis dengan produk
+        async init() {
+            this.categoryMenus = JSON.parse(localStorage.getItem('categoryMenus')) || [];
+            // localS torage.removeItem('categoryMenus');
+            // Jika tidak ada data di local storage, panggil API
+            if (this.categoryMenus.length === 0) {
+                await this.fetchCategories();
+            }
+
+            // await this.fetchCategories();
         },
 
-        setActiveCategories(categoryItem) {
-            this.selectedMenu = categoryItem;
-            this.activeMenu = categoryItem.name;
-            this.typeMenus = categoryItem.types || [];
+        async fetchCategories() {
+            try {
+                const response = await fetch('/menu-categories'); // Endpoint untuk API
+                const categories = await response.json();
+                this.categoryMenus = categories.map(category => ({
+                    name: category.name,
+                    slug: category.slug,
+                    types: category.type
+                        .filter(type => type.product && type.product.length > 0) // Filter jenis yang memiliki produk
+                        .map(type => ({
+                            name: type.name,
+                            slug: type.slug,
+                            image: type.product[0].image // Karena filter di atas, kita tahu setiap jenis memiliki produk
+                        }))
+                })).filter(category => category.types.length > 0); // Filter kategori yang memiliki jenis dengan produk
+
+                // Simpan data ke local storage
+                localStorage.setItem('categoryMenus', JSON.stringify(this.categoryMenus));
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        },
+
+        // async fetchCategories() {
+        //     try {
+        //         const response = await fetch('/menu-categories'); // Endpoint untuk API
+        //         const categories = await response.json();
+        //         this.categoryMenus = categories.map(category => ({
+        //             name: category.name,
+        //             slug: category.slug,
+        //             types: category.type
+        //                 .filter(type => type.product && type.product.length > 0) // Filter jenis yang memiliki produk
+        //                 .map(type => ({
+        //                     name: type.name,
+        //                     slug: type.slug,
+        //                     image: type.product[0].image // Karena filter di atas, kita tahu setiap jenis memiliki produk
+        //                 }))
+        //         })).filter(category => category.types.length > 0); // Filter kategori yang memiliki jenis dengan produk
+        //     } catch (error) {
+        //         console.error('Error fetching categories:', error);
+        //     }
+        // },
+
+        setActiveCategories(item) {
+            // debugger;
+            this.selectedMenu = item;
+            this.activeMenu = item.name;
+            this.typeMenus = item.types || [];
             this.showImage = false; 
             this.tempSelectedType = null; 
         },
 
         setActiveTypes(typeItem, categoryItem) {
+            // debugger;
             this.tempSelectedType = typeItem; // Set the temporary selected type
             this.showImage = true; // Ensure the image is shown
             if (categoryItem) {
+                // this.selectedMenu = categoryItem; // Set the selected category item
                 this.selectedMenu = {
                     ...categoryItem,
                     image: typeItem.image // Asumsi bahwa 'typeItem' memiliki properti 'image'
@@ -139,10 +181,11 @@ document.addEventListener('alpine:init', () => {
         },
 
         handleMouseLeaveCategory() {
-            if (!this.isMouseInType) {
-                this.activeMenu = null;
-                this.selectedMenu = null;
-            }
+            // setTimeout(() => {
+                if (!this.isMouseInType) {
+                    this.activeMenu = null;
+                    this.selectedMenu = null;
+                }
         },
 
         handleMouseLeaveType() {

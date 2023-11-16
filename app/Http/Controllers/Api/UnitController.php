@@ -10,6 +10,11 @@ use App\Http\Resources\UnitResource;
 
 class UnitController extends Controller
 {
+    public function getOptionUnits()
+    {
+        $units = Unit::all(['id', 'symbol', 'short_name', 'full_name']);
+        return UnitListResource::collection($units);
+    }
     /**
      * Display a listing of the resource.
      */

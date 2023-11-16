@@ -10,6 +10,11 @@ use App\Http\Resources\ThreadDensityResource;
 
 class ThreadDensityController extends Controller
 {
+    public function getOptionThreadDensities()
+    {
+        $threadDensities = ThreadDensity::all(['id', 'name']);
+        return ThreadDensityListResource::collection($threadDensities);
+    }
     /**
      * Display a listing of the resource.
      */

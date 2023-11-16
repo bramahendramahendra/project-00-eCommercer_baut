@@ -100,55 +100,52 @@ document.addEventListener('alpine:init', () => {
         selectedMenu: null,
         showImage: false,
         tempSelectedType: null, // Menyimpan sementara accessory terpilih
-        isMouseInType: false, 
 
-        init() {
-            // Asumsikan bahwa data menu sudah disediakan oleh Laravel Blade sebagai variabel global `menu`
-            this.categoryMenus = window.menu.map(category => ({
-                name: category.name,
-                slug: category.slug,
-                types: category.type
-                    .filter(type => type.product && type.product.length > 0) // Filter jenis yang memiliki produk
-                    .map(type => ({
-                        name: type.name,
-                        slug: type.slug,
-                        image: type.product[0].image // Karena filter di atas, kita tahu setiap jenis memiliki produk
-                    }))
-            })).filter(category => category.types.length > 0); // Filter kategori yang memiliki jenis dengan produk
+        async init() {
+            await this.fetchCategories();
         },
 
-        setActiveCategories(categoryItem) {
-            this.selectedMenu = categoryItem;
-            this.activeMenu = categoryItem.name;
-            this.typeMenus = categoryItem.types || [];
+        async fetchCategories() {
+            try {
+                const response = await fetch('/menu-categories'); // Endpoint untuk API
+                const categories = await response.json();
+
+                // Filter out kategori dan jenis yang tidak memiliki produk
+                this.categoryMenus = categories.map(category => ({
+                    name: category.name,
+                    types: category.type
+                        .filter(type => type.product && type.product.length > 0) // Filter jenis yang memiliki produk
+                        .map(type => ({
+                            name: type.name,
+                            image: type.product[0].image // Karena filter di atas, kita tahu setiap jenis memiliki produk
+                        }))
+                })).filter(category => category.types.length > 0); // Filter kategori yang memiliki jenis dengan produk
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        },
+        setActiveCategories(item) {
+            this.selectedMenu = item;
+            this.activeMenu = item.name;
+            this.typeMenus = item.types || [];
             this.showImage = false; 
             this.tempSelectedType = null; 
         },
 
-        setActiveTypes(typeItem, categoryItem) {
-            this.tempSelectedType = typeItem; // Set the temporary selected type
+        setActiveTypes(item) {
+            this.selectedMenu = item; // Set the selected menu item to the clicked accessory
+            this.tempSelectedType = item; // Set the temporary selected accessory
             this.showImage = true; // Ensure the image is shown
-            if (categoryItem) {
-                this.selectedMenu = {
-                    ...categoryItem,
-                    image: typeItem.image // Asumsi bahwa 'typeItem' memiliki properti 'image'
-                };
-                this.activeMenu = categoryItem.name; // Keep the category highlighted
-            }
-            this.isMouseInType = true;
         },
 
-        handleMouseLeaveCategory() {
-            if (!this.isMouseInType) {
-                this.activeMenu = null;
-                this.selectedMenu = null;
+        // Menambahkan fungsi untuk menangani mouse leave event pada menu Types
+        handleMouseLeave() {
+            if (this.tempSelectedType) {
+                this.selectedMenu = this.tempSelectedType;
+                this.showImage = true;
             }
-        },
-
-        handleMouseLeaveType() {
-            this.isMouseInType = true;
-            this.showImage = true;
-        }, 
+        }
+        
     }));
 
     function getCookie(name) {
@@ -165,6 +162,7 @@ document.addEventListener('alpine:init', () => {
         }
         return cookieValue;
     }
+  
 
     Alpine.data('filterState', () => ({
         isOpenMaterial: Alpine.$persist(false),
@@ -193,9 +191,11 @@ document.addEventListener('alpine:init', () => {
             document.cookie = `material_ids=${encodeURIComponent(materialIdsString)}; path=/`;
             document.cookie = `color_ids=${encodeURIComponent(colorIdsString)}; path=/`;
 
-            window.location.href = window.Laravel.routes.filterCheckbox;
+            window.location.href = window.Laravel.routes.katalog;
         }
     }));
+
+
     
 });
 

@@ -10,6 +10,11 @@ use App\Http\Resources\ThreadDirectionResource;
 
 class ThreadDirectionController extends Controller
 {
+    public function getOptionThreadDirections()
+    {
+        $threadDirections = ThreadDirection::all(['id', 'name']);
+        return ThreadDirectionListResource::collection($threadDirections);
+    }
     /**
      * Display a listing of the resource.
      */

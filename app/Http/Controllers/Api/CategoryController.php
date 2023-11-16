@@ -10,11 +10,11 @@ use App\Http\Resources\CategoryResource;
 
 class CategoryController extends Controller
 {
-    public function getOptionCategory()
+    public function getOptionCategories()
     {
         // You might want to apply some filtering, searching, or pagination here.
         // For simplicity, I'll fetch all categories.
-        $categories = Category::all(['id', 'code', 'name', 'updated_at']);
+        $categories = Category::all(['id', 'code', 'name']);
         // $categories = Category::all(['id', 'name']);
 
         // Assuming you want to return a simple JSON response with the categories.

@@ -29,7 +29,13 @@ Route::middleware(['auth:sanctum', 'admin'])
         // Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
         Route::get('/user', [AuthController::class, 'getUser']);
         Route::post('/logout', [AuthController::class, 'logout']);
-        Route::get('/categories/options', [CategoryController::class, 'getOptionCategory']);
+        Route::get('/categories/options', [CategoryController::class, 'getOptionCategories']);
+        Route::get('/types/options', [TypeController::class, 'getOptionTypes']);
+        Route::get('/units/options', [UnitController::class, 'getOptionUnits']);
+        Route::get('/materials/options', [MaterialController::class, 'getOptionMaterials']);
+        Route::get('/colors/options', [ColorController::class, 'getOptionColors']);
+        Route::get('/threadDensities/options', [ThreadDensityController::class, 'getOptionThreadDensities']);
+        Route::get('/threadDirections/options', [ThreadDirectionController::class, 'getOptionThreadDirections']);
 
         Route::apiResource('products', ProductController::class);
         Route::apiResource('types', TypeController::class);

@@ -91,5 +91,4 @@ class Product extends Model
     {
         return $this->belongsTo(Unit::class, 'unit_drat_length_id');
     }
-
 }
