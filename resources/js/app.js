@@ -88,6 +88,11 @@ document.addEventListener('alpine:init', () => {
                         this.$dispatch("notify", {
                             message: "Jumlah Prodok diupdate",
                         });
+                        // Emit an event with the necessary details
+                        this.$dispatch('update-price', {
+                            id: this.product.id,
+                            quantity: this.product.quantity
+                        });
                     })
             }
         };
@@ -211,14 +216,18 @@ function isClickOutsideSidebar(event) {
     const sidebarMaterial = document.querySelector('#filter-section-0');
     const sidebarColor = document.querySelector('#filter-section-1');
 
-    return !sidebarMaterial.contains(event.target) && !sidebarColor.contains(event.target);
+    return (!sidebarMaterial || !sidebarMaterial.contains(event.target)) &&
+        (!sidebarColor || !sidebarColor.contains(event.target));
+    // return !sidebarMaterial.contains(event.target) && !sidebarColor.contains(event.target);
 }
 
 // Event listener untuk seluruh dokumen
-document.addEventListener('click', (event) => {
-    if (isClickOutsideSidebar(event)) {
-        // Hapus cookie ketika klik di luar sidebar
-        deleteCookie('material_ids');
-        deleteCookie('color_ids');
-    }
-});
+if (document.querySelector('#filter-section-0') || document.querySelector('#filter-section-1')) {
+    document.addEventListener('click', (event) => {
+        if (isClickOutsideSidebar(event)) {
+            // Hapus cookie ketika klik di luar sidebar
+            deleteCookie('material_ids');
+            deleteCookie('color_ids');
+        }
+    });
+}

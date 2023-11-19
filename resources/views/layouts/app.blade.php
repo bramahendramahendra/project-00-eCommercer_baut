@@ -20,6 +20,21 @@
             {{ $slot }}
         </div>
 
+        <div x-data="toast" x-show="visible" x-cloak x-transition @notify.window="show($event.detail.message)"
+            class="fixed w-[400px] left-1/2 -ml-[200px] top-20 py-2 px-4 pb-4 bg-emerald-500 text-white">
+            <div class="font-semibold" x-text="message"></div>
+            <button @click="close"
+                class="absolute flex items-center justify-center right-2 top-2 w-[30px] h-[30px] rounded-full hover:bg-black/10 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <div>
+                <div class="absolute left-0 bottom-0 right-0 h-[6px] bg-black/10" :style="{'width': `${percent}%`}">
+                </div>
+            </div>
+        </div>
         <footer aria-labelledby="footer-heading" class="bg-white">
             <h2 id="footer-heading" class="sr-only">Footer</h2>
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

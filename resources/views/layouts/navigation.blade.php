@@ -234,7 +234,7 @@
                                         :class="{'border-baut-color-red-200 text-baut-color-red-200': isOn === 'kategori', 'border-transparent text-gray-700 hover:text-baut-color-red-200': isOn !== 'kategori' }"
                                         class="border-transparent text-gray-700 relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out"
                                         aria-expanded="false">
-                                        Semua Kategori
+                                        {{ __('Semua Kategori') }}
                                     </button>
                                 </div>
 
@@ -264,7 +264,7 @@
                                                     class="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
                                                     <div>
                                                         <p id="Categories-heading" class="font-medium text-gray-900">
-                                                            Kategori
+                                                            {{ __('Kategori') }}
                                                         </p>
                                                         <ul role="list" aria-labelledby="Categories-heading"
                                                             class="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
@@ -282,7 +282,7 @@
                                                     </div>
                                                     <div x-show="activeMenu" @mouseleave="handleMouseLeaveType()">
                                                         <p id="Types-heading" class="font-medium text-gray-900">
-                                                            Jenis
+                                                            {{ __('Jenis') }}
                                                         </p>
                                                         <ul role="list" aria-labelledby="Types-heading"
                                                             class="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
@@ -305,7 +305,7 @@
                             </div>
 
                             <a href="{{ route('katalog') }}"
-                                class="flex items-center text-sm font-medium text-gray-700 hover:text-baut-color-red-200">Katalog</a>
+                                class="flex items-center text-sm font-medium text-gray-700 hover:text-baut-color-red-200">{{ __('Katalog') }}</a>
                             <a href="/src/about.html"
                                 class="flex items-center text-sm font-medium text-gray-700 hover:text-baut-color-red-200">Tentang
                                 Kami</a>
@@ -314,7 +314,7 @@
                     <div class="ml-auto flex items-center">
                         <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                             @if (!Auth::guest())
-                                <a href="#" class="text-sm font-medium text-gray-700 hover:text-baut-color-red-200">Profil</a>
+                                <a href="{{ route('profile.edit') }}" class="text-sm font-medium text-gray-700 hover:text-baut-color-red-200">Profil</a>
                             @else
                                 <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-baut-color-red-200">Masuk</a>
                             @endif
@@ -342,7 +342,7 @@
                         <!-- Cart -->
                         <div 
                             x-data="{
-                                cartItemsCount: {{ \App\Http\Helpers\Cart::getCartItemsCount() }}
+                                cartItemsCount: {{ \App\Helpers\Cart::getCartItemsCount() }}
                             }"
                             @cart-change.window="cartItemsCount = $event.detail.count"
                             class="ml-4 flow-root lg:ml-6">
@@ -367,6 +367,6 @@
         </nav>
     </header>
 </div>
-<script>
+{{-- <script>
     console.log(this.categoryMenus); // Periksa output di konsol browser
-</script>
+</script> --}}

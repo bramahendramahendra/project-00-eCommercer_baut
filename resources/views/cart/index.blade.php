@@ -11,15 +11,24 @@
                                 'slug' => $product->slug,
                                 'image' => $product->image,
                                 'title' => $product->title,
-                                'max_retail' => $product->max_retail,
-                                'price' => $product->price_retail,
+                                'quantity_limit' => $product->quantity_limit,
+                                'price_retail' => $product->price_retail,
+                                'price_wholesale' => $product->price_wholesale,
                                 'quantity' => $cartItems[$product->id]['quantity'],
+                                'price' => $cartItems[$product->id]['quantity'] > $product->quantity_limit ? $product->price_wholesale : $product->price_retail,
                                 'href' => route('product.view', $product->slug),
                                 'removeUrl' => route('cart.remove', $product),
                                 'updateQuantityUrl' => route('cart.update-quantity', $product),
                             ])
                         )
                     }},
+                    updatePrice(productId, newQuantity) {
+                        const itemIndex = this.cartItems.findIndex(item => item.id === productId);
+                        if (itemIndex !== -1) {
+                            const item = this.cartItems[itemIndex];
+                            this.cartItems[itemIndex].price = newQuantity > item.quantity_limit ? item.price_wholesale : item.price_retail;
+                        }
+                    },
                     get cartTotal() {
                         return this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toFixed(2)
                     },
@@ -28,9 +37,12 @@
                     get totalPesanan() {
                         return (parseFloat(this.cartTotal) + this.jumlahOngkir + this.jumlahpajak).toFixed(2)
                     }
-                }" >
+                   
+                }"
+                @update-price.window="updatePrice($event.detail.id, $event.detail.quantity)" >
                 <template x-if="cartItems.length">
-                    <form action="/src/checkout.html" class="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
+                    <form action="{{ route('cart.checkout') }}" method="post" class="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
+                        @csrf
                         <section aria-labelledby="cart-heading" class="lg:col-span-7">
                             <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
                             <ul role="list" class="divide-y divide-gray-200 border-b border-t border-gray-200">
@@ -40,7 +52,7 @@
                                             <img :src="product.image" :alt="product.slug"
                                                 class="h-24 w-24 rounded-md object-cover object-center sm:h-48 sm:w-48">
                                         </div>
-
+                                        {{-- <span x-text="product.max_retail"></span> --}}
                                         <div class="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
                                             <div class="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
                                                 <div>
@@ -200,20 +212,5 @@
                 </div>
             </section>
         </main>
-    </div>
-     <div x-data="toast" x-show="visible" x-cloak x-transition @notify.window="show($event.detail.message)"
-        class="fixed w-[400px] left-1/2 -ml-[200px] top-20 py-2 px-4 pb-4 bg-emerald-500 text-white">
-        <div class="font-semibold" x-text="message"></div>
-        <button @click="close"
-            class="absolute flex items-center justify-center right-2 top-2 w-[30px] h-[30px] rounded-full hover:bg-black/10 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
-        <div>
-            <div class="absolute left-0 bottom-0 right-0 h-[6px] bg-black/10" :style="{'width': `${percent}%`}">
-            </div>
-        </div>
     </div>
 </x-app-layout>

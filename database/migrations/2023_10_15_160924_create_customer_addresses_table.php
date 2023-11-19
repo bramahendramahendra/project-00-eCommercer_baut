@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('state', 45);
             $table->string('zipcode', 45);
             $table->string('country', 15);
+            $table->timestamps();
         });
     }
 

@@ -6,7 +6,7 @@ use App\Models\Product;
 use App\Models\Material;
 use App\Models\Color;
 use App\Http\Resources\ProductResource;
-use App\Http\Helpers\FilterHelper;
+use App\Helpers\FilterHelper;
 use Illuminate\Http\Request;
 
 
