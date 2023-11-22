@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -26,7 +27,7 @@ class Color extends Model
             ->saveSlugsTo('slug');
     }
 
-    public function product()
+    public function product(): HasMany
     {
         return $this->hasMany(Product::class);
     }

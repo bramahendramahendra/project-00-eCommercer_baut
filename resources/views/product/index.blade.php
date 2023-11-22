@@ -1,3 +1,7 @@
+<?php
+/** @var \Illuminate\Database\Eloquent\Collection $products */
+?>
+
 <x-app-layout>
     <script>
         window.Laravel = {

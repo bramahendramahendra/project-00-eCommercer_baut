@@ -7,6 +7,7 @@ use App\Enums\PaymentStatus;
 use App\Helpers\Cart;
 use App\Models\CartItem;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -29,17 +30,27 @@ class CheckoutController extends Controller
             // exit;
 
             list($products, $cartItems) = Cart::getProductsAndCartItems();
+
+            $orderItems = [];
             $totalPrice = 0;
             foreach ($products as $product) {
+                $price = 0;
                 $quantity = $cartItems[$product->id]['quantity'];
                 if($quantity > $product->quantity_limit) {
-                    $totalPrice += $product->price_wholesale * $quantity;
+                    $price = $product->price_wholesale; 
                 } else {
-                    $totalPrice += $product->price_retail * $quantity;
+                    $price = $product->price_retail;
                 }
-
+                $totalPrice += $price * $quantity;
+                
+                $orderItems[] = [
+                    'product_id' => $product->id,
+                    'quantity' => $quantity,
+                    'unit_price' => $price,
+                ]; 
             }
 
+            // Create Order
             $orderData = [
                 'total_price' => $totalPrice,
                 'status' => OrderStatus::Unpaid,
@@ -51,6 +62,13 @@ class CheckoutController extends Controller
             // var_dump($order);
             // echo '</pre>';
 
+            // Create Order Item 
+            foreach ($orderItems as $orderItem) {
+                $orderItem['order_id'] = $order->id;
+                OrderItem::create($orderItem);
+            }
+
+            // Create Payment 
             $paymentData = [
                 'order_id' => $order->id,
                 'amount' => $order->total_price,

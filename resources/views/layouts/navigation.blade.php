@@ -162,26 +162,26 @@
 
                 <div class="space-y-6 border-t border-gray-200 px-4 py-6">
                     <div class="flow-root">
-                        <a href="{{ route('katalog') }}" class="-m-2 block p-2 font-medium text-gray-900">Katalog</a>
+                        <a href="{{ route('katalog') }}" class="-m-2 block p-2 font-medium text-gray-900">{{ __('Katalog') }}</a>
                     </div>
                     <div class="flow-root">
-                        <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Tentang Kami</a>
+                        <a href="#" class="-m-2 block p-2 font-medium text-gray-900">{{ __('Tentang Kami') }}</a>
                     </div>
                 </div>
 
                 <div class="space-y-6 border-t border-gray-200 px-4 py-6">
                     <div class="flow-root">
                         @if (!Auth::guest())
-                            <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Profil</a>
+                            <a href="{{ route('profile.edit') }}" class="-m-2 block p-2 font-medium text-gray-900">{{ __('Profil') }}</a>
                         @else
-                            <a href="{{ route('login') }}" class="-m-2 block p-2 font-medium text-gray-900">Masuk</a>
+                            <a href="{{ route('login') }}" class="-m-2 block p-2 font-medium text-gray-900">{{ __('Masuk') }}</a>
                         @endif
                     </div>
                     <div class="flow-root">
                         @if (!Auth::guest())
-                            <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Order History</a>
+                            <a href="{{ route('order.index') }}" class="-m-2 block p-2 font-medium text-gray-900">{{ __('Order History') }}</a>
                         @else
-                            <a href="{{ route('register') }}" class="-m-2 block p-2 font-medium text-gray-900">Daftar</a>
+                            <a href="{{ route('register') }}" class="-m-2 block p-2 font-medium text-gray-900">{{ __('Daftar') }}</a>
                         @endif
                     </div>
                 </div>
@@ -191,7 +191,7 @@
                         <form action="{{ route('logout') }}" method="post">
                             @csrf
                             <button type="submit" class="-m-2 flex items-center p-2">
-                                <span class="block text-base font-medium text-gray-900">Keluar</span>
+                                <span class="block text-base font-medium text-gray-900">{{ __('Keluar') }}</span>
                             </button>
                         </form>
                     @endif
@@ -306,25 +306,31 @@
 
                             <a href="{{ route('katalog') }}"
                                 class="flex items-center text-sm font-medium text-gray-700 hover:text-baut-color-red-200">{{ __('Katalog') }}</a>
-                            <a href="/src/about.html"
-                                class="flex items-center text-sm font-medium text-gray-700 hover:text-baut-color-red-200">Tentang
-                                Kami</a>
+                            <a href="/src/about.html" class="flex items-center text-sm font-medium text-gray-700 hover:text-baut-color-red-200">
+                                {{ __('Tentang Kami') }}
+                            </a>
                         </div>
                     </div>
                     <div class="ml-auto flex items-center">
                         <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                             @if (!Auth::guest())
-                                <a href="{{ route('profile.edit') }}" class="text-sm font-medium text-gray-700 hover:text-baut-color-red-200">Profil</a>
+                                <a href="{{ route('profile.edit') }}" class="text-sm font-medium text-gray-700 hover:text-baut-color-red-200">
+                                    {{ __('Profil') }}
+                                </a>
                             @else
-                                <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-baut-color-red-200">Masuk</a>
+                                <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-baut-color-red-200">
+                                    {{ __('Masuk') }}
+                                </a>
                             @endif
                             <span class="h-6 w-px bg-gray-200" aria-hidden="true"></span>
                             @if (!Auth::guest())
-                                <a href="#" class="text-sm font-medium text-gray-700 hover:text-baut-color-red-200">
-                                    Order History
+                                <a href="{{ route('order.index') }}" class="text-sm font-medium text-gray-700 hover:text-baut-color-red-200">
+                                    {{ __('Order History') }}
                                 </a>
                             @else
-                                <a href="{{ route('register') }}" class="text-sm font-medium text-gray-700 hover:text-baut-color-red-200">Daftar</a>
+                                <a href="{{ route('register') }}" class="text-sm font-medium text-gray-700 hover:text-baut-color-red-200">
+                                    {{ __('Daftar') }}
+                                </a>
                             @endif
                         </div>
 
@@ -333,7 +339,7 @@
                                 <form action="{{ route('logout') }}" method="post">
                                     @csrf
                                     <button type="submit" class="flex items-center text-gray-700 hover:text-baut-color-red-200">
-                                        <span class="ml-3 block text-sm font-medium">Keluar</span>
+                                        <span class="ml-3 block text-sm font-medium">{{ __('Keluar') }}</span>
                                     </button>
                                 </form>
                             @endif

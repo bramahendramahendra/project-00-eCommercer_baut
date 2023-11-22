@@ -7,6 +7,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MenuCategoryController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['guestOrVerified'])->group(function(){
@@ -49,6 +50,9 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('cart.checkout');
     // Route::post('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     // Route::post('/checkout/failure', [CheckoutController::class, 'failure'])->name('checkout.failure');
+
+    Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
+    // Route::get('/orders/view/:order', [OrderController::class, 'view'])->name('order.view');
 });
 
 require __DIR__.'/auth.php';

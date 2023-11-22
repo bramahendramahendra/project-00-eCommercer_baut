@@ -104,10 +104,6 @@
                     <dt class="text-sm font-medium leading-6 text-gray-900">Panjang</dt>
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ product.length ? product.length + (product.length_unit_symbol ? ` ${product.length_unit_symbol}` : '') : '-' }}</dd>
                 </div>
-                <div class="bg-white px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Ukuran Drat</dt>
-                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ product.drat_size || '-' }}</dd>
-                </div>
                 <div class="bg-gray-50 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
                     <dt class="text-sm font-medium leading-6 text-gray-900">Dimensional Standart</dt>
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ product.dimensional_standart || '-' }}</dd>
@@ -128,6 +124,10 @@
                     <dt class="text-sm font-medium leading-6 text-gray-900">Kunci Kepala</dt>
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ product.across_flats || '-' }}</dd>
                 </div>
+                <div class="bg-white px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+                        <dt class="text-sm font-medium leading-6 text-gray-900">Ukuran Drat</dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ product.drat_size || '-' }}</dd>
+                    </div>
                 <div class="bg-white px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
                     <dt class="text-sm font-medium leading-6 text-gray-900">Tipe drat</dt>
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ product.drat_type || '-' }}</dd>
