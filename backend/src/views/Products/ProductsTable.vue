@@ -19,7 +19,6 @@
                     placeholder="Cari Kategori">
             </div>
         </div>
-
         <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                 <table class="min-w-full divide-y divide-gray-300">
@@ -42,18 +41,15 @@
                             <TableHeaderCell @click="sortProduct" scope="col"
                                 class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" fieldimage="title"
                                 :sort-field="sortField" :sort-direction="sortDirection">Judul</TableHeaderCell>
-                            <!-- <TableHeaderCell @click="sortProduct" scope="col"
-                                class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="price_retail"
-                                :sort-field="sortField" :sort-direction="sortDirection">Harga Eceran</TableHeaderCell> -->
                             <TableHeaderCell @click="sortProduct" scope="col"
                                 class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="updated_at"
                                 :sort-field="sortField" :sort-direction="sortDirection">Last Updated At</TableHeaderCell>
                             <TableHeaderCell field="actions">Actions</TableHeaderCell>
                         </tr>
                     </thead>
-                    <tbody v-if="products.loading">
+                    <tbody v-if="products.loading || !products.data.length">
                         <tr>
-                            <td colspan="5">
+                            <td colspan="8">
                                 <Spinner class="my-4" v-if="products.loading" />
                             </td>
                         </tr>
@@ -66,8 +62,8 @@
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                 <img class="w-16" :src="product.image_url" :alt="product.title">
                             </td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.category_name }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.type_name }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.type.category.name }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.type.name }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.code }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.title }}</td>
                             <!-- <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.price_retail }}</td> -->
@@ -131,16 +127,8 @@
                     <span>
                         Showing from {{ products.from }} to {{ products.to }}
                     </span>
-                    <nav v-if="products.total > products.limit"
-                        class="relative z-0 inline-flex justify-center rounded-md shadow-sm -space-x-px"
-                        aria-label="Pagination">
-                        <a v-for="(link, i) of products.links" :key="i" :disabled="!link.url" href=""
-                            @click.prevent="getForPage($event, link)" aria-current="page"
-                            class="relative inline-flex items-center px-4 py-2 border text-sm font-medium whitespace-nowrap"
-                            :class="[link.active ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50', i === 0 ? 'rounded-l-md' : '', i === products.links.length - 1 ? 'rounded-r-md' : '', !link.url ? 'bg-gray-100 text-gray-700' : '']"
-                            v-html="link.label">
-
-                        </a>
+                    <nav v-if="products.total > products.limit" class="relative z-0 inline-flex justify-center rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                        <a v-for="(link, i) of products.links" :key="i" :disabled="!link.url" href="" @click.prevent="getForPage($event, link)" aria-current="page" class="relative inline-flex items-center px-4 py-2 border text-sm font-medium whitespace-nowrap" :class="[link.active ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50', i === 0 ? 'rounded-l-md' : '', i === products.links.length - 1 ? 'rounded-r-md' : '', !link.url ? 'bg-gray-100 text-gray-700' : '']" v-html="link.label"></a>
                     </nav>
                 </div>
             </div>

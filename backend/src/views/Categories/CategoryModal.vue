@@ -59,9 +59,9 @@ import {
     DialogPanel,
     DialogTitle,
 } from '@headlessui/vue'
-import Spinner from '../../components/core/Spinner.vue';
-import store from '../../store';
 import CustomInput from '../../components/core/CustomInput.vue';
+import store from '../../store';
+import Spinner from '../../components/core/Spinner.vue';
 
 const category = ref({
     id: props.category.id,

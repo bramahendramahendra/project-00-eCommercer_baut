@@ -11,6 +11,8 @@ import Units from "../views/Units/Units.vue";
 import Colors from "../views/Colors/Colors.vue";
 import ThreadDensities from "../views/ThreadDensities/ThreadDensities.vue";
 import ThreadDirections from "../views/ThreadDirections/ThreadDirections.vue";
+import Orders from "../views/Orders/Orders.vue";
+import OrderView from "../views/Orders/OrderView.vue";
 import RequestPassword from "../views/RequestPassword.vue";
 import ResetPassword from "../views/ResetPassword.vue";
 import NotFound from "../views/NotFound.vue";
@@ -74,6 +76,16 @@ const routes = [
                 path: 'thread-directions',
                 name: 'app.threadDirections',
                 component: ThreadDirections
+            },
+            {
+                path: 'orders',
+                name: 'app.orders',
+                component: Orders
+            },
+            {
+                path: 'orders/:id',
+                name: 'app.orders.view',
+                component: OrderView
             },
         ]
     },

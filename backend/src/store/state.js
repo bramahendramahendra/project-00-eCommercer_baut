@@ -6,7 +6,7 @@ const state = {
     products: {
         loading: false,
         data: [],
-        llinks: [],
+        link: [],
         from: null,
         to: null,
         page: 1,
@@ -26,7 +26,7 @@ const state = {
     categories: {
         loading: false,
         data: [],
-        llinks: [],
+        link: [],
         from: null,
         to: null,
         page: 1,
@@ -36,7 +36,7 @@ const state = {
     materials: {
         loading: false,
         data: [],
-        llinks: [],
+        link: [],
         from: null,
         to: null,
         page: 1,
@@ -46,7 +46,7 @@ const state = {
     units: {
         loading: false,
         data: [],
-        llinks: [],
+        link: [],
         from: null,
         to: null,
         page: 1,
@@ -56,7 +56,7 @@ const state = {
     colors: {
         loading: false,
         data: [],
-        llinks: [],
+        link: [],
         from: null,
         to: null,
         page: 1,
@@ -66,7 +66,7 @@ const state = {
     threadDensities: {
         loading: false,
         data: [],
-        llinks: [],
+        link: [],
         from: null,
         to: null,
         page: 1,
@@ -76,12 +76,27 @@ const state = {
     threadDirections: {
         loading: false,
         data: [],
-        llinks: [],
+        links: [],
         from: null,
         to: null,
         page: 1,
         limit: null,
         total: null
+    },
+    orders: {
+        loading: false,
+        data: [],
+        links: [],
+        from: null,
+        to: null,
+        page: 1,
+        limit: null,
+        total: null
+    }, 
+    toast: {
+        show: false,
+        message: '',
+        delay: 5000
     }
 };
 

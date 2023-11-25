@@ -20,11 +20,9 @@
                                         :aria-controls="'tabs-2-panel-' + image.id" role="tab" type="button">
                                         <span class="sr-only" x-text="image.alt">Angled view</span>
                                         <span class="absolute inset-0 overflow-hidden rounded-md">
-                                            <img :src="image.src" :alt="image.alt"
-                                                alt="" class="h-full w-full object-cover object-center">
+                                            <img :src="image.src" :alt="image.alt" class="h-full w-full object-cover object-center">
                                         </span>
-                                        <span
-                                            :class="{'ring-baut-color-red-200': selectedTab === image.id, 'ring-transparent': selectedTab !== image.id}"
+                                        <span :class="{'ring-baut-color-red-200': selectedTab === image.id, 'ring-transparent': selectedTab !== image.id}"
                                             class="ring-transparent pointer-events-none absolute inset-0 rounded-md ring-2 ring-offset-2"
                                             aria-hidden="true"></span>
                                     </button>

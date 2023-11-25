@@ -203,6 +203,7 @@
     <div v-else class="min-h-screen bg-white flex items-center justify-center">
         <Spinner />
     </div>
+    <Toast />
 </template>
   
 <script setup>
@@ -232,12 +233,15 @@ import {
     Square3Stack3DIcon,
     SwatchIcon,
     XMarkIcon,
+    ShoppingCartIcon
 } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 // Router Active 
 import { useRoute, useRouter } from 'vue-router'
 import store from '../store'
 import Spinner from "./core/Spinner.vue";
+// import Toast from "./core/Toast.vue";
+import Toast from "./core/Toast.vue";
 // import router from '../router';
 // import { useRouter } from 'vue-router';
 
@@ -251,9 +255,10 @@ const navigation = [
     { name: 'Colors', to: { name: 'app.colors' }, icon: SwatchIcon, current: false },
     { name: 'Thread Densities', to: { name: 'app.threadDensities' }, icon: FunnelIcon, current: false },
     { name: 'Thread Directions', to: { name: 'app.threadDirections' }, icon: ArrowLongRightIcon, current: false },
+    { name: 'Orders', to: { name: 'app.orders' }, icon: ShoppingCartIcon, current: false },
 ]
 const teams = [
-    // { name: 'Category', to: { name: 'app.category' }, icon: Square3Stack3DIcon, current: false },
+    // { name: 'Categories', to: { name: 'app.categories' }, icon: Square3Stack3DIcon, current: false },
     // { name: 'Type', to: { name: 'app.type' }, icon: DocumentIcon, current: false },
     // { name: 'Material', to: { name: 'app.material' }, icon: CubeIcon, current: false },
     // { name: 'Unit', to: { name: 'app.unit' }, icon: ChevronDoubleRightIcon, current: false },

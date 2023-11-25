@@ -7,20 +7,20 @@
                 <!-- <p class="mt-2 text-sm text-gray-700">A list of all the users in your account including their name, title, email and role.</p> -->
             </div>
             <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                <button type="button" @click="showCategoryModal" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah</button>
+                <button type="button" @click="showAddNewModal" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah</button>
             </div>
         </div>
-        <CategoryModal v-model="showModal" :category="categoryModel" @close="onModalClose" />
         <CategoriesTable @clickEdit="editCategory" />
+        <CategoryModal v-model="showCategoryModal" :category="categoryModel" @close="onModalClose" />
         
     </div>
 </template>
   
 <script setup>
-    import { ref } from 'vue';
-    import CategoriesTable from './CategoriesTable.vue';
-    import CategoryModal from './CategoryModal.vue';
+    import { computed, ref } from 'vue';
     import store from '../../store';
+    import CategoryModal from './CategoryModal.vue';
+    import CategoriesTable from './CategoriesTable.vue';
 
     const DEFAULT_EMPTY_OBJECT = {
         id: '',
@@ -29,18 +29,19 @@
         description: '',
     }
 
-    const showModal = ref(false)
+    const categories = computed(() => store.state.categories)
     const categoryModel = ref({...DEFAULT_EMPTY_OBJECT})
+    const showCategoryModal = ref(false)
 
-    function showCategoryModal() {
-        showModal.value = true
+    function showAddNewModal() {
+        showCategoryModal.value = true
     }
 
-    function editCategory(category) {
-        store.dispatch('getCategory', category.id)
+    function editCategory(p) {
+        store.dispatch('getCategory', p.id)
             .then(({data}) => {
                 categoryModel.value = data
-                showCategoryModal()
+                showAddNewModal();
             })
     }
 

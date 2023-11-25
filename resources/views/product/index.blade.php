@@ -300,8 +300,7 @@
                                     @foreach ($products as $product)
                                         <li class="inline-flex w-64 flex-col text-center lg:w-auto">
                                             <div class="group relative">
-                                                <div
-                                                    class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200">
+                                                <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200">
                                                     <img src="{{$product->image}}"
                                                         alt="Black machined steel pen with hexagonal grip and small white logo at top."
                                                         class="h-full w-full object-cover object-center group-hover:opacity-75">

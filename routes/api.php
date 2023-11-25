@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\ColorController;
 use App\Http\Controllers\Api\ThreadDensityController;
 use App\Http\Controllers\Api\ThreadDirectionController;
+use App\Http\Controllers\Api\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,6 +46,11 @@ Route::middleware(['auth:sanctum', 'admin'])
         Route::apiResource('colors', ColorController::class);
         Route::apiResource('threadDensities', ThreadDensityController::class);
         Route::apiResource('threadDirections', ThreadDirectionController::class);
+
+        Route::get('orders', [OrderController::class, 'index']);
+        Route::get('orders/statuses', [OrderController::class, 'getStatuses']);
+        Route::post('orders/change-status/{order}/{status}', [OrderController::class, 'changeStatus']);
+        Route::get('orders/{order}', [OrderController::class, 'view']);
 
     });
 

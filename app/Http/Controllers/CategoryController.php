@@ -16,6 +16,7 @@ class CategoryController extends Controller
 
         // var_dump($materialIds);
         // var_dump($category);
+        // exit;
 
         $query = $category->product();
         // if ($materialIds) {

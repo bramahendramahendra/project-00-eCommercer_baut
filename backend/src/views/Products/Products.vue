@@ -11,21 +11,21 @@
                     class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah</button>
             </div>
         </div>
-        <ProductModal v-model="showModal" :product="productModel" @close="onModalClose" />
         <ProductsTable @clickEdit="editProduct" />
+        <ProductModal v-model="showProductModal" :product="productModel" @close="onModalClose" />
 
     </div>
 </template>
   
 <script setup>
-import { ref } from 'vue';
-import ProductsTable from './ProductsTable.vue';
-import ProductModal from './ProductModal.vue';
+import {computed, ref } from 'vue';
 import store from '../../store';
+import ProductModal from './ProductModal.vue';
+import ProductsTable from './ProductsTable.vue';
 
 const DEFAULT_EMPTY_OBJECT = {
     id: '',
-    // type_id: '',
+    type: '',
     code: '',
     title: '',
     image: '',
@@ -33,11 +33,12 @@ const DEFAULT_EMPTY_OBJECT = {
     price_retail: '',
 }
 
-const showModal = ref(false)
+const products = computed(() => store.state.products);
+const showProductModal = ref(false)
 const productModel = ref({ ...DEFAULT_EMPTY_OBJECT })
 
 function showAddNewModal() {
-    showModal.value = true
+    showProductModal.value = true
 }
 
 function editProduct(product) {

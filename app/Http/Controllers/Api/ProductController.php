@@ -15,11 +15,13 @@ class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * 
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $search = request('search', false);
         $perPage = request('per_page', 10);
+        $search = request('search', '');
         $sortField = request('sort_field', 'updated_at');
         $sortDirection = request('sort_direction', 'desc');
 

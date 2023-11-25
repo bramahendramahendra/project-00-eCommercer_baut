@@ -12,12 +12,8 @@ class CategoryController extends Controller
 {
     public function getOptionCategories()
     {
-        // You might want to apply some filtering, searching, or pagination here.
-        // For simplicity, I'll fetch all categories.
         $categories = Category::all(['id', 'code', 'name']);
-        // $categories = Category::all(['id', 'name']);
-
-        // Assuming you want to return a simple JSON response with the categories.
+        
         // return response()->json($categories);
         return CategoryListResource::collection($categories);
         // return CategoryListResource::all($query->paginate($perPage));
@@ -25,21 +21,23 @@ class CategoryController extends Controller
 
     /**
      * Display a listing of the resource.
+     * 
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $search = request('search', false);
         $perPage = request('per_page', 10);
+        $search = request('search', '');
         $sortField = request('sort_field', 'updated_at');
         $sortDirection = request('sort_direction', 'desc');
 
-        $query = Category::query();
-        $query->orderBy($sortField, $sortDirection);
-        if($search) {
-            $query->where('code', 'like', "%{$search}%")
-            ->orWhere('name', 'like', "%{$search}%");
-        }
-        return CategoryListResource::collection($query->paginate($perPage));
+        $query = Category::query()
+            ->where('code', 'like', "%{$search}%")
+            ->orWhere('name', 'like', "%{$search}%")
+            ->orderBy($sortField, $sortDirection)
+            ->paginate($perPage);
+        
+        return CategoryListResource::collection($query);
     }
     /**
      * Store a newly created resource in storage.

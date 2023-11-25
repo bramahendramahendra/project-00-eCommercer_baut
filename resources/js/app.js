@@ -108,6 +108,10 @@ document.addEventListener('alpine:init', () => {
         isMouseInType: false, 
 
         init() {
+            if (!window.menu) {
+                console.error('window.menu is not defined');
+                return; // Hentikan inisialisasi jika window.menu tidak ada
+            }
             // Asumsikan bahwa data menu sudah disediakan oleh Laravel Blade sebagai variabel global `menu`
             this.categoryMenus = window.menu.map(category => ({
                 name: category.name,

@@ -16,7 +16,7 @@ class OrderController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        // dump($orders);
+        dump($orders);
         return view('order.index', compact('orders'));
     }
 }

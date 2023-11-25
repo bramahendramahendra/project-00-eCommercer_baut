@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\ProductController;
@@ -8,16 +9,19 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MenuCategoryController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\AboutController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['guestOrVerified'])->group(function(){
     
     Route::get('/menu-categories', [MenuCategoryController::class, 'index']);
 
-    Route::get('/', [ProductController::class, 'index'])->name('home');
+    Route::get('/', [DashboardController::class, 'index'])->name('home');
+    // Route::get('/', [ProductController::class, 'index'])->name('home');
     Route::get('/product', [ProductController::class, 'index'])->name('katalog');
     // Route::get('/product/filter', [ProductController::class, 'index'])->name('katalog.filter');
     Route::get('/product/{product:slug}', [ProductController::class, 'view'])->name('product.view');
+    Route::get('/about', [AboutController::class, 'index'])->name('about');
 
     Route::prefix('/category')->name('kategori.')->group(function(){
         // Route::get('/', [CategoryController::class, 'index'])->name('filter');

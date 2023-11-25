@@ -6,3 +6,4 @@ export const UNITS_PER_PAGE = 10;
 export const COLORS_PER_PAGE = 10;
 export const THREADDENSITIES_PER_PAGE = 10;
 export const THREADDIRECTIONS_PER_PAGE = 10;
+export const ORDERS_PER_PAGE = 10;
