@@ -3,7 +3,7 @@
         <div class="flex justify-between border-b-2 pb-3">
             <div class="flex items-center">
                 <span class="whitespace-nowrap mr-3">Per Page</span>
-                <select @change="getThreadDirections(null)" v-model="perPage" class="appearance-none relative block w-24 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
+                <select @change="getCustomers(null)" v-model="perPage" class="appearance-none relative block w-24 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="20">20</option>
@@ -12,7 +12,7 @@
                 </select>
             </div>
             <div>
-                <input v-model="search" @change="getThreadDirections(null)" class="appearance-none relative block w-48 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Cari Kategori">
+                <input v-model="search" @change="getCustomers(null)" class="appearance-none relative block w-48 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Cari Kategori">
             </div>
         </div>
         
@@ -21,27 +21,31 @@
                 <table class="min-w-full divide-y divide-gray-300">
                     <thead>
                         <tr>
-                            <TableHeaderCell @click="sortThreadDirection" scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3" field="id" :sort-field="sortField" :sort-direction="sortDirection">ID</TableHeaderCell>
-                            <TableHeaderCell @click="sortThreadDirection" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="name" :sort-field="sortField" :sort-direction="sortDirection">Nama</TableHeaderCell>
-                            <TableHeaderCell @click="sortThreadDirection" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="updated_at" :sort-field="sortField" :sort-direction="sortDirection">Last Updated At</TableHeaderCell>
+                            <TableHeaderCell @click="sortCustomer('id')" scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3" field="id" :sort-field="sortField" :sort-direction="sortDirection">ID</TableHeaderCell>
+                            <TableHeaderCell @click="sortCustomer('name')" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="name" :sort-field="sortField" :sort-direction="sortDirection">Nama</TableHeaderCell>
+                            <TableHeaderCell @click="sortCustomer('email')" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="email" :sort-field="sortField" :sort-direction="sortDirection">Email</TableHeaderCell>
+                            <TableHeaderCell @click="sortCustomer('phone')" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="phone" :sort-field="sortField" :sort-direction="sortDirection">Phone</TableHeaderCell>
+                            <TableHeaderCell @click="sortCustomer('status')" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="status" :sort-field="sortField" :sort-direction="sortDirection">Status</TableHeaderCell>
+                            <TableHeaderCell @click="sortCustomer('created_at')" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="created_at" :sort-field="sortField" :sort-direction="sortDirection">Register Date</TableHeaderCell>
                             <TableHeaderCell field="actions">Actions</TableHeaderCell>
                         </tr>
                     </thead>
-                    <tbody v-if="threadDirections.loading || !threadDirections.data.length">
+                    <tbody v-if="customers.loading || !customers.data.length">
                         <tr>
-                            <td colspan="4">
-                                <Spinner class="my-4" v-if="threadDirections.loading" />
-                                <p v-else class="text-center py-8 text-gray-700">
-                                    There are no Thread Directions
+                            <td colspan="7">
+                                <Spinner class="my-4" v-if="customers.loading" />
+                                 <p v-else class="text-center py-8 text-gray-700">
+                                    There are no customers
                                 </p>
                             </td>
                         </tr>
                     </tbody>
                     <tbody v-else class="bg-white">
-                        <tr v-for="(threadDirection, index) of threadDirections.data" class="even:bg-gray-50">
-                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">{{ threadDirection.id }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ threadDirection.name }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ threadDirection.updated_at }}</td>
+                        <tr v-for="(customer, index) of customers.data" class="even:bg-gray-50">
+                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">{{ customer.id }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ customer.name }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ customer.email }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ customer.created_at }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                 <Menu as="div" class="relative inline-block text-left ">
                                     <div>
@@ -64,7 +68,7 @@
                                                         active ? 'bg-violet-500 text-white' : 'text-gray-900',
                                                         'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                                                         ]"
-                                                        @click="editThreadDirection(threadDirection)"
+                                                        @click="editCustomer(customer)"
                                                     >
                                                         <PencilIcon
                                                             :active="active"
@@ -80,7 +84,7 @@
                                                         active ? 'bg-violet-500 text-white' : 'text-gray-900',
                                                         'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                                                         ]"
-                                                        @click="deleteThreadDirection(threadDirection)"
+                                                        @click="deleteCustomer(customer)"
                                                     >
                                                         <TrashIcon
                                                             :active="active"
@@ -98,14 +102,12 @@
                         </tr>
                     </tbody>
                 </table>
-                <div v-if="!threadDirections.loading" class="flex justify-between items-center mt-5">
+                <div v-if="!customers.loading" class="flex justify-between items-center mt-5">
                     <span>
-                        Showing from {{ threadDirections.from }} to {{ threadDirections.to }}
+                        Showing from {{ customers.from }} to {{ customers.to }}
                     </span>
-                    <nav v-if="threadDirections.total > threadDirections.limit" class="relative z-0 inline-flex justify-center rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                        <a v-for="(link, i) of threadDirections.links" :key="i" :disabled="!link.url" href="" @click.prevent="getForPage($event, link)" aria-current="page" class="relative inline-flex items-center px-4 py-2 border text-sm font-medium whitespace-nowrap" :class="[link.active ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50', i === 0 ? 'rounded-l-md' : '', i === threadDirections.links.length - 1 ? 'rounded-r-md' : '', !link.url ? 'bg-gray-100 text-gray-700' : '']" v-html="link.label">
-
-                        </a>
+                    <nav v-if="customers.total > customers.limit" class="relative z-0 inline-flex justify-center rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                        <a v-for="(link, i) of customers.links" :key="i" :disabled="!link.url" href="" @click.prevent="getForPage($event, link)" aria-current="page" class="relative inline-flex items-center px-4 py-2 border text-sm font-medium whitespace-nowrap" :class="[link.active ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50', i === 0 ? 'rounded-l-md' : '', i === customers.links.length - 1 ? 'rounded-r-md' : '', !link.url ? 'bg-gray-100 text-gray-700' : '']" v-html="link.label"></a>
                     </nav>
                 </div>
             </div>
@@ -117,25 +119,25 @@
     import { computed, onMounted, ref } from 'vue';
     import store from '../../store';
     import Spinner from '../../components/core/Spinner.vue';
-    import {THREADDIRECTIONS_PER_PAGE} from "../../constants"
+    import {USERS_PER_PAGE} from "../../constants"
     import TableHeaderCell from '../../components/core/Table/TableHeaderCell.vue';
     import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
     import { EllipsisVerticalIcon, PencilIcon, TrashIcon} from '@heroicons/vue/20/solid'
 
     const emit = defineEmits(['clickEdit'])
 
-    const perPage = ref(THREADDIRECTIONS_PER_PAGE)
+    const perPage = ref(USERS_PER_PAGE)
     const search = ref('')
-    const threadDirections = computed(() => store.state.threadDirections)
+    const customers = computed(() => store.state.customers)
     const sortField = ref('updated_at')
     const sortDirection = ref('desc')
 
     onMounted(() => {
-        getThreadDirections();
+        getCustomers();
     })  
 
-    function getThreadDirections(url = null) {
-        store.dispatch('getThreadDirections', {
+    function getCustomers(url = null) {
+        store.dispatch('getCustomers', {
             url,
             sort_field: sortField.value,
             sort_direction: sortDirection.value,
@@ -145,14 +147,14 @@
     }
 
     function getForPage(ev, link) {
+        ev.preventDefault();
         if (!link.url  || link.active) {
-            // ev.preventDefault();
             return
         }
-        getThreadDirections(link.url)
+        getCustomers(link.url)
     }
 
-    function sortThreadDirection(field) {
+    function sortCustomer(field) {
         if(sortField.value === field) {
             if(sortDirection.value === 'asc') {
                 sortDirection.value = 'desc'
@@ -164,21 +166,21 @@
             sortDirection.value = 'asc'
         } 
 
-        getThreadDirections();
+        getCustomers();
     }
 
-    function editThreadDirection(threadDirection) {
-        emit('clickEdit', threadDirection)
+    function editCustomer(p) {
+        emit('clickEdit', p)
     }
 
-    function deleteThreadDirection(threadDirection) {
-        if(!confirm('Apakah anda yakin ingin menghapus thread direction berikut ?')) {
+    function deleteCustomer(customer) {
+        if(!confirm('Apakah anda yakin ingin menghapus customer berikut ?')) {
             return 
         }
-        store.dispatch('deleteThreadDirection', threadDirection.id)
+        store.dispatch('deleteCustomer', customer.id)
             .then(res => {
                 // TODO Show notification 
-                store.dispatch('getThreadDirections')
+                store.dispatch('getCustomers')
             })
     }
 </script>

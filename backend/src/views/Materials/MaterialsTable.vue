@@ -27,10 +27,13 @@
                             <TableHeaderCell field="actions">Actions</TableHeaderCell>
                         </tr>
                     </thead>
-                    <tbody v-if="materials.loading">
+                    <tbody v-if="materials.loading || !materials.data.length">
                         <tr>
-                            <td colspan="5">
+                            <td colspan="4">
                                 <Spinner class="my-4" v-if="materials.loading" />
+                                <p v-else class="text-center py-8 text-gray-700">
+                                    There are no materials
+                                </p>
                             </td>
                         </tr>
                     </tbody>

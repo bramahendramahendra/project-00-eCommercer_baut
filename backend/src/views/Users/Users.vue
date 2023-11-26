@@ -3,7 +3,7 @@
     <div class="px-4 sm:px-6 lg:px-8">
         <div class="sm:flex sm:items-center">
             <div class="sm:flex-auto">
-                <h1 class="text-base font-semibold leading-6 text-gray-900">Kategori</h1>
+                <h1 class="text-base font-semibold leading-6 text-gray-900">Users</h1>
                 <!-- <p class="mt-2 text-sm text-gray-700">A list of all the users in your account including their name, title, email and role.</p> -->
             </div>
             <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
@@ -24,9 +24,8 @@
 
     const DEFAULT_EMPTY_OBJECT = {
         id: '',
-        code: '',
         name: '',
-        description: '',
+        email: '',
     }
 
     const users = computed(() => store.state.users)
