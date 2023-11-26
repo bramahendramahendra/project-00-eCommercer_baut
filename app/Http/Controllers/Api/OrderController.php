@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Enums\OrderStatus;
 use App\Http\Controllers\Controller;
+use App\Mail\OrderUpdateEmail;
 use App\Models\Order;
 use App\Http\Resources\OrderListResource;
 use App\Http\Resources\OrderResource;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -43,24 +45,11 @@ class OrderController extends Controller
 
     public function changeStatus(Order $order, $status) 
     {
-        // echo "<pre>";
-        // var_dump($order);
-        // var_dump($status);
-        // echo "</pre>";
         $order->status = $status;
         $order->save();
+
+        Mail ::to($order->user)->send(new OrderUpdateEmail($order));
+
         return response('', 200);
-
-
-        //  try {
-        //     $order->status = $status;
-        //     $order->save();
-        //     return response()->json(['message' => 'Status updated successfully'], 200);
-        // } catch (\Exception $e) {
-        //     // Log the exception for debugging
-        //     \Log::error($e->getMessage());
-        //     // Return a 500 error with the exception message
-        //     return response()->json(['message' => 'Server Error: ' . $e->getMessage()], 500);
-        // }
     }
 }

@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
 use App\Helpers\Cart;
+use App\Mail\NewOrderEmail;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
@@ -25,9 +27,6 @@ class CheckoutController extends Controller
         try {
             /** @var \App\Models\Customer $customer */
             $customer = $user->customer;
-
-            // dd($customer);
-            // exit;
 
             list($products, $cartItems) = Cart::getProductsAndCartItems();
 
@@ -50,7 +49,6 @@ class CheckoutController extends Controller
                 ]; 
             }
 
-            // Create Order
             $orderData = [
                 'total_price' => $totalPrice,
                 'status' => OrderStatus::Unpaid,
@@ -58,17 +56,12 @@ class CheckoutController extends Controller
                 'updated_by' => $user->id,
             ];
             $order = Order::create($orderData);
-            // echo '<pre>';
-            // var_dump($order);
-            // echo '</pre>';
 
-            // Create Order Item 
             foreach ($orderItems as $orderItem) {
                 $orderItem['order_id'] = $order->id;
                 OrderItem::create($orderItem);
             }
 
-            // Create Payment 
             $paymentData = [
                 'order_id' => $order->id,
                 'amount' => $order->total_price,
@@ -78,12 +71,14 @@ class CheckoutController extends Controller
                 'updated_by' => $user->id,
             ];
             $payment = Payment::create($paymentData);
-            // echo '<pre>';
-            // var_dump($payment);
-            // echo '</pre>';
-            // exit;
 
             CartItem::where(['user_id' => $user->id])->delete();
+
+            $adminUsers = User::where('is_admin', 1)->get();
+
+            foreach ([...$adminUsers, $order->user] as $user) {
+                Mail::to($user)->send(new NewOrderEmail($order, (bool)$user->is_admin));
+            }
 
             return view('checkout.success', compact('customer'));
         }
@@ -92,16 +87,4 @@ class CheckoutController extends Controller
         }
 
     }
-
-        // return redirect($session->url);
-
-    // public function success(Request $request) 
-    // {
-    //     dd($request->all());
-    // }
-
-    // public function failure(Request $request) 
-    // {
-    //     dd($request->all());
-    // }
 }
