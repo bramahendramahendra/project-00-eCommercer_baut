@@ -53,7 +53,7 @@
             </template>
             <template v-else>
                 <input :type="type" :name="name" :required="required" :value="props.modelValue"
-                    @input="emit('update:modelValue', $event.target.value)" :class="inputClasses" :placeholder="label"
+                    @input="emit('update:modelValue', $event.target.value)" :class="inputClasses" :placeholder="label" :autocomplete="autocomplete"
                     step="0.01" />
             </template>
             <span v-if="append"
@@ -95,7 +95,11 @@ const props = defineProps({
     options: Array,
     optionValue: String,
     optionText: String,
-    placeholder: String
+    placeholder: String,
+    autocomplete: {
+        type: String,
+        default: ''
+    }
 })
 
 const inputClasses = computed(() => {

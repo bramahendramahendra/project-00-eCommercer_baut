@@ -32,7 +32,7 @@
                         <tr>
                             <td colspan="5">
                                 <Spinner class="my-4" v-if="users.loading" />
-                                 <p v-else class="text-center py-8 text-gray-700">
+                                <p v-else class="text-center py-8 text-gray-700">
                                     There are no users
                                 </p>
                             </td>

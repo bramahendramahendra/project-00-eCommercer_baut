@@ -234,7 +234,8 @@ import {
     SwatchIcon,
     XMarkIcon,
     ShoppingCartIcon,
-    UserGroupIcon
+    UserGroupIcon, 
+    UsersIcon
 } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 // Router Active 
@@ -257,7 +258,8 @@ const navigation = [
     { name: 'Thread Densities', to: { name: 'app.threadDensities' }, icon: FunnelIcon, current: false },
     { name: 'Thread Directions', to: { name: 'app.threadDirections' }, icon: ArrowLongRightIcon, current: false },
     { name: 'Orders', to: { name: 'app.orders' }, icon: ShoppingCartIcon, current: false },
-    { name: 'Users', to: { name: 'app.users' }, icon: UserGroupIcon, current: false },
+    { name: 'Users', to: { name: 'app.users' }, icon: UsersIcon, current: false },
+    { name: 'Customers', to: { name: 'app.customers' }, icon: UserGroupIcon, current: false },
 ]
 const teams = [
     // { name: 'Categories', to: { name: 'app.categories' }, icon: Square3Stack3DIcon, current: false },

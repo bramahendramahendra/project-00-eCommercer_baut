@@ -17,7 +17,7 @@
                                 class="absolute left-0 top-0 bg-white right-0 bottom-0 flex items-center justify-center" />
                             <header class="py-3 px-4 flex justify-between items-center">
                                 <DialogTitle as="h3" class="text-lg leading-6 font-medium text-gray-900">
-                                    {{ user.id ? `Update User: "${props.user.name}"` : 'Tambah User Baru' }}
+                                    {{ customer.id ? `Update Customer: "${props.customer.name}"` : 'Tambah Customer Baru' }}
                                 </DialogTitle>
                                 <button @click="closeModal()"
                                     class="w-8 h-8 flex items-center justify-center rounded-full transition-colors cursor-pointer hover:bg-[rgba(0,0,0,0.2)]">
@@ -29,9 +29,11 @@
                             </header>
                             <form @submit.prevent="onSubmit">
                                 <div class="bg-white px-4 pt-5 pb-4">
-                                    <CustomInput class="mb-2" v-model="user.name" label="Name " />
-                                    <CustomInput class="mb-2" v-model="user.email" label="Email" />
-                                    <CustomInput type="password" class="mb-2" v-model="user.password" label="Password" autocomplete="new-password" />
+                                    <CustomInput class="mb-2" v-model="customer.first_name" label="First Name " />
+                                    <CustomInput class="mb-2" v-model="customer.last_name" label="Last Name " />
+                                    <CustomInput class="mb-2" v-model="customer.email" label="Email" />
+                                    <CustomInput class="mb-2" v-model="customer.phone" label="Phone" />
+                                    <CustomInput class="mb-2" v-model="customer.status" label="Status" />
                                 </div>
                                 <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"
@@ -62,17 +64,17 @@ import CustomInput from '../../components/core/CustomInput.vue';
 import store from '../../store';
 import Spinner from '../../components/core/Spinner.vue';
 
-const user = ref({
-    id: props.user.id,
-    name: props.user.name,
-    email: props.user.email,
+const customer = ref({
+    id: props.customer.id,
+    name: props.customer.name,
+    email: props.customer.email,
 })
 
 const loading = ref(false)
 
 const props = defineProps({
     modelValue: Boolean,
-    user: {
+    customer: {
         required: true,
         type: Object,
     }
@@ -86,10 +88,10 @@ const show = computed({
 })
 
 onUpdated(() => {
-    user.value = {
-        id: props.user.id,
-        name: props.user.name,
-        email: props.user.email,
+    customer.value = {
+        id: props.customer.id,
+        name: props.customer.name,
+        email: props.customer.email,
     }
 })
 
@@ -100,23 +102,23 @@ function closeModal() {
 
 function onSubmit() {
     loading.value = true
-    if (user.value.id) {
-        store.dispatch('updateUser', user.value)
+    if (customer.value.id) {
+        store.dispatch('updateCustomer', customer.value)
             .then(response => {
                 loading.value = false;
                 if (response.status === 200) {
                     // TODO show notification 
-                    store.dispatch('getUsers')
+                    store.dispatch('getCustomers')
                     closeModal()
                 }
             })
     } else {
-        store.dispatch('createUser', user.value)
+        store.dispatch('createCustomer', customer.value)
             .then(response => {
                 loading.value = false;
                 if (response.status === 201) {
                     // TODO show notification 
-                    store.dispatch('getUsers')
+                    store.dispatch('getCustomers')
                     closeModal()
                 }
             })

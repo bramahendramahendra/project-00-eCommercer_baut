@@ -29,10 +29,13 @@
                             <TableHeaderCell field="actions">Actions</TableHeaderCell>
                         </tr>
                     </thead>
-                    <tbody v-if="units.loading">
+                    <tbody v-if="units.loading || !units.data.length">
                         <tr>
-                            <td colspan="5">
+                            <td colspan="6">
                                 <Spinner class="my-4" v-if="units.loading" />
+                                <p v-else class="text-center py-8 text-gray-700">
+                                    There are no units
+                                </p>
                             </td>
                         </tr>
                     </tbody>

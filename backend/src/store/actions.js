@@ -225,6 +225,26 @@ export function getUsers({ commit, state }, { url = null, search = '', per_page,
         })
 }
 
+export function getCustomers({ commit, state }, { url = null, search = '', per_page, sort_field, sort_direction } = {}) {
+    commit('setCustomers', [true])
+    url = url || '/customers'
+    const params = {
+        per_page: state.customers.limit,
+    }
+    return axiosClient.get(url, {
+        params: {
+            ...params,
+            search, per_page, sort_field, sort_direction
+        }
+    })
+        .then((response) => {
+            commit('setCustomers', [false, response.data])
+        })
+        .catch(() => {
+            commit('setCustomers', [false])
+        })
+}
+
 export function getProduct({ commit }, id) {
     return axiosClient.get(`/products/${id}`)
 }
@@ -357,6 +377,10 @@ export function createUser({ commit }, user) {
     return axiosClient.post('/users', user)
 }
 
+export function createCustomer({ commit }, customer) {
+    return axiosClient.post('/users', customer)
+}
+
 export function updateProduct({ commit }, product) {
     const id = product.id
 
@@ -475,6 +499,10 @@ export function updateUser({ commit }, user) {
     return axiosClient.put(`/users/${user.id}`, user)
 }
 
+export function updateCustomer({ commit }, customer) {
+    return axiosClient.put(`/customers/${customer.id}`, customer)
+}
+
 export function deleteProduct({ commit }, id) {
     // return axiosClient.delete('/categories/${id}')
     return axiosClient.delete(`/products/${id}`)
@@ -513,6 +541,11 @@ export function deleteThreadDensity({ commit }, id) {
 export function deleteThreadDirection({ commit }, id) {
     // return axiosClient.delete('/categories/${id}')
     return axiosClient.delete(`/threadDirections/${id}`)
+}
+
+export function deleteUser({ commit }, user) {
+    // return axiosClient.delete('/categories/${id}')
+    return axiosClient.delete(`/users/${user.id}`)
 }
 
 export function getOptionCategories({ commit }) {
