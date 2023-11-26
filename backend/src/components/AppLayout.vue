@@ -207,7 +207,7 @@
 </template>
   
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 // import { onMounted, ref } from 'vue'
 import {
     Dialog,
@@ -233,7 +233,8 @@ import {
     Square3Stack3DIcon,
     SwatchIcon,
     XMarkIcon,
-    ShoppingCartIcon
+    ShoppingCartIcon,
+    UserGroupIcon
 } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 // Router Active 
@@ -256,6 +257,7 @@ const navigation = [
     { name: 'Thread Densities', to: { name: 'app.threadDensities' }, icon: FunnelIcon, current: false },
     { name: 'Thread Directions', to: { name: 'app.threadDirections' }, icon: ArrowLongRightIcon, current: false },
     { name: 'Orders', to: { name: 'app.orders' }, icon: ShoppingCartIcon, current: false },
+    { name: 'Users', to: { name: 'app.users' }, icon: UserGroupIcon, current: false },
 ]
 const teams = [
     // { name: 'Categories', to: { name: 'app.categories' }, icon: Square3Stack3DIcon, current: false },
@@ -278,9 +280,11 @@ const sidebarOpen = ref(false)
 const router = useRouter()
 const route = useRoute()
 
-// onMounted(() => {
-store.dispatch('getUser')
-// })
+
+
+onMounted(() => {
+    store.dispatch('getCurrentUser')
+})
 
 const isActiveRoute = (routeName) => {
     return route.name === routeName

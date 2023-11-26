@@ -63,7 +63,6 @@
                         </tr>
                     </tbody>
                     <tbody v-else class="bg-white">
-                        <!-- <pre>{{ orders.data }}</pre> -->
                         <tr v-for="(order, index) of orders.data" class="even:bg-gray-50">
                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">{{ order.id }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ order.customer.first_name }} {{ order.customer.last_name }}</td>

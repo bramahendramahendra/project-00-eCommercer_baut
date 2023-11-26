@@ -1,6 +1,6 @@
 import axiosClient from "../axios";
 
-export function getUser({ commit }, data) {
+export function getCurrentUser({ commit }, data) {
     return axiosClient.get('/user', data)
         .then(({ data }) => {
             commit('setUser', data);
@@ -29,7 +29,7 @@ export function getProducts({ commit, state }, { url = null, search = '', per_pa
     commit('setProducts', [true])
     url = url || '/products';
     const params = {
-        per_page: state.categories.limit,
+        per_page: state.products.limit,
     }
     return axiosClient.get(url, {
         params: {
@@ -49,7 +49,7 @@ export function getTypes({ commit, state }, { url = null, search = '', per_page,
     commit('setTypes', [true])
     url = url || '/types';
     const params = {
-        per_page: state.categories.limit,
+        per_page: state.types.limit,
     }
     return axiosClient.get(url, {
         params: {
@@ -85,56 +85,56 @@ export function getCategories({ commit, state }, { url = null, search = '', per_
     })
 }
 
-export function getMaterials({ commit }, { url = null, search = '', perPage = 10, sort_field, sort_direction } = {}) {
+export function getMaterials({ commit, state }, { url = null, search = '', per_page, sort_field, sort_direction } = {}) {
     commit('setMaterials', [true])
     url = url || '/materials';
-    // return axiosClient.get('material')
+    const params = {
+        per_page: state.materials.limit,
+    }
     return axiosClient.get(url, {
         params: {
-            search,
-            per_page: perPage,
-            sort_field,
-            sort_direction
+            ...params,
+            search, per_page, sort_field, sort_direction
         }
     })
-        .then(res => {
-            commit('setMaterials', [false, res.data])
+        .then(response => {
+            commit('setMaterials', [false, response.data])
         })
         .catch(() => {
             commit('setMaterials', [false])
         })
 }
 
-export function getUnits({ commit }, { url = null, search = '', perPage = 10, sort_field, sort_direction } = {}) {
+export function getUnits({ commit, state }, { url = null, search = '', per_page, sort_field, sort_direction } = {}) {
     commit('setUnits', [true])
     url = url || '/units';
-    // return axiosClient.get('unit')
+    const params = {
+        per_page: state.units.limit,
+    }
     return axiosClient.get(url, {
         params: {
-            search,
-            per_page: perPage,
-            sort_field,
-            sort_direction
+            ...params,
+            search, per_page, sort_field, sort_direction
         }
     })
-        .then(res => {
-            commit('setUnits', [false, res.data])
+        .then(response => {
+            commit('setUnits', [false, response.data])
         })
         .catch(() => {
             commit('setUnits', [false])
         })
 }
 
-export function getColors({ commit }, { url = null, search = '', perPage = 10, sort_field, sort_direction } = {}) {
+export function getColors({ commit, state }, { url = null, search = '', per_page, sort_field, sort_direction } = {}) {
     commit('setColors', [true])
     url = url || '/colors';
-    // return axiosClient.get('color')
+    const params = {
+        per_page: state.colors.limit,
+    }
     return axiosClient.get(url, {
         params: {
-            search,
-            per_page: perPage,
-            sort_field,
-            sort_direction
+            ...params,
+            search, per_page, sort_field, sort_direction
         }
     })
         .then(res => {
@@ -145,40 +145,40 @@ export function getColors({ commit }, { url = null, search = '', perPage = 10, s
         })
 }
 
-export function getThreadDensities({ commit }, { url = null, search = '', perPage = 10, sort_field, sort_direction } = {}) {
+export function getThreadDensities({ commit, state }, { url = null, search = '', per_page, sort_field, sort_direction } = {}) {
     commit('setThreadDensities', [true])
     url = url || '/threadDensities';
-    // return axiosClient.get('threadDensity')
+    const params = {
+        per_page: state.threadDensities.limit,
+    }
     return axiosClient.get(url, {
         params: {
-            search,
-            per_page: perPage,
-            sort_field,
-            sort_direction
+            ...params,
+            search, per_page, sort_field, sort_direction
         }
     })
-        .then(res => {
-            commit('setThreadDensities', [false, res.data])
+        .then(response => {
+            commit('setThreadDensities', [false, response.data])
         })
         .catch(() => {
             commit('setThreadDensities', [false])
         })
 }
 
-export function getThreadDirections({ commit }, { url = null, search = '', perPage = 10, sort_field, sort_direction } = {}) {
+export function getThreadDirections({ commit, state }, { url = null, search = '', per_page, sort_field, sort_direction } = {}) {
     commit('setThreadDirections', [true])
     url = url || '/threadDirections';
-    // return axiosClient.get('threadDirection')
+    const params = {
+        per_page: state.threadDirections.limit,
+    }
     return axiosClient.get(url, {
         params: {
-            search,
-            per_page: perPage,
-            sort_field,
-            sort_direction
+            ...params,
+            search, per_page, sort_field, sort_direction
         }
     })
-        .then(res => {
-            commit('setThreadDirections', [false, res.data])
+        .then(response => {
+            commit('setThreadDirections', [false, response.data])
         })
         .catch(() => {
             commit('setThreadDirections', [false])
@@ -205,9 +205,27 @@ export function getOrders({ commit, state }, { url = null, search = '', per_page
         })
 }
 
+export function getUsers({ commit, state }, { url = null, search = '', per_page, sort_field, sort_direction } = {}) {
+    commit('setUsers', [true])
+    url = url || '/users'
+    const params = {
+        per_page: state.users.limit,
+    }
+    return axiosClient.get(url, {
+        params: {
+            ...params,
+            search, per_page, sort_field, sort_direction
+        }
+    })
+        .then((response) => {
+            commit('setUsers', [false, response.data])
+        })
+        .catch(() => {
+            commit('setUsers', [false])
+        })
+}
 
 export function getProduct({ commit }, id) {
-    // commit('setProduct', [false])
     return axiosClient.get(`/products/${id}`)
 }
 
@@ -242,6 +260,9 @@ export function getThreadDirection({ commit }, id) {
 export function getOrder({ commit }, id) {
     return axiosClient.get(`/orders/${id}`)
 }
+export function getUser({ commit }, id) {
+    return axiosClient.get(`/users/${id}`)
+}
 
 export function createProduct({ commit }, product) {
     if (product.image instanceof File) {
@@ -266,8 +287,8 @@ export function createType({ commit }, type) {
     form.append('name', type.name);
     form.append('description', type.description);
     type = form;
-    console.log(type)
-    debugger;
+    // console.log(type)
+    // debugger;
 
     return axiosClient.post('/types', type)
 }
@@ -289,7 +310,6 @@ export function createMaterial({ commit }, material) {
     form.append('name', material.name);
     material = form;
     console.log(material)
-    debugger;
     // debugger;
     return axiosClient.post('/materials', material)
 }
@@ -331,6 +351,10 @@ export function createThreadDirection({ commit }, threadDirection) {
     threadDirection = form;
 
     return axiosClient.post('/threadDirections', threadDirection)
+}
+
+export function createUser({ commit }, user) {
+    return axiosClient.post('/users', user)
 }
 
 export function updateProduct({ commit }, product) {
@@ -445,6 +469,10 @@ export function updateThreadDirection({ commit }, threadDirection) {
     threadDirection = form;
 
     return axiosClient.post(`/threadDirections/${id}`, threadDirection)
+}
+
+export function updateUser({ commit }, user) {
+    return axiosClient.put(`/users/${user.id}`, user)
 }
 
 export function deleteProduct({ commit }, id) {

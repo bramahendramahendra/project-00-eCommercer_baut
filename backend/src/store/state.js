@@ -46,7 +46,7 @@ const state = {
     units: {
         loading: false,
         data: [],
-        link: [],
+        links: [],
         from: null,
         to: null,
         page: 1,
@@ -56,7 +56,7 @@ const state = {
     colors: {
         loading: false,
         data: [],
-        link: [],
+        links: [],
         from: null,
         to: null,
         page: 1,
@@ -66,7 +66,7 @@ const state = {
     threadDensities: {
         loading: false,
         data: [],
-        link: [],
+        links: [],
         from: null,
         to: null,
         page: 1,
@@ -93,6 +93,16 @@ const state = {
         limit: null,
         total: null
     }, 
+    users: {
+        loading: false,
+        data: [],
+        links: [],
+        from: null,
+        to: null,
+        page: 1,
+        limit: null,
+        total: null
+    },
     toast: {
         show: false,
         message: '',

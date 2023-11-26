@@ -88,118 +88,119 @@ export function setProducts(state, [loading, data = null]) {
         }
     }
     state.products.loading = loading;
-    // state.products.data = response.data;
 }
 
-export function setTypes(state, [loading, response = null]) {
-    if (response) {
+export function setTypes(state, [loading, data = null]) {
+    if (data) {
         state.types = {
-            data: response.data,
-            links: response.meta.links,
-            total: response.meta.total,
-            limit: response.meta.per_page,
-            from: response.meta.from,
-            to: response.meta.to,
-            page: response.meta.current_page,
+            ...state.types,
+            data: data.data,
+            links: data.meta?.links,
+            page: data.meta.current_page,
+            limit: data.meta.per_page,
+            from: data.meta.from,
+            to: data.meta.to,
+            total: data.meta.total,
         }
     }
     state.types.loading = loading;
-    // state.types.data = response.data;
 }
 
-export function setCategories(state, [loading, response = null]) {
-    if (response) {
+export function setCategories(state, [loading, data = null]) {
+    if (data) {
         state.categories = {
-            data: response.data,
-            links: response.meta.links,
-            total: response.meta.total,
-            limit: response.meta.per_page,
-            from: response.meta.from,
-            to: response.meta.to,
-            page: response.meta.current_page,
+            ...state.categories,
+            data: data.data,
+            links: data.meta?.links,
+            page: data.meta.current_page,
+            limit: data.meta.per_page,
+            from: data.meta.from,
+            to: data.meta.to,
+            total: data.meta.total,
         }
     }
     state.categories.loading = loading;
 }
 
-export function setMaterials(state, [loading, response = null]) {
-    if (response) {
+export function setMaterials(state, [loading, data = null]) {
+    if (data) {
         state.materials = {
-            data: response.data,
-            links: response.meta.links,
-            total: response.meta.total,
-            limit: response.meta.per_page,
-            from: response.meta.from,
-            to: response.meta.to,
-            page: response.meta.current_page,
+            ...state.materials,
+            data: data.data,
+            links: data.meta?.links,
+            page: data.meta.current_page,
+            limit: data.meta.per_page,
+            from: data.meta.from,
+            to: data.meta.to,
+            total: data.meta.total,
         }
     }
     state.materials.loading = loading;
-    // state.materials.data = response.data;
+    // state.materials.data = data.data;
 }
 
-export function setUnits(state, [loading, response = null]) {
-    if (response) {
+export function setUnits(state, [loading, data = null]) {
+    if (data) {
         state.units = {
-            data: response.data,
-            links: response.meta.links,
-            total: response.meta.total,
-            limit: response.meta.per_page,
-            from: response.meta.from,
-            to: response.meta.to,
-            page: response.meta.current_page,
+            ...state.units,
+            data: data.data,
+            links: data.meta?.links,
+            total: data.meta.total,
+            limit: data.meta.per_page,
+            from: data.meta.from,
+            to: data.meta.to,
+            page: data.meta.current_page,
         }
     }
     state.units.loading = loading;
-    // state.units.data = response.data;
 }
 
-export function setColors(state, [loading, response = null]) {
-    if (response) {
+export function setColors(state, [loading, data = null]) {
+    if (data) {
         state.colors = {
-            data: response.data,
-            links: response.meta.links,
-            total: response.meta.total,
-            limit: response.meta.per_page,
-            from: response.meta.from,
-            to: response.meta.to,
-            page: response.meta.current_page,
+            ...state.colors,
+            data: data.data,
+            links: data.meta?.links,
+            page: data.meta.current_page,
+            limit: data.meta.per_page,
+            from: data.meta.from,
+            to: data.meta.to,
+            total: data.meta.total,
         }
     }
     state.colors.loading = loading;
-    // state.colors.data = response.data;
 }
 
-export function setThreadDensities(state, [loading, response = null]) {
-    if (response) {
+export function setThreadDensities(state, [loading, data = null]) {
+    if (data) {
         state.threadDensities = {
-            data: response.data,
-            links: response.meta.links,
-            total: response.meta.total,
-            limit: response.meta.per_page,
-            from: response.meta.from,
-            to: response.meta.to,
-            page: response.meta.current_page,
+            ...state.threadDensities,
+            data: data.data,
+            links: data.meta?.links,
+            page: data.meta.current_page,
+            limit: data.meta.per_page,
+            from: data.meta.from,
+            to: data.meta.to,
+            total: data.meta.total,
         }
     }
     state.threadDensities.loading = loading;
-    // state.threadDensities.data = response.data;
 }
 
-export function setThreadDirections(state, [loading, response = null]) {
-    if (response) {
+export function setThreadDirections(state, [loading, data = null]) {
+    if (data) {
         state.threadDirections = {
-            data: response.data,
-            links: response.meta.links,
-            total: response.meta.total,
-            limit: response.meta.per_page,
-            from: response.meta.from,
-            to: response.meta.to,
-            page: response.meta.current_page,
+            ...state.threadDirections,
+            data: data.data,
+            links: data.meta?.links,
+            page: data.meta.current_page,
+            limit: data.meta.per_page,
+            from: data.meta.from,
+            to: data.meta.to,
+            total: data.meta.total,
         }
     }
     state.threadDirections.loading = loading;
-    // state.threadDirections.data = response.data;
 }
 
 export function setOrders(state, [loading, data = null]) {
@@ -216,6 +217,23 @@ export function setOrders(state, [loading, data = null]) {
         }
     }
     state.orders.loading = loading;
+}
+
+
+export function setUsers(state, [loading, data = null]) {
+    if (data) {
+        state.users = {
+            ...state.users,
+            data: data.data,
+            links: data.meta?.links,
+            page: data.meta.current_page,
+            limit: data.meta.per_page,
+            from: data.meta.from,
+            to: data.meta.to,
+            total: data.meta.total,
+        }
+    }
+    state.users.loading = loading;
 }
 
 export function showToast(state, message) {
