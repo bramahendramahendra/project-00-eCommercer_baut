@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\ThreadDensityController;
 use App\Http\Controllers\Api\ThreadDirectionController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,6 +49,7 @@ Route::middleware(['auth:sanctum', 'admin'])
         Route::apiResource('threadDensities', ThreadDensityController::class);
         Route::apiResource('threadDirections', ThreadDirectionController::class);
         Route::apiResource('users', UserController::class);
+        Route::apiResource('customers', CustomerController::class);
 
         Route::get('orders', [OrderController::class, 'index']);
         Route::get('orders/statuses', [OrderController::class, 'getStatuses']);
