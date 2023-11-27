@@ -284,6 +284,10 @@ export function getUser({ commit }, id) {
     return axiosClient.get(`/users/${id}`)
 }
 
+export function getCustomer({ commit }, id) {
+    return axiosClient.get(`/customers/${id}`)
+}
+
 export function createProduct({ commit }, product) {
     if (product.image instanceof File) {
         const form = new FormData();

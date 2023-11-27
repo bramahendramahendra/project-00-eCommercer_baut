@@ -40,20 +40,55 @@
                     </Combobox>
                 </div>
             </template>
-
-
+            <template v-else-if="type === 'select'">
+                <select 
+                    :name="name" 
+                    :required="required" 
+                    :value="props.modelValue"
+                    :class="inputClasses"
+                    @input="emit('update:modelValue', $event.target.value)">
+                    <option v-for="option of selectOptions" :value="option.key">{{ option.text }}</option>
+                </select>
+            </template>
             <template v-else-if="type === 'textarea'">
-                <textarea :name="name" :required="required" :value="props.modelValue"
-                    @input="emit('update:modelValue', $event.target.value)" :class="inputClasses"
+                <textarea 
+                    :name="name" 
+                    :required="required" 
+                    :value="props.modelValue"
+                    @input="emit('update:modelValue', $event.target.value)" 
+                    :class="inputClasses"
                     :placeholder="label"></textarea>
             </template>
             <template v-else-if="type === 'file'">
-                <input :type="type" :name="name" :required="required" @input="emit('change', $event.target.files[0])"
-                    :class="inputClasses" :placeholder="label" />
+                <input 
+                    :type="type" 
+                    :name="name" 
+                    :required="required" 
+                    @input="emit('change', $event.target.files[0])"
+                    :class="inputClasses" 
+                    :placeholder="label" />
+            </template>
+            <template v-else-if="type === 'checkbox'">
+                <input :id="id"
+                    :type="type" 
+                    :name="name" 
+                    :checked="props.modelValue"
+                    @change="emit('update:modelValue', $event.target.checked)" 
+                    :required="required" 
+                    class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+                <label :for="id" class="ml-3 block text-sm leading-6 text-gray-900">{{label}}</label>
             </template>
             <template v-else>
-                <input :type="type" :name="name" :required="required" :value="props.modelValue"
-                    @input="emit('update:modelValue', $event.target.value)" :class="inputClasses" :placeholder="label" :autocomplete="autocomplete"
+                <input 
+                    :type="type" 
+                    :name="name" 
+                    :required="required" 
+                    :value="props.modelValue"
+                    @input="emit('update:modelValue', $event.target.value)" 
+                    :class="inputClasses" 
+                    :placeholder="label" 
+                    :autocomplete="autocomplete"
+                    :readonly="readonly"
                     step="0.01" />
             </template>
             <span v-if="append"
@@ -96,11 +131,19 @@ const props = defineProps({
     optionValue: String,
     optionText: String,
     placeholder: String,
+    readonly: false,
     autocomplete: {
         type: String,
         default: ''
-    }
+    },
+    selectOptions: Array
 })
+
+const id = computed(()=>{
+    if(props.id) return props.id;
+    return ref(`id-${Math.floor(1000000 + Math.random() * 10000000)}`)
+})
+
 
 const inputClasses = computed(() => {
     const cls = [
@@ -144,6 +187,7 @@ const getOptionClass = (active, selected) => {
         // selected ? 'font-semibold' : ''
     ].join(' ');
 };
+
 
 </script>
 
