@@ -12,12 +12,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cart_items', function (Blueprint $table) {
+        Schema::create('image_sources', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class, 'user_id');
-            $table->foreignId('product_id')->references('id')->on('products');
-            $table->integer('quantity');
-            // $table->decimal('total_price', 20, 2); 
+            $table->string('name', 100);
+            $table->string('slug', 1000);
+            $table->string('image', 2000)->nullable();
+            $table->string('image_mime')->nullable();
+            $table->integer('image_size')->nullable();
+            $table->foreignIdFor(User::class, 'updated_by')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cart_items');
+        Schema::dropIfExists('image_sources');
     }
 };
