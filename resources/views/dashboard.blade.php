@@ -127,7 +127,7 @@
                                         {{ __('Diskon hingga 50%.') }}
                                     </h2>
                                     <div class="mt-6 text-base">
-                                        <a href="#" class="font-semibold text-white">
+                                        <a href="{{ route('katalog') }}" class="font-semibold text-white">
                                             {{ __('Belanja sekarang') }}
                                             <span aria-hidden="true"> &rarr;</span>
                                         </a>
@@ -155,40 +155,28 @@
                                         }" class="ml-24 flex min-w-max space-x-6 sm:ml-3 lg:space-x-8">
                                         <div class="flex space-x-6 sm:flex-col sm:space-x-0 sm:space-y-6 lg:space-y-8">
                                             <div class="flex-shrink-0">
-                                                <img class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
-                                                    src="/src/img/DALL·E 2023-10-26 01.56.42 - Photo of an assortment of fasteners like nuts, bolts, and screws placed inside separate compartments of a clear organizer box. The layout showcases th.png"
-                                                    alt="">
+                                                <img :src="footerImage[0].src" :alt="footerImage[0].alt" class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72">
                                             </div>
                                             <div class="mt-6 flex-shrink-0 sm:mt-0">
-                                                <img class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
-                                                    src="/src/img/DALL·E 2023-10-26 01.56.42 - Photo of an assortment of fasteners like nuts, bolts, and screws placed inside separate compartments of a clear organizer box. The layout showcases th.png"
-                                                    alt="">
+                                                <img :src="footerImage[1].src" :alt="footerImage[1].alt" class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72">
                                             </div>
                                         </div>
                                         <div
                                             class="flex space-x-6 sm:-mt-20 sm:flex-col sm:space-x-0 sm:space-y-6 lg:space-y-8">
                                             <div class="flex-shrink-0">
-                                                <img class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
-                                                    src="/src/img/DALL·E 2023-10-26 01.56.38 - Photo of a workshop table with various types of fasteners spread out. There are nuts, bolts, screws, and related tools, and the focus is on the divers.png"
-                                                    alt="">
+                                                <img :src="footerImage[2].src" :alt="footerImage[2].alt" class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72">
                                             </div>
                                             <div class="mt-6 flex-shrink-0 sm:mt-0">
-                                                <img class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
-                                                    src="/src/img/DALL·E 2023-10-26 01.56.42 - Photo of an assortment of fasteners like nuts, bolts, and screws placed inside separate compartments of a clear organizer box. The layout showcases th.png"
-                                                    alt="">
+                                                <img :src="footerImage[3].src" :alt="footerImage[3].alt" class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72" >
                                             </div>
                                         </div>
                                         <div
                                             class="flex space-x-6 sm:flex-col sm:space-x-0 sm:space-y-6 lg:space-y-8">
                                             <div class="flex-shrink-0">
-                                                <img class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
-                                                    src="/src/img/DALL·E 2023-10-26 01.56.42 - Photo of an assortment of fasteners like nuts, bolts, and screws placed inside separate compartments of a clear organizer box. The layout showcases th.png"
-                                                    alt="">
+                                                <img :src="footerImage[4].src" :alt="footerImage[4].alt" class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72" >
                                             </div>
                                             <div class="mt-6 flex-shrink-0 sm:mt-0">
-                                                <img class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
-                                                    src="/src/img/DALL·E 2023-10-26 01.56.42 - Photo of an assortment of fasteners like nuts, bolts, and screws placed inside separate compartments of a clear organizer box. The layout showcases th.png"
-                                                    alt="">
+                                                <img :src="footerImage[5].src" :alt="footerImage[5].alt" class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72" >
                                             </div>
                                         </div>
                                     </div>
