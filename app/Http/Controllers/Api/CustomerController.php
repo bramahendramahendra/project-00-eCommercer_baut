@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Enums\AddressType;
+use App\Enums\CustomerStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CustomerRequest;
 use App\Http\Resources\CustomerListResource;
@@ -10,6 +11,7 @@ use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
 use App\Models\CustomerAddress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -26,11 +28,17 @@ class CustomerController extends Controller
         $sortDirection = request('sort_direction', 'desc');
 
         $query = Customer::query()
-            // ->where('id', 'like', "%{$search}%")
-            ->orderBy($sortField, $sortDirection)
-            ->paginate($perPage);
+            ->orderBy("customers.$sortField", $sortDirection);
+        if($search) {
+            $query
+                ->where(DB::raw("CONCAT(first_name, ' ', last_name)"), 'like', "%{$search}%")
+                ->join('users', 'customers.user_id', '=', 'users.id')
+                ->orWhere('users.email', 'like', "%{$search}%")
+                ->orWhere('customers.phone', 'like', "%{$search}%");
+        }
+        $paginator = $query->paginate($perPage);
         
-        return CustomerListResource::collection($query);
+        return CustomerListResource::collection($paginator);
     }
 
      /**
