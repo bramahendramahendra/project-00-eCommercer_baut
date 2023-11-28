@@ -1,5 +1,5 @@
 <template>
-    <div v-if="currentUser.id">
+    <div class="bg-gray-200" v-if="currentUser.id">
         <TransitionRoot as="template" :show="sidebarOpen">
             <Dialog as="div" class="relative z-40 lg:hidden" @close="sidebarOpen = false">
                 <TransitionChild as="template" enter="transition-opacity ease-linear duration-300" enter-from="opacity-0"
