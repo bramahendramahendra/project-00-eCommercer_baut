@@ -21,8 +21,8 @@
                     <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
                         <div class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
                             <div class="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
-                            <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">We’re changing the way people connect.</h1>
-                            <p class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">Cupidatat minim id magna ipsum sint dolor qui. Sunt sit in quis cupidatat mollit aute velit. Et labore commodo nulla aliqua proident mollit ullamco exercitation tempor. Sint aliqua anim nulla sunt mollit id pariatur in voluptate cillum. Eu voluptate tempor esse minim amet fugiat veniam occaecat aliqua.</p>
+                            <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">{{$abouts[0]->title}}</h1>
+                            <p class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">{{$abouts[0]->description}}</p>
                             </div>
                             <div class="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
                             <div class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
@@ -60,28 +60,28 @@
             <!-- Content section -->
             <div class="mx-auto -mt-12 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-8">
                 <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our mission</h2>
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{{$abouts[1]->title}}</h2>
                     <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
                     <div class="lg:w-full lg:max-w-2xl lg:flex-auto">
-                        <p class="text-xl leading-8 text-gray-600">Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien.</p>
+                        {{-- <p class="text-xl leading-8 text-gray-600">Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien.</p> --}}
                         <div class="mt-10 max-w-xl text-base leading-7 text-gray-700">
-                        <p>Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id.</p>
-                        <p class="mt-10">Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie auctor fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et ultrices hac adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer orci.</p>
+                        <p>{{$abouts[1]->description}}</p>
+                        {{-- <p class="mt-10">Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie auctor fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et ultrices hac adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer orci.</p> --}}
                         </div>
                     </div>
                     <div class="lg:flex lg:flex-auto lg:justify-center">
                         <dl class="w-64 space-y-8 xl:w-80">
                         <div class="flex flex-col-reverse gap-y-4">
-                            <dt class="text-base leading-7 text-gray-600">Transactions every 24 hours</dt>
-                            <dd class="text-5xl font-semibold tracking-tight text-gray-900">44 million</dd>
+                            <dt class="text-base leading-7 text-gray-600">Transactions all times</dt>
+                            <dd class="text-5xl font-semibold tracking-tight text-gray-900">{{$totalOrders}} Orders</dd>
                         </div>
                         <div class="flex flex-col-reverse gap-y-4">
-                            <dt class="text-base leading-7 text-gray-600">Assets under holding</dt>
-                            <dd class="text-5xl font-semibold tracking-tight text-gray-900">$119 trillion</dd>
+                            <dt class="text-base leading-7 text-gray-600">Products</dt>
+                            <dd class="text-5xl font-semibold tracking-tight text-gray-900">{{$totalProducts}} Products</dd>
                         </div>
                         <div class="flex flex-col-reverse gap-y-4">
-                            <dt class="text-base leading-7 text-gray-600">New users annually</dt>
-                            <dd class="text-5xl font-semibold tracking-tight text-gray-900">46,000</dd>
+                            <dt class="text-base leading-7 text-gray-600">Customers</dt>
+                            <dd class="text-5xl font-semibold tracking-tight text-gray-900">{{$totalCustomers}} Users</dd>
                         </div>
                         </dl>
                     </div>

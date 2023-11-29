@@ -18,7 +18,7 @@ class AboutFactory extends Factory
     {
         return [
             'title' => $this->faker->text(25),
-            'description' => $this->faker->realText(10000),
+            'description' => $this->faker->realText(1500),
             'updated_by' => 1,
             'created_at' => now(),
             'updated_at' => now(),

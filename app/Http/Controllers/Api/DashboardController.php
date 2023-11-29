@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Enums\CustomerStatus;
+use App\Enums\OrderStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Product;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller

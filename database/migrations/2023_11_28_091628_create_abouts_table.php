@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('abouts', function (Blueprint $table) {
             $table->id();
             $table->string('title', 100);
-            $table->text('description')->nullable();
+            $table->string('description', 1500);
             $table->foreignIdFor(User::class, 'updated_by')->nullable();
             $table->timestamps();
         });
