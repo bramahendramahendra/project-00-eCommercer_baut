@@ -20,10 +20,11 @@ return new class extends Migration
             $table->integer('image_size')->nullable();
             $table->string('name');
             $table->string('link');
+            $table->foreignIdFor(User::class, 'created_by')->nullable();
             $table->foreignIdFor(User::class, 'updated_by')->nullable();
             $table->foreignIdFor(User::class, 'deleted_by')->nullable();
-            $table->foreignIdFor(User::class, 'created_by')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

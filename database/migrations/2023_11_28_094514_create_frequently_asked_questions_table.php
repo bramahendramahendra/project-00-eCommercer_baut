@@ -14,12 +14,13 @@ return new class extends Migration
     {
         Schema::create('frequently_asked_questions', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 100);
-            $table->text('content')->nullable();
+            $table->string('question', 1000);
+            $table->string('answer', 2000);
+            $table->foreignIdFor(User::class, 'created_by')->nullable();
             $table->foreignIdFor(User::class, 'updated_by')->nullable();
             $table->foreignIdFor(User::class, 'deleted_by')->nullable();
-            $table->foreignIdFor(User::class, 'created_by')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
