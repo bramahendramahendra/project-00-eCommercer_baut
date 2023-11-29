@@ -48,11 +48,11 @@
             <!-- Featured section -->
             <section aria-labelledby="cause-heading">
                 <div class="relative bg-gray-800 px-6 py-32 sm:px-12 sm:py-40 lg:px-16">
-                    @php
+                    {{-- @php
                         $featuredImage = file_exists(public_path('images/featured_image.png')) ? asset('images/featured_image.png') : asset('images/featured_image_default.png');
-                    @endphp
+                    @endphp --}}
                     <div x-data="{
-                        featuredImage: { src: '{{ $featuredImage }}', alt: 'Gambar Featured Section' },
+                        featuredImage: { src: '{{ $sectionImages[0]->image }}', alt: '{{ $sectionImages[0]->slug }}' },
                     }" class="absolute inset-0 overflow-hidden">
                         <img :src="featuredImage.src" :alt="featuredImage.alt" class="h-full w-full object-cover object-center">
                     </div>
@@ -135,22 +135,24 @@
                                 </div>
 
                                 <div class="absolute -top-32 left-1/2 -translate-x-1/2 transform sm:top-6 sm:translate-x-0">
-                                    @php
+                                    {{-- @php
                                         $footerImage1 = file_exists(public_path('images/footerImage1.png')) ? asset('images/footerImage1.png') : asset('images/product_default.png');
                                         $footerImage2 = file_exists(public_path('images/footerImage2.png')) ? asset('images/footerImage2.png') : asset('images/product_default.png');
                                         $footerImage3 = file_exists(public_path('images/footerImage3.png')) ? asset('images/footerImage3.png') : asset('images/product_default.png');
                                         $footerImage4 = file_exists(public_path('images/footerImage4.png')) ? asset('images/footerImage4.png') : asset('images/product_default.png');
                                         $footerImage5 = file_exists(public_path('images/footerImage5.png')) ? asset('images/footerImage5.png') : asset('images/product_default.png');
                                         $footerImage6 = file_exists(public_path('images/footerImage6.png')) ? asset('images/footerImage6.png') : asset('images/product_default.png');
-                                    @endphp
+                                    @endphp --}}
                                     <div x-data="{
                                             footerImage:[
-                                                { src: '{{ $footerImage1 }}', alt: 'Gambar Footer Produk 1' },
-                                                { src: '{{ $footerImage2 }}', alt: 'Gambar Footer Produk 2' },
+                                                @foreach ($footerImages as $footerImage)
+                                                    { src: '{{ $footerImage->image }}', alt: '{{ $footerImage->slug }}' },
+                                                @endforeach
+                                                {{-- { src: '{{ $footerImage2 }}', alt: 'Gambar Footer Produk 2' },
                                                 { src: '{{ $footerImage3 }}', alt: 'Gambar Footer Produk 3' },
                                                 { src: '{{ $footerImage4 }}', alt: 'Gambar Footer Produk 4' },
                                                 { src: '{{ $footerImage5 }}', alt: 'Gambar Footer Produk 5' },
-                                                { src: '{{ $footerImage6 }}', alt: 'Gambar Footer Produk 6' },
+                                                { src: '{{ $footerImage6 }}', alt: 'Gambar Footer Produk 6' }, --}}
                                             ]
                                         }" class="ml-24 flex min-w-max space-x-6 sm:ml-3 lg:space-x-8">
                                         <div class="flex space-x-6 sm:flex-col sm:space-x-0 sm:space-y-6 lg:space-y-8">

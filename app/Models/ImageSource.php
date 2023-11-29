@@ -12,6 +12,8 @@ class ImageSource extends Model
     use HasFactory;
     use HasSlug;
 
+    protected $fillable = ['name' ,'image', 'image_mime', 'image_size', 'updated_by'];
+
     /**
      * Get the options for generating the slug.
      */

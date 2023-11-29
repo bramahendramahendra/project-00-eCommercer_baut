@@ -8,6 +8,7 @@ use App\Models\About;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\ImageSource;
 use Illuminate\Http\Request;
 
 class AboutController extends Controller
@@ -24,10 +25,33 @@ class AboutController extends Controller
             OrderStatus::Completed->value
         ])->count();
 
+        $aboutHeaderImage = ImageSource::whereIn('id', [15, 16, 17, 18, 19])->get();
+        $aboutHeaderImages = [];
+        foreach ($aboutHeaderImage as $image) {
+            if ($image->image != '') {
+                $aboutHeaderImages[] = $image;
+            } else {
+                $image->image = asset('images/product_default.png');
+                $aboutHeaderImages[] = $image;
+
+            }
+        }
+
+        $aboutFooterImage = ImageSource::where('id', 20)->get();
+        $aboutFooterImages = [];
+        foreach ($aboutFooterImage as $image) {
+            if ($image->image != '') {
+                $aboutFooterImages[] = $image;
+            } else {
+                $image->image = asset('images/featured_image_default.png');
+                $aboutFooterImages[] = $image;
+            }
+        }
+
         // dump($abouts);
         // dump($totalCustomer);
         // dump($totalProduct);
         // dump($totalOrders);
-        return view('about.index', compact('abouts', 'totalCustomers', 'totalProducts', 'totalOrders'));
+        return view('about.index', compact('abouts', 'totalCustomers', 'totalProducts', 'totalOrders', 'aboutHeaderImages', 'aboutFooterImages'));
     }
 }
