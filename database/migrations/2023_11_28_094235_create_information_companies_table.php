@@ -16,6 +16,10 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100);
             $table->string('description', 2000)->nullable();
+            $table->string('image', 2000)->nullable();
+            $table->string('image_mime')->nullable();
+            $table->integer('image_size')->nullable();
+            $table->string('email');
             $table->string('operating_days');
             $table->string('operating_hours');
             $table->string('phone', 20);

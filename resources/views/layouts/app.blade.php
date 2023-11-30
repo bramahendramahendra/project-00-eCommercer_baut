@@ -44,12 +44,14 @@
                     <div class="grid grid-cols-2 gap-8 xl:col-span-2">
                         <div class="space-y-16 md:grid md:grid-cols-2 md:gap-8 md:space-y-0">
                             <div>
-                                <h3 class="text-sm font-medium text-gray-900">Shop</h3>
+                                <h3 class="text-sm font-medium text-gray-900">{{ __('Toko') }}</h3>
                                 <ul role="list" class="mt-6 space-y-6">
-                                    <li class="text-sm">
-                                        <a href="#" class="text-gray-500 hover:text-baut-color-red-200">Bags</a>
-                                    </li>
-                                    <li class="text-sm">
+                                    @foreach ($categories as $category)
+                                        <li class="text-sm">
+                                            <a href="{{ route('kategori.index', $category->slug) }}" class="text-gray-500 hover:text-baut-color-red-200">{{$category->name}}</a>
+                                        </li>
+                                    @endforeach
+                                    {{-- <li class="text-sm">
                                         <a href="#" class="text-gray-500 hover:text-baut-color-red-200">Tees</a>
                                     </li>
                                     <li class="text-sm">
@@ -60,22 +62,20 @@
                                     </li>
                                     <li class="text-sm">
                                         <a href="#" class="text-gray-500 hover:text-baut-color-red-200">Accessories</a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </div>
                             <div>
-                                <h3 class="text-sm font-medium text-gray-900">Perusahaan</h3>
+                                <h3 class="text-sm font-medium text-gray-900">{{ __('Perusahaan') }}</h3>
                                 <ul role="list" class="mt-6 space-y-6">
                                     <li class="text-sm">
-                                        <a href="#" class="text-gray-500 hover:text-baut-color-red-200">Tentang Kami</a>
+                                        <a href="{{ route('about') }}" class="text-gray-500 hover:text-baut-color-red-200">{{ __('Tentang Kami') }}</a>
                                     </li>
                                     <li class="text-sm">
-                                        <a href="#" class="text-gray-500 hover:text-baut-color-red-200">Kualitas
-                                            Produk</a>
+                                        <a href="{{ route('katalog') }}" class="text-gray-500 hover:text-baut-color-red-200">{{ __('Katalog Produk') }}</a>
                                     </li>
                                     <li class="text-sm">
-                                        <a href="#" class="text-gray-500 hover:text-baut-color-red-200">Varian
-                                            Produk</a>
+                                        <a href="#" class="text-gray-500 hover:text-baut-color-red-200">{{ __('Hubungi Kami') }}</a>
                                     </li>
                                     <li class="text-sm">
                                         <a href="#" class="text-gray-500 hover:text-baut-color-red-200">Karir</a>

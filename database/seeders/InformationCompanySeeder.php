@@ -13,6 +13,8 @@ class InformationCompanySeeder extends Seeder
      */
     public function run(): void
     {
-        InformationCompany::factory(1)->create();
+        InformationCompany::factory()->state([
+            'image' => 'http://127.0.0.1:8000/images/logo_default.png'
+        ])->create();
     }
 }

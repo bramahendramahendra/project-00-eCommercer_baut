@@ -19,6 +19,8 @@ class InformationCompanyFactory extends Factory
         return [
             'name' => $this->faker->text(10),
             'description' => $this->faker->realText(100),
+            'image' => fake()->imageUrl(),
+            'email' => fake()->unique()->safeEmail(),
             'operating_days' => $this->faker->text(10),
             'operating_hours' => $this->faker->text(10),
             'phone' => fake()->numberBetween(100000000000, 999999999999),

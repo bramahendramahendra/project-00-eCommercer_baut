@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Enums\OrderStatus;
 use App\Models\Category;
 use App\Models\ImageSource;
 use Illuminate\View\Component;
@@ -36,6 +37,26 @@ class AppLayout extends Component
         }
             // dump($headerImage);
 
-        return view('layouts.app',compact('menu', 'headerImages'));
+        $categories = null;
+        $categories = Category::select('categories.id', 'categories.name', 'categories.slug')
+            ->selectRaw('COALESCE(SUM(order_items.quantity), 0) as total_quantity')
+            ->leftJoin('types', 'categories.id', '=', 'types.category_id')
+            ->leftJoin('products', 'types.id', '=', 'products.type_id')
+            ->leftJoin('order_items', 'products.id', '=', 'order_items.product_id')
+            ->leftJoin('orders', function ($join) {
+                $join->on('order_items.order_id', '=', 'orders.id')
+                    ->where('orders.status', 'Paid');
+            })
+            ->groupBy('categories.id', 'categories.name')
+            ->orderBy('total_quantity', 'DESC')
+            ->limit(5)
+            ->get();
+
+        // dump($categories);
+        // exit;
+
+
+        
+        return view('layouts.app',compact('menu', 'headerImages', 'categories'));
     }
 }
