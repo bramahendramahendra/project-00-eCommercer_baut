@@ -1,12 +1,5 @@
 <x-app-layout>
-    <div x-data="{
-            flashMessage: '{{\Illuminate\Support\Facades\Session::get('flash_message')}}',
-            init() {
-                if (this.flashMessage) {
-                    setTimeout(() => this.$dispatch('notify', {message: this.flashMessage}), 200)
-                }
-            }
-        }">
+    <div >
         <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:py-20 pb-6 pt-24">
             <form x-data="{
                     billingAddress: {{ json_encode([

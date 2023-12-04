@@ -17,7 +17,14 @@
     <div class="bg-white">
         @include('layouts.navigation')
 
-        <div>
+        <div x-data="{
+            flashMessage: '{{\Illuminate\Support\Facades\Session::get('flash_message')}}',
+            init() {
+                if (this.flashMessage) {
+                    setTimeout(() => this.$dispatch('notify', {message: this.flashMessage}), 200)
+                }
+            }
+        }">
             {{ $slot }}
         </div>
 
@@ -75,7 +82,7 @@
                                         <a href="{{ route('katalog') }}" class="text-gray-500 hover:text-baut-color-red-200">{{ __('Katalog Produk') }}</a>
                                     </li>
                                     <li class="text-sm">
-                                        <a href="#" class="text-gray-500 hover:text-baut-color-red-200">{{ __('Hubungi Kami') }}</a>
+                                        <a href="{{ route('contantUs') }}" class="text-gray-500 hover:text-baut-color-red-200">{{ __('Hubungi Kami') }}</a>
                                     </li>
                                     <li class="text-sm">
                                         <a href="#" class="text-gray-500 hover:text-baut-color-red-200">Karir</a>
@@ -130,9 +137,10 @@
                         <h3 class="text-sm font-medium text-gray-900">Dapatkan berita terbaru dengan berlangganan</h3>
                         <p class="mt-6 text-sm text-gray-500">Dapatkan informasi terbaru mengenai produk dan penawaran
                             spesial langsung ke email Anda.</p>
-                        <form class="mt-2 flex sm:max-w-md">
-                            <label for="email-address" class="sr-only">Alamat email</label>
-                            <input id="email-address" type="text" autocomplete="email" required
+                        <form action="{{ route('newsletters.send') }}" method="POST" class="mt-2 flex sm:max-w-md">
+                            @csrf
+                            <label for="email" class="sr-only">Alamat email</label>
+                            <input id="email" name="email" type="text" autocomplete="email" required
                                 class="w-full min-w-0 appearance-none rounded-md border border-gray-300 bg-white px-4 py-2 text-base text-baut-color-red-200 placeholder-gray-500 shadow-sm focus:border-baut-color-red-200 focus:outline-none focus:ring-1 focus:ring-baut-color-red-200">
                             <div class="ml-4 flex-shrink-0">
                                 <button type="submit"

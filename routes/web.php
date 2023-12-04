@@ -10,6 +10,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MenuCategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ContantUsController;
+use App\Http\Controllers\NewslettersController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['guestOrVerified'])->group(function(){
@@ -22,6 +24,9 @@ Route::middleware(['guestOrVerified'])->group(function(){
     // Route::get('/product/filter', [ProductController::class, 'index'])->name('katalog.filter');
     Route::get('/product/{product:slug}', [ProductController::class, 'view'])->name('product.view');
     Route::get('/about', [AboutController::class, 'index'])->name('about');
+    Route::get('/contant-us', [ContantUsController::class, 'index'])->name('contantUs');
+    Route::post('/contant-us/send', [ContantUsController::class, 'create'])->name('contantUs.send');
+    Route::post('/Newsletters/send', [NewslettersController::class, 'create'])->name('newsletters.send');
 
     Route::prefix('/category')->name('kategori.')->group(function(){
         // Route::get('/', [CategoryController::class, 'index'])->name('filter');
