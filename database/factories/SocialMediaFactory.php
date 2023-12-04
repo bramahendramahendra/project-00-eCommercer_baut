@@ -18,7 +18,7 @@ class SocialMediaFactory extends Factory
     {
         return [
             'application' => fake()->text(10),
-            'image' => fake()->imageUrl(),
+            'image' => fake()->text(),
             'name' => fake()->text(10),
             'link' => fake()->url,
             'created_by' => 1,

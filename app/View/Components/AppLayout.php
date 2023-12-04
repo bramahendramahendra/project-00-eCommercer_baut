@@ -5,6 +5,7 @@ namespace App\View\Components;
 use App\Enums\OrderStatus;
 use App\Models\Category;
 use App\Models\ImageSource;
+use App\Models\SocialMedia;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
@@ -55,8 +56,14 @@ class AppLayout extends Component
         // dump($categories);
         // exit;
 
+        // Social Media 
+        $socialMedias = SocialMedia::whereNotNull('name')
+            ->whereNotNull('link')
+            ->get();
 
-        
-        return view('layouts.app',compact('menu', 'headerImages', 'categories'));
+        // dump($socialMedia);
+        // exit;
+
+        return view('layouts.app',compact('menu', 'headerImages', 'categories', 'socialMedias'));
     }
 }

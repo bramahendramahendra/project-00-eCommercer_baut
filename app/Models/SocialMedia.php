@@ -11,4 +11,6 @@ class SocialMedia extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = ['application', 'image', 'name', 'link', 'created_by', 'updated_by'];
+
 }

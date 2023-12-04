@@ -15,9 +15,9 @@ return new class extends Migration
         Schema::create('social_media', function (Blueprint $table) {
             $table->id();
             $table->string('application');
-            $table->string('image', 2000)->nullable();
-            $table->string('image_mime')->nullable();
-            $table->integer('image_size')->nullable();
+            $table->text('image')->nullable();
+            // $table->string('image_mime')->nullable();
+            // $table->integer('image_size')->nullable();
             $table->string('name');
             $table->string('link');
             $table->foreignIdFor(User::class, 'created_by')->nullable();
