@@ -85,12 +85,14 @@
                                         <a href="{{ route('contantUs') }}" class="text-gray-500 hover:text-baut-color-red-200">{{ __('Hubungi Kami') }}</a>
                                     </li>
                                     <li class="text-sm">
-                                        <a href="#" class="text-gray-500 hover:text-baut-color-red-200">Karir</a>
+                                        <a href="{{ route('terms_and_conditions') }}" class="text-gray-500 hover:text-baut-color-red-200">
+                                            {{ __('Ketentuan') }} &amp; {{ __('Syarat') }}
+                                        </a>
                                     </li>
                                     <li class="text-sm">
-                                        <a href="#" class="text-gray-500 hover:text-baut-color-red-200">Ketentuan &amp;
-                                            Syarat</a>
+                                        <a href="#" class="text-gray-500 hover:text-baut-color-red-200">Karir</a>
                                     </li>
+                                   
                                     <li class="text-sm">
                                         <a href="#" class="text-gray-500 hover:text-baut-color-red-200">Privasi</a>
                                     </li>

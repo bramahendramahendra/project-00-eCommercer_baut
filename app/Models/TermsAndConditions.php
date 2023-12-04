@@ -10,4 +10,7 @@ class TermsAndConditions extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    protected $fillable = ['title', 'content', 'created_by', 'updated_by'];
+
 }

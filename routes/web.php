@@ -12,6 +12,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContantUsController;
 use App\Http\Controllers\NewslettersController;
+use App\Http\Controllers\TermsAndConditionsController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['guestOrVerified'])->group(function(){
@@ -26,7 +27,8 @@ Route::middleware(['guestOrVerified'])->group(function(){
     Route::get('/about', [AboutController::class, 'index'])->name('about');
     Route::get('/contant-us', [ContantUsController::class, 'index'])->name('contantUs');
     Route::post('/contant-us/send', [ContantUsController::class, 'create'])->name('contantUs.send');
-    Route::post('/Newsletters/send', [NewslettersController::class, 'create'])->name('newsletters.send');
+    Route::post('/newsletters/send', [NewslettersController::class, 'create'])->name('newsletters.send');
+    Route::get('/terms_and_conditions', [TermsAndConditionsController::class, 'index'])->name('terms_and_conditions');
 
     Route::prefix('/category')->name('kategori.')->group(function(){
         // Route::get('/', [CategoryController::class, 'index'])->name('filter');
