@@ -10,4 +10,7 @@ class FrequentlyAskedQuestions extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    protected $fillable = ['question', 'answer', 'created_by', 'updated_by'];
+
 }

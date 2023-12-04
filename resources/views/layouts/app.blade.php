@@ -90,7 +90,7 @@
                                         </a>
                                     </li>
                                     <li class="text-sm">
-                                        <a href="#" class="text-gray-500 hover:text-baut-color-red-200">Karir</a>
+                                        <a href="{{ route('frequently_asked_questions') }}" class="text-gray-500 hover:text-baut-color-red-200">{{ __('FAQ') }}</a>
                                     </li>
                                    
                                     <li class="text-sm">

@@ -13,6 +13,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContantUsController;
 use App\Http\Controllers\NewslettersController;
 use App\Http\Controllers\TermsAndConditionsController;
+use App\Http\Controllers\FrequentlyAskedQuestionsController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['guestOrVerified'])->group(function(){
@@ -29,6 +30,7 @@ Route::middleware(['guestOrVerified'])->group(function(){
     Route::post('/contant-us/send', [ContantUsController::class, 'create'])->name('contantUs.send');
     Route::post('/newsletters/send', [NewslettersController::class, 'create'])->name('newsletters.send');
     Route::get('/terms_and_conditions', [TermsAndConditionsController::class, 'index'])->name('terms_and_conditions');
+    Route::get('/frequently_asked_questions', [FrequentlyAskedQuestionsController::class, 'index'])->name('frequently_asked_questions');
 
     Route::prefix('/category')->name('kategori.')->group(function(){
         // Route::get('/', [CategoryController::class, 'index'])->name('filter');
