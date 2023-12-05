@@ -6,6 +6,7 @@ use App\Enums\OrderStatus;
 use App\Models\Category;
 use App\Models\ImageSource;
 use App\Models\SocialMedia;
+use App\Models\InformationCompany;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
@@ -61,9 +62,12 @@ class AppLayout extends Component
             ->whereNotNull('link')
             ->get();
 
-        // dump($socialMedia);
+        $informationCompany = InformationCompany::where('id', 1)->get();
+
+        
+        // dump($informationCompany);
         // exit;
 
-        return view('layouts.app',compact('menu', 'headerImages', 'categories', 'socialMedias'));
+        return view('layouts.app',compact('menu', 'headerImages', 'categories', 'socialMedias', 'informationCompany'));
     }
 }
