@@ -15,6 +15,11 @@ import Orders from "../views/Orders/Orders.vue";
 import OrderView from "../views/Orders/OrderView.vue";
 import Users from "../views/Users/Users.vue";
 import Customers from "../views/Customers/Customers.vue";
+import ContactUses from "../views/ContactUses/ContactUses.vue";
+import Newsletters from "../views/Newsletters/Newsletters.vue";
+import InformationCompanies from "../views/InformationCompanies/InformationCompanies.vue";
+import FrequentlyAskedQuestions from "../views/FrequentlyAskedQuestions/FrequentlyAskedQuestions.vue";
+import TermAndConditions from "../views/TermAndConditions/TermAndConditions.vue";
 import RequestPassword from "../views/RequestPassword.vue";
 import ResetPassword from "../views/ResetPassword.vue";
 import NotFound from "../views/NotFound.vue";
@@ -98,6 +103,31 @@ const routes = [
                 path: 'customers',
                 name: 'app.customers',
                 component: Customers
+            },
+            {
+                path: 'contact-uses',
+                name: 'app.contactUses',
+                component: ContactUses
+            },
+            {
+                path: 'newsletters',
+                name: 'app.newsletters',
+                component: Newsletters
+            },
+            {
+                path: 'information-companies',
+                name: 'app.informationCompanies',
+                component: InformationCompanies
+            },
+            {
+                path: 'frequently-asked-questions',
+                name: 'app.frequentlyAskedQuestions',
+                component: FrequentlyAskedQuestions
+            },
+            {
+                path: 'term-and-conditions',
+                name: 'app.termAndConditions',
+                component: TermAndConditions
             },
         ]
     },
