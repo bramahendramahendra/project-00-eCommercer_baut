@@ -8,14 +8,14 @@ use App\Models\InformationCompany;
 use App\Models\ContactMe;
 use Illuminate\Http\Request;
 
-class ContantUsController extends Controller
+class ContactUsController extends Controller
 {
     public function index(Request $request) {
         $informationCompany = InformationCompany::where('id', 1)->get();
 
         // dump($informationCompany);
         // exit;
-        return view('contant_us.index', compact('informationCompany'));
+        return view('contact_us.index', compact('informationCompany'));
     }
 
     public function create(ContactUsRequest $request)

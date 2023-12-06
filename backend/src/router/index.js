@@ -16,6 +16,7 @@ import OrderView from "../views/Orders/OrderView.vue";
 import Users from "../views/Users/Users.vue";
 import Customers from "../views/Customers/Customers.vue";
 import ContactUses from "../views/ContactUses/ContactUses.vue";
+import ContactUsView from "../views/ContactUses/ContactUsView.vue";
 import Newsletters from "../views/Newsletters/Newsletters.vue";
 import InformationCompanies from "../views/InformationCompanies/InformationCompanies.vue";
 import FrequentlyAskedQuestions from "../views/FrequentlyAskedQuestions/FrequentlyAskedQuestions.vue";
@@ -108,6 +109,11 @@ const routes = [
                 path: 'contact-uses',
                 name: 'app.contactUses',
                 component: ContactUses
+            },
+            {
+                path: 'contact-uses/:id',
+                name: 'app.contactUses.view',
+                component: ContactUsView
             },
             {
                 path: 'newsletters',

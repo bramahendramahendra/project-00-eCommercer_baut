@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\ThreadDirectionController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\ContactUsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,11 +51,18 @@ Route::middleware(['auth:sanctum', 'admin'])
         Route::apiResource('threadDirections', ThreadDirectionController::class);
         Route::apiResource('users', UserController::class);
         Route::apiResource('customers', CustomerController::class);
+        // Route::apiResource('contactUses', ContactUsController::class);
 
         Route::get('orders', [OrderController::class, 'index']);
         Route::get('orders/statuses', [OrderController::class, 'getStatuses']);
         Route::post('orders/change-status/{order}/{status}', [OrderController::class, 'changeStatus']);
         Route::get('orders/{order}', [OrderController::class, 'view']);
+
+        Route::get('contactUses', [ContactUsController::class, 'index']);
+        Route::get('contactUses/statuses', [ContactUsController::class, 'getStatuses']);
+        Route::post('contactUses/change-status/{contactUs}/{status}', [ContactUsController::class, 'changeStatus']);
+        // Route::get('contactUses/{contactUs}', [ContactUsController::class, 'view']);
+        Route::get('contactUs/{contactUs}', [ContactUsController::class, 'view']);
 
         Route::get('/dashboard/customers-count', [DashboardController::class, 'activeCustomers']);
         Route::get('/dashboard/products-count', [DashboardController::class, 'activeProducts']);

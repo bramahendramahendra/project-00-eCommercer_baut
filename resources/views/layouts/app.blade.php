@@ -109,7 +109,7 @@
                                         <a href="{{ route('katalog') }}" class="text-sm leading-6 text-gray-600 hover:text-gray-900">{{ __('Katalog Produk') }}</a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('contantUs') }}" class="text-sm leading-6 text-gray-600 hover:text-gray-900">{{ __('Hubungi Kami') }}</a>
+                                        <a href="{{ route('contactUs') }}" class="text-sm leading-6 text-gray-600 hover:text-gray-900">{{ __('Hubungi Kami') }}</a>
                                     </li>
                                     <li>
                                         <a href="{{ route('terms_and_conditions') }}" class="text-sm leading-6 text-gray-600 hover:text-gray-900">{{ __('Syarat') }} &amp; {{ __('Ketentuan') }}</a>
