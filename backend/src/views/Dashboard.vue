@@ -57,11 +57,33 @@
                 </div>
             </dl>
         </div>
+
+        <div>
+            <dl class="mt-5 grid grid-cols-1 grid-rows-1 gap-5 sm:grid-cols-1 sm:grid-rows-1 lg:grid-cols-3 lg:grid-rows-2">
+                <div class="relative overflow-hidden rounded-lg col-span-2 row-span-2 bg-white px-4 pb-5 pt-5 shadow sm:px-6 sm:pt-6 sm:pb-6">
+                    <DoughnutChart :width="140" :height="200" :data="chartData" />
+                </div>
+                <div class="relative overflow-hidden rounded-lg bg-white px-4 pb-5 pt-5 shadow sm:px-6 sm:pt-6 sm:pb-6">
+                    <DoughnutChart :width="140" :height="200" :data="chartData" />
+                </div>
+            </dl>
+        </div>
     </div>
 </template>
 
 <script setup>
-import { UsersIcon, Square3Stack3DIcon } from '@heroicons/vue/24/outline'
+    import { UsersIcon, Square3Stack3DIcon } from '@heroicons/vue/24/outline'
+    import DoughnutChart from '../components/core/Charts/Doughnut.vue'
+
+    const chartData = {
+        labels: ['VueJs', 'EmberJs', 'ReactJs', 'AngularJs'],
+        datasets: [
+            {
+                backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
+                data: [25, 25, 10, 40]
+            }
+        ]
+    }
 </script>
 
 <style scoped>
