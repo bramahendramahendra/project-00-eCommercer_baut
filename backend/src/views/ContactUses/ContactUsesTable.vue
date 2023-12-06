@@ -1,10 +1,10 @@
 <template>
     <div class="mt-8 flow-root animate-fade-in-down">
-        <div class="flex justify-between bcontactUs-b-2 pb-3">
+        <div class="flex justify-between border-b-2 pb-3">
             <div class="flex items-center">
                 <span class="whitespace-nowrap mr-3">Per Page</span>
                 <select @change="getContactUses(null)" v-model="perPage"
-                    class="appearance-none relative block w-24 px-3 py-2 bcontactUs bcontactUs-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:bcontactUs-indigo-500 focus:z-10 sm:text-sm">
+                    class="appearance-none relative block w-24 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="20">20</option>
@@ -14,7 +14,7 @@
             </div>
             <div>
                 <input v-model="search" @change="getContactUses(null)"
-                    class="appearance-none relative block w-48 px-3 py-2 bcontactUs bcontactUs-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:bcontactUs-indigo-500 focus:z-10 sm:text-sm"
+                    class="appearance-none relative block w-48 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                     placeholder="Cari Contact Us">
             </div>
         </div>
@@ -84,7 +84,7 @@
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><ContactUsStatus :contactUs="contactUs" /></td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ contactUs.created_at }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                <router-link :to="{ name: 'app.contactUses.view', params: { id: contactUs.id } }" class="w-8 h-8 rounded-full text-indigo-500 bcontactUs bcontactUs-indigo-500 flex justify-center items-center hover:text-white hover:bg-indigo-500">
+                                <router-link :to="{ name: 'app.contactUses.view', params: { id: contactUs.id } }" class="w-8 h-8 rounded-full text-indigo-500 border border-indigo-500 flex justify-center items-center hover:text-white hover:bg-indigo-500">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -106,8 +106,8 @@
                         aria-label="Pagination">
                         <a v-for="(link, i) of contactUses.links" :key="i" :disabled="!link.url" href="#"
                             @click.prevent="getForPage($event, link)" aria-current="page"
-                            class="relative inline-flex items-center px-4 py-2 bcontactUs text-sm font-medium whitespace-nowrap"
-                            :class="[link.active ? 'z-10 bg-indigo-50 bcontactUs-indigo-500 text-indigo-600' : 'bg-white bcontactUs-gray-300 text-gray-500 hover:bg-gray-50', i === 0 ? 'rounded-l-md' : '', i === contactUses.links.length - 1 ? 'rounded-r-md' : '', !link.url ? 'bg-gray-100 text-gray-700' : '']"
+                            class="relative inline-flex items-center px-4 py-2 border text-sm font-medium whitespace-nowrap"
+                            :class="[link.active ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50', i === 0 ? 'rounded-l-md' : '', i === contactUses.links.length - 1 ? 'rounded-r-md' : '', !link.url ? 'bg-gray-100 text-gray-700' : '']"
                             v-html="link.label">
                         </a>
                     </nav>

@@ -20,7 +20,7 @@
             <h3 class="text-base font-semibold leading-7 text-gray-900">Contact Us Detail</h3>
             <!-- <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p> -->
         </div>
-        <div class="mt-6 bcontactUs-t bcontactUs-gray-100">
+        <div class="mt-6 border-t border-gray-100">
             <dl class="divide-y divide-gray-100">
                 <div class="bg-gray-50 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
                     <dt class="text-sm font-medium leading-6 text-gray-900">ID</dt>
@@ -38,7 +38,7 @@
                         <div>
                             <select v-model="contactUs.status" @change="onStatusChange" id="country" name="country"
                                 autocomplete="country-name"
-                                class="block w-full rounded-md bcontactUs-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                                 <option v-for="status of contactUsStatuses" :value="status">{{ status }}</option>
                             </select>
                         </div>

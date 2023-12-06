@@ -640,7 +640,6 @@ export function updateCustomer({ commit }, customer) {
     return axiosClient.put(`/customers/${customer.id}`, customer)
 }
 
-
 export function getContactUses({ commit, state }, { url = null, search = '', per_page, sort_field, sort_direction } = {}) {
     commit('setContactUses', [true])
     url = url || '/contactUses'
@@ -666,3 +665,22 @@ export function getContactUs({ commit }, id) {
     return axiosClient.get(`/contactUs/${id}`)
 }
 
+export function getNewsletters({ commit, state }, { url = null, search = '', per_page, sort_field, sort_direction } = {}) {
+    commit('setNewsletters', [true])
+    url = url || '/newsletters'
+    const params = {
+        per_page: state.newsletters.limit,
+    }
+    return axiosClient.get(url, {
+        params: {
+            ...params,
+            search, per_page, sort_field, sort_direction
+        }
+    })
+        .then((response) => {
+            commit('setNewsletters', [false, response.data])
+        })
+        .catch(() => {
+            commit('setNewsletters', [false])
+        })
+}

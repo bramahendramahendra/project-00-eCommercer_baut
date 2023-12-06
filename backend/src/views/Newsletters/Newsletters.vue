@@ -1,18 +1,22 @@
-<!--
-Say Hello World with Vue!
--->
-
+<template>
+    <!-- <pre>{{ newsletters }}</pre> -->
+    <div class="px-4 sm:px-6 lg:px-8">
+        <div class="sm:flex sm:items-center">
+            <div class="sm:flex-auto">
+                <h1 class="text-base font-semibold leading-6 text-gray-900">Newsletters</h1>
+                <!-- <p class="mt-2 text-sm text-gray-700">A list of all the newsletters in your account including their name, title, email and role.</p> -->
+            </div>
+        </div>
+        <NewslettersTable />
+    </div>
+</template>
+  
 <script setup>
-import { ref } from 'vue'
+    import { computed } from 'vue';
+    import store from '../../store';
+    import NewslettersTable from './NewslettersTable.vue';
 
-// A "ref" is a reactive data source that stores a value.
-// Technically, we don't need to wrap the string with ref()
-// in order to display it, but we will see in the next
-// example why it is needed if we ever intend to change
-// the value.
-const message = ref('Hello World!')
+    const newsletters = computed(() => store.state.newsletters)
 </script>
 
-<template>
-    <h1>{{ message }}</h1>
-</template>
+<style scoped></style>
