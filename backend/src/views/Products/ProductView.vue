@@ -9,11 +9,11 @@
     </div>
     <div v-if="product.loading || !product">
         <Spinner class="my-4" v-if="product.loading" />
-        <p v-else class="text-center py-8 text-gray-700">
+        <p v-else class="text-center py-8 text-gray-700 animate-fade-in-down">
             There are no product
         </p>
     </div>
-    <div v-else>
+    <div v-else class="animate-fade-in-down">
         <div class="px-4 sm:px-0">
             <h3 class="text-base font-semibold leading-7 text-gray-900">Product Detail</h3>
             <!-- <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p> -->

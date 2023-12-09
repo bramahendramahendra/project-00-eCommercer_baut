@@ -8,7 +8,7 @@
         <div>
             <h3 class="text-base font-semibold leading-6 text-gray-900 text-right">All Time</h3>
             <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                <div class="relative overflow-hidden rounded-lg bg-white px-4 pb-5 pt-5 shadow sm:px-6 sm:pt-6 sm:pb-6">
+                <div class="relative overflow-hidden rounded-lg bg-white px-4 pb-5 pt-5 shadow sm:px-6 sm:pt-6 sm:pb-6 animate-fade-in-down" style="animation-delay: 0.1s;">
                     <dt>
                         <div class="absolute rounded-md bg-indigo-500 p-3">
                             <UsersIcon class="h-6 w-6 text-white" aria-hidden="true" />
@@ -24,7 +24,7 @@
                     <Spinner v-else text="" class="ml-16 flex items-baseline" />
                 </div>
 
-                <div class="relative overflow-hidden rounded-lg bg-white px-4 pb-5 pt-5 shadow sm:px-6 sm:pt-6 sm:pb-6">
+                <div class="relative overflow-hidden rounded-lg bg-white px-4 pb-5 pt-5 shadow sm:px-6 sm:pt-6 sm:pb-6 animate-fade-in-down" style="animation-delay: 0.15s;">
                     <dt>
                         <div class="absolute rounded-md bg-indigo-500 p-3">
                             <Square3Stack3DIcon class="h-6 w-6 text-white" aria-hidden="true" />
@@ -39,7 +39,7 @@
                     <Spinner v-else text="" class="ml-16 flex items-baseline" />
                 </div>
 
-                <div class="relative overflow-hidden rounded-lg bg-white px-4 pb-5 pt-5 shadow sm:px-6 sm:pt-6 sm:pb-6">
+                <div class="relative overflow-hidden rounded-lg bg-white px-4 pb-5 pt-5 shadow sm:px-6 sm:pt-6 sm:pb-6 animate-fade-in-down" style="animation-delay: 0.2s;">
                     <dt>
                         <div class="absolute rounded-md bg-indigo-500 p-3">
                             <ShoppingCartIcon class="h-6 w-6 text-white" aria-hidden="true" />
@@ -54,7 +54,7 @@
                     <Spinner v-else text="" class="ml-16 flex items-baseline" />
                 </div>
 
-                <div class="relative overflow-hidden rounded-lg bg-white px-4 pb-5 pt-5 shadow sm:px-6 sm:pt-6 sm:pb-6">
+                <div class="relative overflow-hidden rounded-lg bg-white px-4 pb-5 pt-5 shadow sm:px-6 sm:pt-6 sm:pb-6 animate-fade-in-down" style="animation-delay: 0.25s;">
                     <dt>
                         <div class="absolute rounded-md bg-indigo-500 p-3">
                             <BanknotesIcon class="h-6 w-6 text-white" aria-hidden="true" />
@@ -73,7 +73,7 @@
 
         <div>
             <dl class="mt-5 grid grid-cols-1 grid-rows-1 gap-5 sm:grid-cols-1 sm:grid-rows-1 lg:grid-cols-3 lg:grid-rows-2">
-                <div class="relative overflow-hidden rounded-lg col-span-2 row-span-2 bg-white px-4 pb-5 pt-5 shadow sm:px-6 sm:pt-6 sm:pb-6">
+                <div class="relative overflow-hidden rounded-lg col-span-2 row-span-2 bg-white px-4 pb-5 pt-5 shadow sm:px-6 sm:pt-6 sm:pb-6 animate-fade-in-down" style="animation-delay: 0.3s;">
                     <dt>
                         <p class="text-lg font-medium text-gray-500">Latest Orders</p>
                     </dt>
@@ -95,7 +95,7 @@
                     </template>
                     <Spinner v-else text="" class="" />
                 </div>
-                <div class="relative overflow-hidden rounded-lg bg-white px-4 pb-5 pt-5 shadow sm:px-6 sm:pt-6 sm:pb-6">
+                <div class="relative overflow-hidden rounded-lg bg-white px-4 pb-5 pt-5 shadow sm:px-6 sm:pt-6 sm:pb-6 animate-fade-in-down" style="animation-delay: 0.35s;">
                      <dt>
                         <p class="text-lg font-medium text-gray-500">Latest Customers</p>
                     </dt>
