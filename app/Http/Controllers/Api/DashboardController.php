@@ -9,6 +9,7 @@ use App\Http\Resources\Dashboard\OrderResource;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -27,12 +28,26 @@ class DashboardController extends Controller
 
     public function paidOrders()
     {
-        return Order::where('status', OrderStatus::Paid->value)->count();
+        $fromDate = $this->getFromDate();
+        $query = Order::query()->where('status', OrderStatus::Paid->value);
+        
+        if($fromDate) {
+            $query->where('created_at', '>', $fromDate);
+        }
+
+        return $query->count();
     }
 
     public function totalIncome()
     {
-        return Order::where('status', OrderStatus::Paid->value)->sum('total_price');
+        $fromDate = $this->getFromDate();
+        $query = Order::query()->where('status', OrderStatus::Paid->value);
+        
+        if($fromDate) {
+            $query->where('created_at', '>', $fromDate);
+        }
+
+        return $query->sum('total_price');
     }
 
     public function latestCustomers()  
@@ -60,4 +75,21 @@ class DashboardController extends Controller
                 ->get()
         );
     } 
+
+    private function getFromDate() 
+    {
+        $request = \request();
+        $paramDate = $request->get('d');
+        $array = [
+            '2d' => Carbon::now()->subDays(1),
+            '1w' => Carbon::now()->subDays(7),
+            '2w' => Carbon::now()->subDays(14),
+            '1m' => Carbon::now()->subDays(30),
+            '3m' => Carbon::now()->subDays(60),
+            '6m' => Carbon::now()->subDays(180),
+            '1y' => Carbon::now()->subDays(360),
+        ];
+
+        return $array[$paramDate] ?? null;
+    }
 }

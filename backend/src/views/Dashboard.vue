@@ -6,9 +6,9 @@
             </div>
         </div>
         <div>
-            <div class="flex items-center">
-                <label class="mr-2 text-base font-semibold leading-6 text-gray-900 text-right">Change Date Period</label>
-                <CustomInput type="select" v-model="chosenDate" @change="onDatePickerChange" :select-options="dateOptions" class="text-base font-semibold leading-6 text-gray-900 max-w-xs ml-auto" />
+            <div class="flex justify-end items-center">
+                <label class="mr-2 text-base font-semibold leading-6 text-gray-900">Change Date Period</label>
+                <CustomInput type="select" v-model="chosenDate" @change="onDatePickerChange" :select-options="dateOptions" class="text-base font-semibold leading-6 text-gray-900 max-w-xs " />
             </div>
             <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
                 <div class="relative overflow-hidden rounded-lg bg-white px-4 pb-5 pt-5 shadow sm:px-6 sm:pt-6 sm:pb-6 animate-fade-in-down" style="animation-delay: 0.1s;">

@@ -16,7 +16,7 @@ Project eCommerce Baut
 - laravel
 - vue
 - alpine js
-
+= tailwind css
 - backend
 - frontend admin
 - frontend web
