@@ -84,11 +84,11 @@
                                 <roter-link :to="{name: 'app.orders.view', params: {id: o.id}}" class="text-indigo-700 font-semibold">
                                     Order #{{ o.id }}
                                 </roter-link>
-                                contains {{ o.items }} items, {{ o.total_price }}
+                                created {{ o.created_at }}. {{ o.items }} items
                             </p>
                             <p class="flex justify-between">
                                 <span>{{ o.first_name }} {{ o.last_name }}</span>
-                                <span>{{ o.created_at }}</span>
+                                <span>{{ $filters.currencyIDR(o.total_price) }}</span>
                             </p>
                         </div>
                         <!-- <DoughnutChart :width="140" :height="200" :data="chartData" /> -->
