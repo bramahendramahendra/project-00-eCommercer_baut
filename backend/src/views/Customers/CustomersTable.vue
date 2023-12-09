@@ -43,8 +43,10 @@
                     <tbody v-else class="bg-white">
                         <tr v-for="(customer, index) of customers.data" class="even:bg-gray-50">
                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">{{ customer.id }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ customer.name }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ customer.first_name }} {{ customer.last_name }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ customer.email }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ customer.phone }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ customer.status }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ customer.created_at }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                 <Menu as="div" class="relative inline-block text-left ">

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Material;
 use App\Models\Color;
-use App\Http\Resources\ProductResource;
 use App\Helpers\FilterHelper;
 use Illuminate\Http\Request;
 

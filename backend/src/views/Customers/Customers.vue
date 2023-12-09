@@ -20,9 +20,6 @@
     import CustomersTable from './CustomersTable.vue';
 
     const DEFAULT_EMPTY_OBJECT = {
-        id: '',
-        name: '',
-        email: '',
     }
 
     const customers = computed(() => store.state.customers)
@@ -33,9 +30,12 @@
         showCustomerModal.value = true
     }
 
-    function editCustomer(u) {
-        customerModel.value = u
-        showAddNewModal();
+    function editCustomer(c) {
+        store.dispatch('getCustomer', c.id)
+            .then(({ data }) => {
+                customerModel.value = data;
+                showAddNewModal();
+            })
     }
 
     function onModalClose() {

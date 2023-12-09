@@ -1,6 +1,6 @@
 <script>
-        window.menu = @json($menu);
-    </script>
+    window.menu = @json($menu);
+</script>
 <div x-data="{ mobileMenuOpen: false }">
     <!-- Mobile  -->
     <div x-cloak class="relative z-40 lg:hidden" role="dialog" aria-modal="true">
@@ -280,7 +280,8 @@
                         <div class="mt-10">
                             <div aria-hidden="true" class="pointer-events-none lg:absolute lg:inset-y-0 lg:mx-auto lg:w-full lg:max-w-7xl">
                                 <div class="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8">
-                                    @php
+                                    {{-- {{$headerImage}} --}}
+                                    {{-- @php
                                         $headerImage1 = file_exists(public_path('images/headerImage1.png')) ? asset('images/headerImage1.png') : asset('images/product_default.png');
                                         $headerImage2 = file_exists(public_path('images/headerImage2.png')) ? asset('images/headerImage2.png') : asset('images/product_default.png');
                                         $headerImage3 = file_exists(public_path('images/headerImage3.png')) ? asset('images/headerImage3.png') : asset('images/product_default.png');
@@ -288,16 +289,18 @@
                                         $headerImage5 = file_exists(public_path('images/headerImage5.png')) ? asset('images/headerImage5.png') : asset('images/product_default.png');
                                         $headerImage6 = file_exists(public_path('images/headerImage6.png')) ? asset('images/headerImage6.png') : asset('images/product_default.png');
                                         $headerImage7 = file_exists(public_path('images/headerImage7.png')) ? asset('images/headerImage7.png') : asset('images/product_default.png');
-                                    @endphp
+                                    @endphp --}}
                                     <div x-data="{
                                             headerImage:[
-                                                { src: '{{ $headerImage1 }}', alt: 'Gambar Header Produk 1' },
-                                                { src: '{{ $headerImage2 }}', alt: 'Gambar Header Produk 2' },
+                                                @foreach ($headerImages as $headerImage)
+                                                    { src: '{{ $headerImage->image }}', alt: '{{ $headerImage->slug }}' },  
+                                                @endforeach
+                                                {{-- { src: '{{ $headerImage2 }}', alt: 'Gambar Header Produk 2' },
                                                 { src: '{{ $headerImage3 }}', alt: 'Gambar Header Produk 3' },
                                                 { src: '{{ $headerImage4 }}', alt: 'Gambar Header Produk 4' },
                                                 { src: '{{ $headerImage5 }}', alt: 'Gambar Header Produk 5' },
                                                 { src: '{{ $headerImage6 }}', alt: 'Gambar Header Produk 6' },
-                                                { src: '{{ $headerImage7 }}', alt: 'Gambar Header Produk 7' },
+                                                { src: '{{ $headerImage7 }}', alt: 'Gambar Header Produk 7' }, --}}
                                             ]
                                         }" class="flex items-center space-x-6 lg:space-x-8">
                                         <div class="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">

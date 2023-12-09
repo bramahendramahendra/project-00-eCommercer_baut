@@ -12,12 +12,12 @@
                         enter-to="opacity-100 scale-100" leave="duration-200 ease-in" leave-from="opacity-100 scale-100"
                         leave-to="opacity-0 scale-95">
                         <DialogPanel
-                            class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all">
+                            class="w-full max-w-5xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all">
                             <Spinner v-if="loading"
                                 class="absolute left-0 top-0 bg-white right-0 bottom-0 flex items-center justify-center" />
                             <header class="py-3 px-4 flex justify-between items-center">
                                 <DialogTitle as="h3" class="text-lg leading-6 font-medium text-gray-900">
-                                    {{ customer.id ? `Update Customer: "${props.customer.name}"` : 'Tambah Customer Baru' }}
+                                    {{ customer.id ? `Update Customer: "${props.customer.first_name} ${props.customer.last_name}"` : 'Tambah Customer Baru' }}
                                 </DialogTitle>
                                 <button @click="closeModal()"
                                     class="w-8 h-8 flex items-center justify-center rounded-full transition-colors cursor-pointer hover:bg-[rgba(0,0,0,0.2)]">
@@ -29,11 +29,39 @@
                             </header>
                             <form @submit.prevent="onSubmit">
                                 <div class="bg-white px-4 pt-5 pb-4">
-                                    <CustomInput class="mb-2" v-model="customer.first_name" label="First Name " />
-                                    <CustomInput class="mb-2" v-model="customer.last_name" label="Last Name " />
+                                    <CustomInput class="mb-2" v-model="customer.first_name" label="First Name" />
+                                    <CustomInput class="mb-2" v-model="customer.last_name" label="Last Name" />
                                     <CustomInput class="mb-2" v-model="customer.email" label="Email" />
                                     <CustomInput class="mb-2" v-model="customer.phone" label="Phone" />
-                                    <CustomInput class="mb-2" v-model="customer.status" label="Status" />
+                                    <CustomInput type="checkbox" class="mb-2" v-model="customer.status" label="Active" />
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div>
+                                            <h2 class="text-xl font-semibold mt-6 pb-2 border-b border-gray-300">
+                                                Billing Address
+                                            </h2>
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                                <CustomInput v-model="customer.billingAddress.address1" label="Address 1" />
+                                                <CustomInput v-model="customer.billingAddress.address2" label="Address 2" />
+                                                <CustomInput v-model="customer.billingAddress.city" label="City" />
+                                                <CustomInput v-model="customer.billingAddress.zipcode" label="Zip Code" />
+                                                <CustomInput v-model="customer.billingAddress.country" label="Country" readonly="true" />
+                                                <CustomInput v-model="customer.billingAddress.state" label="State" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h2 class="text-xl font-semibold mt-6 pb-2 border-b border-gray-300">
+                                                Shipping Address
+                                            </h2>
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                                <CustomInput v-model="customer.shippingAddress.address1" label="Address 1" />
+                                                <CustomInput v-model="customer.shippingAddress.address2" label="Address 2" />
+                                                <CustomInput v-model="customer.shippingAddress.city" label="City" />
+                                                <CustomInput v-model="customer.shippingAddress.zipcode" label="Zip Code" />
+                                                <CustomInput v-model="customer.shippingAddress.country" label="Country" readonly="true" />
+                                                <CustomInput v-model="customer.shippingAddress.state" label="State" />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"
@@ -64,11 +92,7 @@ import CustomInput from '../../components/core/CustomInput.vue';
 import store from '../../store';
 import Spinner from '../../components/core/Spinner.vue';
 
-const customer = ref({
-    id: props.customer.id,
-    name: props.customer.name,
-    email: props.customer.email,
-})
+const customer = ref({})
 
 const loading = ref(false)
 
@@ -90,8 +114,17 @@ const show = computed({
 onUpdated(() => {
     customer.value = {
         id: props.customer.id,
-        name: props.customer.name,
+        first_name: props.customer.first_name,
+        last_name: props.customer.last_name,
         email: props.customer.email,
+        phone: props.customer.phone,
+        status: props.customer.status,
+        billingAddress: {
+            ...props.customer.billingAddress
+        },
+        shippingAddress: {
+            ...props.customer.shippingAddress
+        },
     }
 })
 
@@ -103,6 +136,7 @@ function closeModal() {
 function onSubmit() {
     loading.value = true
     if (customer.value.id) {
+        customer.value.status = !!customer.value.status
         store.dispatch('updateCustomer', customer.value)
             .then(response => {
                 loading.value = false;
