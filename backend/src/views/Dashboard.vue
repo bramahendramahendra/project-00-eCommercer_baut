@@ -103,37 +103,27 @@
                      <template v-if="!loading.latestCustomers">
                         <ul role="list" class="divide-y divide-gray-100">
                             <li v-for="person in latestCustomers" :key="person.id" class="relative py-5 hover:bg-gray-50">
-                                <div class="px-4 sm:px-6 lg:px-8">
-                                    <div class="mx-auto flex max-w-4xl justify-between gap-x-6">
-                                    <div class="flex min-w-0 gap-x-4">
-                                        <UserCircleIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12" />
-                                        <div class="min-w-0 flex-auto">
-                                            <p class="text-sm font-semibold leading-6 text-gray-900">  
-                                                <span class="absolute inset-x-0 -top-px bottom-0" />
-                                                {{ person.first_name }} {{ person.last_name }}
-                                            </p>
-                                            <p class="mt-1 flex text-xs leading-5 text-gray-500">
-                                                <a :href="`mailto:${person.email}`" class="relative truncate hover:underline">{{ person.email }}</a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="flex shrink-0 items-center gap-x-4">
-                                        <div class="hidden sm:flex sm:flex-col sm:items-end">
-                                            <p class="text-sm leading-6 text-gray-900">Customer</p>
-                                        <!-- <p v-if="person.lastSeen" class="mt-1 text-xs leading-5 text-gray-500"> -->
-                                            <!-- Last seen <time :datetime="person.lastSeenDateTime">{{ person.lastSeen }}</time> -->
-                                        <!-- </p>
-                                        <div v-else class="mt-1 flex items-center gap-x-1.5">
-                                            <div class="flex-none rounded-full bg-emerald-500/20 p-1">
-                                            <div class="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                                <router-link :to="{name: 'app.customers.view', params: {id: person.id}}">
+                                    <div class="px-4 sm:px-6 lg:px-8">
+                                        <div class="mx-auto flex max-w-4xl justify-between gap-x-6">
+                                            <div class="flex min-w-0 gap-x-4">
+                                                <UserCircleIcon fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12" />
+                                                <div class="min-w-0 flex-auto">
+                                                    <p class="text-sm font-semibold leading-6 text-gray-900">  
+                                                        <span class="absolute inset-x-0 -top-px bottom-0" />
+                                                        {{ person.first_name }} {{ person.last_name }}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <p class="text-xs leading-5 text-gray-500">Online</p>
-                                        </div> -->
+                                            <div class="flex shrink-0 items-center gap-x-4">
+                                                <div class="hidden sm:flex sm:flex-col sm:items-end">
+                                                    <p class="text-sm leading-6 text-gray-900">Customer</p>
+                                                </div>
+                                                <ChevronRightIcon class="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
+                                            </div>
                                         </div>
-                                        <ChevronRightIcon class="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
                                     </div>
-                                    </div>
-                                </div>
+                                </router-link>
                             </li>
                         </ul>
                     </template>
@@ -145,7 +135,7 @@
 </template>
 
 <script setup>
-    import { UserCircleIcon, UsersIcon, Square3Stack3DIcon, ShoppingCartIcon, BanknotesIcon } from '@heroicons/vue/24/outline';
+    import { UserCircleIcon, UsersIcon, Square3Stack3DIcon, ShoppingCartIcon, BanknotesIcon, ChevronRightIcon } from '@heroicons/vue/24/outline';
     import DoughnutChart from '../components/core/Charts/Doughnut.vue';
     import axiosClient from "../axios.js";
     import { ref } from 'vue';

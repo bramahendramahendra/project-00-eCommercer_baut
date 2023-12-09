@@ -48,7 +48,7 @@
                                                 <CustomInput v-model="customer.billingAddress.state" label="State" />
                                             </div>
                                         </div>
-                                         <div>
+                                        <div>
                                             <h2 class="text-xl font-semibold mt-6 pb-2 border-b border-gray-300">
                                                 Shipping Address
                                             </h2>
