@@ -6,7 +6,10 @@
             </div>
         </div>
         <div>
-            <h3 class="text-base font-semibold leading-6 text-gray-900 text-right">All Time</h3>
+            <div class="flex items-center">
+                <label class="mr-2 text-base font-semibold leading-6 text-gray-900 text-right">Change Date Period</label>
+                <CustomInput type="select" v-model="chosenDate" @change="onDatePickerChange" :select-options="dateOptions" class="text-base font-semibold leading-6 text-gray-900 max-w-xs ml-auto" />
+            </div>
             <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
                 <div class="relative overflow-hidden rounded-lg bg-white px-4 pb-5 pt-5 shadow sm:px-6 sm:pt-6 sm:pb-6 animate-fade-in-down" style="animation-delay: 0.1s;">
                     <dt>
@@ -81,9 +84,9 @@
                         <!-- <pre>{{ latestOrders }}</pre> -->
                         <div v-for="o of latestOrders" class="py-2 px-3 hover:bg-gray-50">   
                             <p>
-                                <roter-link :to="{name: 'app.orders.view', params: {id: o.id}}" class="text-indigo-700 font-semibold">
+                                <router-link :to="{name: 'app.orders.view', params: {id: o.id}}" class="text-indigo-700 font-semibold">
                                     Order #{{ o.id }}
-                                </roter-link>
+                                </router-link>
                                 created {{ o.created_at }}. {{ o.items }} items
                             </p>
                             <p class="flex justify-between">
@@ -138,8 +141,21 @@
     import { UserCircleIcon, UsersIcon, Square3Stack3DIcon, ShoppingCartIcon, BanknotesIcon, ChevronRightIcon } from '@heroicons/vue/24/outline';
     import DoughnutChart from '../components/core/Charts/Doughnut.vue';
     import axiosClient from "../axios.js";
-    import { ref } from 'vue';
+    import { onMounted, ref } from 'vue';
     import Spinner from '../components/core/Spinner.vue';
+    import CustomInput from '../components/core/CustomInput.vue';
+
+    const dateOptions = ref([
+        {key : '2d', text: 'Last Day' },
+        {key : '1w', text: 'Last Week' },
+        {key : '2w', text: 'Last 2 Weeks' },
+        {key : '1m', text: 'Last Month' },
+        {key : '3m', text: 'Last 3 Months' },
+        {key : '6m', text: 'Last 6 Months' },
+        {key : '1y', text: 'Last Year' },
+        {key : 'all', text: 'All Time' },
+    ]);
+    const chosenDate = ref('all')
 
     const chartData = {
         labels: ['VueJs', 'EmberJs', 'ReactJs', 'AngularJs'],
@@ -167,32 +183,50 @@
     const latestCustomers = ref([]);   
     const latestOrders = ref([]);   
 
-    axiosClient.get(`/dashboard/customers-count`).then(({data}) => {
-        customersCount.value = data;
-        loading.value.customersCount = false;
-    })
-    axiosClient.get(`/dashboard/products-count`).then(({data}) => {
-        productsCount.value = data;
-        loading.value.productsCount = false;
-    })
-    axiosClient.get(`/dashboard/orders-count`).then(({data}) => {
-        paidOrders.value = data;
-        loading.value.paidOrders = false;
-    })
-    axiosClient.get(`/dashboard/income-amount`).then(({data}) => {
-        totalIncome.value = new Intl.NumberFormat('ID', { style: 'currency', currency: 'IDR' }).format(
-            data,
-        );
-        loading.value.totalIncome = false;
-    })
-    axiosClient.get(`/dashboard/latest-customers`).then(({data: customers}) => {
-        latestCustomers.value = customers;
-        loading.value.latestCustomers = false;
-    })
-    axiosClient.get(`/dashboard/latest-orders`).then(({data: orders}) => {
-        latestOrders.value = orders.data;
-        loading.value.latestOrders = false;
-    })
+    function updateDashboard() {
+        const d = chosenDate.value;
+        loading.value = {
+            customersCount: true,
+            productsCount : true,
+            paidOrders : true,
+            totalIncome : true,
+            latestCustomers: true,
+            latestOrders: true,
+        }
+        axiosClient.get(`/dashboard/customers-count`,{params: {d}}).then(({ data }) => {
+            customersCount.value = data;
+            loading.value.customersCount = false;
+        })
+        axiosClient.get(`/dashboard/products-count`,{params: {d}}).then(({ data }) => {
+            productsCount.value = data;
+            loading.value.productsCount = false;
+        })
+        axiosClient.get(`/dashboard/orders-count`,{params: {d}}).then(({ data }) => {
+            paidOrders.value = data;
+            loading.value.paidOrders = false;
+        })
+        axiosClient.get(`/dashboard/income-amount`,{params: {d}}).then(({ data }) => {
+            totalIncome.value = new Intl.NumberFormat('ID', { style: 'currency', currency: 'IDR' }).format(
+                data,
+            );
+            loading.value.totalIncome = false;
+        })
+        axiosClient.get(`/dashboard/latest-customers`,{params: {d}}).then(({ data: customers }) => {
+            latestCustomers.value = customers;
+            loading.value.latestCustomers = false;
+        })
+        axiosClient.get(`/dashboard/latest-orders`,{params: {d}}).then(({ data: orders }) => {
+            latestOrders.value = orders.data;
+            loading.value.latestOrders = false;
+        })
+    }
+
+    function onDatePickerChange() {
+        // console.log("Changed", val);
+        updateDashboard()
+    }
+
+    onMounted(() => updateDashboard())
 </script>
 
 <style scoped>

@@ -46,7 +46,7 @@
                     :required="required" 
                     :value="props.modelValue"
                     :class="inputClasses"
-                    @input="emit('update:modelValue', $event.target.value)">
+                    @change="onChange($event.target.value)">
                     <option v-for="option of selectOptions" :value="option.key">{{ option.text }}</option>
                 </select>
             </template>
@@ -70,8 +70,8 @@
             </template>
             <template v-else-if="type === 'checkbox'">
                 <input :id="id"
-                    :type="type" 
                     :name="name" 
+                    :type="type" 
                     :checked="props.modelValue"
                     @change="emit('update:modelValue', $event.target.checked)" 
                     :required="required" 
@@ -111,7 +111,7 @@ import {
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 
 const props = defineProps({
-    modelValue: [String, Number, File, Object],
+    modelValue: [String, Number, File, Object, Boolean],
     label: String,
     type: {
         type: String,
@@ -187,6 +187,11 @@ const getOptionClass = (active, selected) => {
         // selected ? 'font-semibold' : ''
     ].join(' ');
 };
+
+function onChange(value) {
+    emit('update:modelValue', value)
+    emit('change', value)
+}
 
 
 </script>
