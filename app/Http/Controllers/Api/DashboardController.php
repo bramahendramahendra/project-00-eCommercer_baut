@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Enums\CustomerStatus;
 use App\Enums\OrderStatus;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Dashboard\OrderResource;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -43,4 +45,19 @@ class DashboardController extends Controller
             ->limit(5)
             ->get();
     }
+
+    public function latestOrders() {
+        return OrderResource::collection( 
+            Order::query()
+                ->select(['o.id', 'o.total_price', 'o.created_at', DB::raw('COUNT(oi.id) AS items'), 'c.user_id', 'c.first_name', 'c.last_name'])
+                ->from('orders AS o')
+                ->join('order_items AS oi', 'oi.order_id', '=', 'o.id')
+                ->join('customers AS c', 'c.user_id', '=', 'o.created_by')
+                ->where('o.status', OrderStatus::Paid->value)
+                ->limit(10)
+                ->orderBy('o.created_at', 'desc')
+                ->groupBy('o.id', 'o.total_price', 'o.created_at', 'c.user_id', 'c.first_name', 'c.last_name')
+                ->get()
+        );
+    } 
 }
