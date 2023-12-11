@@ -12,8 +12,7 @@ class TypeController extends Controller
 {
     public function getOptionTypes()
     {
-        $types = Type::all(['id', 'code', 'name']);
-        return TypeListResource::collection($types);
+        return Type::all(['id', 'name']);
     }
     /**
      * Display a listing of the resource.

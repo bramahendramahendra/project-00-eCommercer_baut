@@ -126,6 +126,8 @@ onUpdated(() => {
             ...props.customer.shippingAddress
         },
     }
+    console.log(customer);
+
 })
 
 function closeModal() {

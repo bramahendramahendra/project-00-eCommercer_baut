@@ -27,6 +27,10 @@ class TypeController extends Controller
         ));
     }
 
+    // public function getOptions() {
+    //     return Type::all(['id', 'name']);
+    // }
+
     // public function view(Product $product) {
     //     return view('product.view', ['product' => $product]);
     // }

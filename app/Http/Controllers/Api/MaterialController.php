@@ -12,8 +12,7 @@ class MaterialController extends Controller
 {
     public function getOptionMaterials()
     {
-        $materials = Material::all(['id', 'name']);
-        return MaterialListResource::collection($materials);
+        return Material::all(['id', 'name']);
     }
     /**
      * Display a listing of the resource.

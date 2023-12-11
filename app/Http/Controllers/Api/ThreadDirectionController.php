@@ -12,8 +12,7 @@ class ThreadDirectionController extends Controller
 {
     public function getOptionThreadDirections()
     {
-        $threadDirections = ThreadDirection::all(['id', 'name']);
-        return ThreadDirectionListResource::collection($threadDirections);
+        return ThreadDirection::all(['id', 'name']);
     }
     /**
      * Display a listing of the resource.

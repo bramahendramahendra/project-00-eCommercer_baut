@@ -23,26 +23,19 @@ import store from '../../store';
 import ProductModal from './ProductModal.vue';
 import ProductsTable from './ProductsTable.vue';
 
-const DEFAULT_EMPTY_OBJECT = {
-    id: '',
-    type: '',
-    code: '',
-    title: '',
-    image: '',
-    description: '',
-    price_retail: '',
-}
+const DEFAULT_PRODUCT = {}
 
 const products = computed(() => store.state.products);
+
+const productModel = ref({ ...DEFAULT_PRODUCT })
 const showProductModal = ref(false)
-const productModel = ref({ ...DEFAULT_EMPTY_OBJECT })
 
 function showAddNewModal() {
     showProductModal.value = true
 }
 
-function editProduct(product) {
-    store.dispatch('getProduct', product.id)
+function editProduct(p) {
+    store.dispatch('getProduct', p.id)
         .then(({ data }) => {
             productModel.value = data
             showAddNewModal()
@@ -50,7 +43,7 @@ function editProduct(product) {
 }
 
 function onModalClose() {
-    productModel.value = { ...DEFAULT_EMPTY_OBJECT }
+    productModel.value = { ...DEFAULT_PRODUCT }
 }
 
 </script>

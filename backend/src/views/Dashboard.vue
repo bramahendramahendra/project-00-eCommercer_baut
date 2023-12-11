@@ -213,6 +213,8 @@
         })
         axiosClient.get(`/dashboard/latest-customers`,{params: {d}}).then(({ data: customers }) => {
             latestCustomers.value = customers;
+            console.log(latestCustomers);
+
             loading.value.latestCustomers = false;
         })
         axiosClient.get(`/dashboard/latest-orders`,{params: {d}}).then(({ data: orders }) => {

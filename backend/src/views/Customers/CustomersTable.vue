@@ -171,8 +171,10 @@
         getCustomers();
     }
 
-    function editCustomer(p) {
-        emit('clickEdit', p)
+    function editCustomer(c) {
+        emit('clickEdit', c)
+        // console.log(c);
+
     }
 
     function deleteCustomer(customer) {

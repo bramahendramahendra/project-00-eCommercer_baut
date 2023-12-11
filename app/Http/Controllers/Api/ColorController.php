@@ -12,8 +12,7 @@ class ColorController extends Controller
 {
     public function getOptionColors()
     {
-        $colors = Color::all(['id', 'name']);
-        return ColorListResource::collection($colors);
+        return Color::all(['id', 'name']);
     }
     /**
      * Display a listing of the resource.

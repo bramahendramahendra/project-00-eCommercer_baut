@@ -6,6 +6,11 @@
                 <div class="fixed inset-0 bg-black bg-opacity-75" />
             </TransitionChild>
 
+            <!-- {{ product }} -->
+            <!-- {{ types }} -->
+            <!-- <pre>{{ types }}</pre> -->
+
+
             <div class="fixed inset-0 overflow-y-auto">
                 <div class="flex min-h-full items-center justify-center p-4 text-center">
                     <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0 scale-95"
@@ -30,7 +35,7 @@
                             <form @submit.prevent="onSubmit">
                                 <div class="bg-white grid grid-cols-3 gap-2 place-items-stretch px-4 pt-5 pb-4">
                                     <!-- <CustomInput class="mb-2" v-model="product.type_id" label="Jenis" /> -->
-                                    <CustomInput class="mb-2 col-span-3" type="combobox" v-model="selectedType" :options="types" optionValue="id" optionText="name" placeholder="Pilih Jenis" />
+                                    <CustomInput class="mb-2 col-span-3" type="combobox" v-model="product.type" :options="types" optionValue="id" optionText="name" placeholder="Pilih Jenis" />
                                     <CustomInput class="mb-2 col-span-1" v-model="product.code" label="Kode Produk" />
                                     <CustomInput class="mb-2 col-span-2" v-model="product.title" label="Judul Produk" />
                                     <CustomInput class="mb-2 col-span-1" type="file" v-model="product.image" label="Gambar Produk" @change="file => product.image = file" />
@@ -38,32 +43,33 @@
                                     <CustomInput class="mb-2 col-span-1" type="number" v-model="product.price_retail" label="Harga Eceran" prepend="Rp." />
                                     <CustomInput class="mb-2 col-span-1" type="number" v-model="product.quantity_limit" label="Max Kuantitas Eceran" prepend="Max" />
                                     <CustomInput class="mb-2 col-span-1" type="number" v-model="product.price_wholesale" label="Harga Grosir" prepend="Rp." />
-                                    <CustomInput class="mb-2 col-span-1" type="combobox" v-model="selectedUnit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Unit" />
-                                    <CustomInput class="mb-2 col-span-2" type="combobox" v-model="selectedMaterial" :options="materials" optionValue="id" optionText="name" placeholder="Pilih Material" />
+                                    <CustomInput class="mb-2 col-span-1" type="combobox" v-model="product.unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Unit" />
+                                    <CustomInput class="mb-2 col-span-2" type="combobox" v-model="product.material" :options="materials" optionValue="id" optionText="name" placeholder="Pilih Material" />
                                     <CustomInput class="mb-2 col-span-1" type="number" v-model="product.weight" label="Berat" prepend="" />
-                                    <CustomInput class="mb-2 col-span-2" type="combobox" v-model="selectedUnitWeight" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Berat" />
+                                    <CustomInput class="mb-2 col-span-2" type="combobox" v-model="product.weight_unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Berat" />
                                     <CustomInput class="mb-2 col-span-1" type="number"  v-model="product.contents_per_box" label="Isi Per Kotak" prepend="" />
-                                    <CustomInput class="mb-2 col-span-2" type="combobox" v-model="selectedUnitPerBox" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Per Box" />
+                                    <CustomInput class="mb-2 col-span-2" type="combobox" v-model="product.contents_per_box_unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Per Box" />
                                     <CustomInput class="mb-2 col-span-1" v-model="product.grade" label="Grade" />
-                                    <CustomInput class="mb-2 col-span-1" type="combobox" v-model="selectedThreadDirection" :options="threadDirections" optionValue="id" optionText="name" placeholder="Pilih Thread Direction" />
-                                    <CustomInput class="mb-2 col-span-1" type="combobox" v-model="selectedThreadDensity" :options="threadDensities" optionValue="id" optionText="name" placeholder="Pilih Thread Density" />
+                                    <CustomInput class="mb-2 col-span-1" type="combobox" v-model="product.thread_direction" :options="threadDirections" optionValue="id" optionText="name" placeholder="Pilih Thread Direction" />
+                                    <CustomInput class="mb-2 col-span-1" type="combobox" v-model="product.thread_density" :options="threadDensities" optionValue="id" optionText="name" placeholder="Pilih Thread Density" />
                                     <CustomInput class="mb-2 col-span-1" type="number" v-model="product.diameter" label="Diameter" prepend="" />
                                     <CustomInput class="mb-2 col-span-1" type="number" v-model="product.inner_diameter" label="Diameter Dalam" prepend="" />
                                     <CustomInput class="mb-2 col-span-1" type="number" v-model="product.outer_diameter" label="Diameter Luar" prepend="" />
-                                    <CustomInput class="mb-2 col-span-3" type="combobox" v-model="selectedUnitDiameter" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Diameter" />
+                                    <CustomInput class="mb-2 col-span-3" type="combobox" v-model="product.diameter_unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Diameter" />
                                     <CustomInput class="mb-2 col-span-1" type="number" v-model="product.length" label="Panjang" prepend="" />
-                                    <CustomInput class="mb-2 col-span-2" type="combobox" v-model="selectedUnitLength" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Panjang" />
+                                    <CustomInput class="mb-2 col-span-2" type="combobox" v-model="product.length_unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Panjang" />
                                     <CustomInput class="mb-2 col-span-1" type="number" v-model="product.thick_head" label="Tebal Kepala" prepend="" />
-                                    <CustomInput class="mb-2 col-span-2" type="combobox" v-model="selectedUnitThickHead" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Tebal Kepala" />
+                                    <CustomInput class="mb-2 col-span-2" type="combobox" v-model="product.thick_head_unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Tebal Kepala" />
                                     <CustomInput class="mb-2 col-span-1" type="number" v-model="product.drat_length" label="Panjang drat (b)" prepend="" />
-                                    <CustomInput class="mb-2 col-span-2" type="combobox" v-model="selectedUnitDratLength" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Panjang drat" />
-                                    <CustomInput class="mb-2 col-span-3" type="combobox" v-model="selectedColor" :options="colors" optionValue="id" optionText="name" placeholder="Pilih Warna" />
+                                    <CustomInput class="mb-2 col-span-2" type="combobox" v-model="product.drat_length_unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Panjang drat" />
+                                    <CustomInput class="mb-2 col-span-3" type="combobox" v-model="product.color" :options="colors" optionValue="id" optionText="name" placeholder="Pilih Warna" />
                                     <CustomInput class="mb-2 col-span-1" v-model="product.drat_type" label="Tipe drat" />
                                     <CustomInput class="mb-2 col-span-1" v-model="product.drat_size" label="Ukuran Drat" />
                                     <CustomInput class="mb-2 col-span-1" v-model="product.dimensional_standart" label="Dimensional Standart" />
                                     <CustomInput class="mb-2 col-span-1" v-model="product.head_style" label="Head Style" />
                                     <CustomInput class="mb-2 col-span-1" v-model="product.drive_type" label="Drive Type" />
                                     <CustomInput class="mb-2 col-span-1" v-model="product.across_flats" label="Kunci Kepala" />
+                                    <CustomInput class="mb-2" type="checkbox" v-model="product.published" label="Published" />
                                 </div>
                                 <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"
@@ -82,7 +88,7 @@
 </template>
   
 <script setup>
-import { computed, ref, onMounted, watch } from 'vue'
+import { computed, ref, onUpdated } from 'vue'
 import {
     TransitionRoot,
     TransitionChild,
@@ -94,43 +100,7 @@ import Spinner from '../../components/core/Spinner.vue';
 import store from '../../store';
 import CustomInput from '../../components/core/CustomInput.vue';
 
-const product = ref({
-    id: props.product.id,
-    type_id: props.product.type_id,
-    code: props.product.code,
-    title: props.product.title,
-    image: props.product.image,
-    description: props.product.description,
-    price_retail: props.product.price_retail,
-    price_wholesale: props.product.price_wholesale,
-    quantity_limit: props.product.quantity_limit,
-    unit_id: props.product.unit_id,
-    material_id: props.product.material_id,
-    weight: props.product.weight,
-    weight_unit_id: props.product.weight_unit_id,
-    contents_per_box: props.product.contents_per_box,
-    contents_per_box_unit_id: props.product.contents_per_box_unit_id,
-    grade: props.product.grade,
-    thread_direction_id: props.product.thread_direction_id,
-    thread_density_id: props.product.thread_density_id,
-    diameter: props.product.diameter,
-    inner_diameter: props.product.inner_diameter,
-    outer_diameter: props.product.outer_diameter,
-    diameter_unit_id: props.product.diameter_unit_id,
-    length: props.product.length,
-    length_unit_id: props.product.length_unit_id,
-    thick_head: props.product.thick_head,
-    thick_head_unit_id: props.product.thick_head_unit_id,
-    drat_length: props.product.drat_length,
-    drat_length_unit_id: props.product.drat_length_unit_id,
-    drat_size: props.product.drat_size,
-    dimensional_standart: props.product.dimensional_standart,
-    head_style: props.product.head_style,
-    drive_type: props.product.drive_type,
-    across_flats: props.product.across_flats,
-    drat_type: props.product.drat_type,
-    color_id: props.product.color_id,
-})
+const product = ref({})  
 
 const loading = ref(false)
 
@@ -155,271 +125,135 @@ const materials = ref([]);
 const threadDensities = ref([]);
 const threadDirections = ref([]);
 const colors = ref([]);
-const selectedType = ref('');
-const selectedUnit = ref('');
-const selectedMaterial = ref('');
-const selectedUnitWeight = ref('');
-const selectedUnitPerBox = ref('');
-const selectedThreadDirection = ref('');
-const selectedThreadDensity = ref('');
-const selectedUnitDiameter = ref('');
-const selectedUnitLength = ref('');
-const selectedUnitThickHead = ref('');
-const selectedUnitDratLength = ref('');
-const selectedColor = ref('');
 
-onMounted(async () => {
-    types.value = await store.dispatch('getOptionTypes');
-    units.value = await store.dispatch('getOptionUnits');
-    materials.value = await store.dispatch('getOptionMaterials');
-    colors.value = await store.dispatch('getOptionColors');
-    threadDensities.value = await store.dispatch('getOptionThreadDensities');
-    threadDirections.value = await store.dispatch('getOptionThreadDirections');
-    setSelectedType();
-    setSelectedUnit();
-    setSelectedMaterial();
-    setSelectedUnitWeight();
-    setSelectedUnitPerBox();
-    setSelectedThreadDirection();
-    setSelectedThreadDensity();
-    setSelectedUnitDiameter();
-    setSelectedUnitLength();
-    setSelectedUnitThickHead();
-    setSelectedUnitDratLength();
-    setSelectedColor();
+onUpdated(() => {
+    getProduct();
+    getOptions();
 });
 
-watch(() => props.product, (newProduct) => {
-    product.value = { ...newProduct };
-    setSelectedType();
-    setSelectedUnit();
-    setSelectedMaterial();
-    setSelectedUnitWeight();
-    setSelectedUnitPerBox();
-    setSelectedThreadDirection();
-    setSelectedThreadDensity();
-    setSelectedUnitDiameter();
-    setSelectedUnitLength();
-    setSelectedUnitThickHead();
-    setSelectedUnitDratLength();
-    setSelectedColor();
-});
-
-
-function setSelectedType() {
-    if (product.value && product.value.type_id) {
-        const type = types.value.find(c => c.id === product.value.type_id);
-        selectedType.value = type || null;
-    } else {
-        selectedType.value = null;
-    }
+function getProduct() {
+    product.value = {
+        id: props.product.id,
+        type: props.product.type,
+        code: props.product.code,
+        image: props.product.image,
+        title: props.product.title,
+        description: props.product.description,
+        price_retail: props.product.price_retail,
+        quantity_limit: props.product.quantity_limit,
+        price_wholesale: props.product.price_wholesale,
+        unit: props.product.unit,
+        material: props.product.material,
+        weight: props.product.weight,
+        weight_unit: props.product.weight_unit,
+        contents_per_box: props.product.contents_per_box,
+        contents_per_box_unit: props.product.contents_per_box_unit,
+        grade: props.product.grade,
+        thread_direction: props.product.thread_direction,
+        thread_density: props.product.thread_density,
+        diameter: props.product.diameter,
+        inner_diameter: props.product.inner_diameter,
+        outer_diameter: props.product.outer_diameter,
+        diameter_unit: props.product.diameter_unit,
+        length: props.product.length,
+        length_unit: props.product.length_unit,
+        thick_head: props.product.thick_head,
+        thick_head_unit: props.product.thick_head_unit,
+        drat_length: props.product.drat_length,
+        drat_length_unit: props.product.drat_length_unit,
+        drat_size: props.product.drat_size,
+        dimensional_standart: props.product.dimensional_standart,
+        head_style: props.product.head_style,
+        drive_type: props.product.drive_type,
+        across_flats: props.product.across_flats,
+        drat_type: props.product.drat_type,
+        color: props.product.color,
+        published: props.product.published,
+    };
 }
 
-function setSelectedUnit() {
-    if (product.value && product.value.unit_id) {
-        const unit = units.value.find(c => c.id === product.value.unit_id);
-        selectedUnit.value = unit || null;
-    } else {
-        selectedUnit.value = null;
-    }
+function getOptions() {
+    store.dispatch('getOptionTypes')
+        .then(({ data }) => {
+            types.value = data
+        })
+    store.dispatch('getOptionUnits')
+        .then(({ data }) => {
+            units.value = data;
+        });
+    store.dispatch('getOptionMaterials')
+        .then(({ data }) => {
+            materials.value = data;
+        });
+    store.dispatch('getOptionThreadDensities')
+        .then(({ data }) => {
+           threadDensities.value = data;
+        });
+    store.dispatch('getOptionThreadDirections')
+        .then(({ data }) => {
+           threadDirections.value = data;
+        });
+    store.dispatch('getOptionColors')
+        .then(({ data }) => {
+           colors.value = data;
+        });
 }
-
-function setSelectedMaterial() {
-    if (product.value && product.value.material_id) {
-        const material = materials.value.find(c => c.id === product.value.material_id);
-        selectedMaterial.value = material || null;
-    } else {
-        selectedMaterial.value = null;
-    }
-}
-
-function setSelectedUnitWeight() {
-    if (product.value && product.value.weight_unit_id) {
-        const unit = units.value.find(c => c.id === product.value.weight_unit_id);
-        selectedUnitWeight.value = unit || null;
-    } else {
-        selectedUnitWeight.value = null;
-    }
-}
-
-function setSelectedUnitPerBox() {
-    if (product.value && product.value.contents_per_box_unit_id) {
-        const unit = units.value.find(c => c.id === product.value.contents_per_box_unit_id);
-        selectedUnitPerBox.value = unit || null;
-    } else {
-        selectedUnitPerBox.value = null;
-    }
-}
-
-function setSelectedThreadDirection() {
-    if (product.value && product.value.thread_direction_id) {
-        const threadDirection = threadDirections.value.find(c => c.id === product.value.thread_direction_id);
-        selectedThreadDirection.value = threadDirection || null;
-    } else {
-        selectedThreadDirection.value = null;
-    }
-}
-
-function setSelectedThreadDensity() {
-    if (product.value && product.value.thread_density_id) {
-        const threadDensity = threadDensities.value.find(c => c.id === product.value.thread_density_id);
-        selectedThreadDensity.value = threadDensity || null;
-    } else {
-        selectedThreadDensity.value = null;
-    }
-}
-
-function setSelectedUnitDiameter() {
-    if (product.value && product.value.diameter_unit_id) {
-        const unit = units.value.find(c => c.id === product.value.diameter_unit_id);
-        selectedUnitDiameter.value = unit || null;
-    } else {
-        selectedUnitDiameter.value = null;
-    }
-}
-
-function setSelectedUnitLength() {
-    if (product.value && product.value.length_unit_id) {
-        const unit = units.value.find(c => c.id === product.value.length_unit_id);
-        selectedUnitLength.value = unit || null;
-    } else {
-        selectedUnitLength.value = null;
-    }
-}
-
-function setSelectedUnitThickHead() {
-    if (product.value && product.value.thick_head_unit_id) {
-        const unit = units.value.find(c => c.id === product.value.thick_head_unit_id);
-        selectedUnitThickHead.value = unit || null;
-    } else {
-        selectedUnitThickHead.value = null;
-    }
-}
-
-function setSelectedUnitDratLength() {
-    if (product.value && product.value.drat_length_unit_id) {
-        const unit = units.value.find(c => c.id === product.value.drat_length_unit_id);
-        selectedUnitDratLength.value = unit || null;
-    } else {
-        selectedUnitDratLength.value = null;
-    }
-}
-
-function setSelectedColor() {
-    if (product.value && product.value.color_id) {
-        const color = colors.value.find(c => c.id === product.value.color_id);
-        selectedColor.value = color || null;
-    } else {
-        selectedColor.value = null;
-    }
-}
-
-// onUpdated(() => {
-//     product.value = {
-//         id: props.product.id,
-//         code: props.product.code,
-//         title: props.product.title,
-//         image: props.product.image,
-//         description: props.product.description,
-//         price_retail: props.product.price_retail,
-//     }
-// })
 
 function closeModal() {
-    selectedType.value = null;
-    selectedUnit.value = null;
-    selectedMaterial.value = null;
-    selectedUnitWeight.value = null;
-    selectedUnitPerBox.value = null;
-    selectedThreadDirection.value = null;
-    selectedThreadDensity.value = null;
-    selectedUnitDiameter.value = null;
-    selectedUnitLength.value = null;
-    selectedUnitThickHead.value = null;
-    selectedUnitDratLength.value = null;
-    selectedColor.value = null;
     show.value = false
     emit('close')
 }
 
 function onSubmit() {
+    // debugger;
+    // console.log(product);
     loading.value = true
-    if (selectedType.value) {
-        product.value.type_id = selectedType.value.id;
-    }
-    if (selectedUnit.value) {
-        product.value.unit_id = selectedUnit.value.id;
-    }
-    if (selectedMaterial.value) {
-        product.value.material_id = selectedMaterial.value.id;
-    }
-    if (selectedUnitWeight.value) {
-        product.value.weight_unit_id = selectedUnitWeight.value.id;
-    }
-    if (selectedUnitPerBox.value) {
-        product.value.contents_per_box_unit_id = selectedUnitPerBox.value.id;
-    }
-    if (selectedThreadDirection.value) {
-        product.value.thread_direction_id = selectedThreadDirection.value.id;
-    }
-    if (selectedThreadDensity.value) {
-        product.value.thread_density_id = selectedThreadDensity.value.id;
-    }
-    if (selectedUnitDiameter.value) {
-        product.value.diameter_unit_id = selectedUnitDiameter.value.id;
-    }
-    if (selectedUnitLength.value) {
-        product.value.length_unit_id = selectedUnitLength.value.id;
-    }
-    if (selectedUnitThickHead.value) {
-        product.value.thick_head_unit_id = selectedUnitThickHead.value.id;
-    }
-    if (selectedUnitDratLength.value) {
-        product.value.drat_length_unit_id = selectedUnitDratLength.value.id;
-    }
-    if (selectedColor.value) {
-        product.value.color_id = selectedColor.value.id;
-    }
 
     const payload = {
         id: product.value.id,
-        type_id: product.value.type_id,
-        code: product.value.code,
-        title: product.value.title,
+        type_id: product.value.type?product.value.type.id:'',
+        code: product.value.code?product.value.code:'',
+        title: product.value.title?product.value.title:'',
+        // image: product.value.image instanceof File ? product.value.image : undefined,
         image: product.value.image,
-        description: product.value.description,
-        price_retail: product.value.price_retail,
-        price_wholesale: product.value.price_wholesale,
-        unit_id: product.value.unit_id,
-        material_id: product.value.material_id,
-        weight: product.value.weight,
-        weight_unit_id: product.value.weight_unit_id,
-        contents_per_box: product.value.contents_per_box,
-        contents_per_box_unit_id: product.value.contents_per_box_unit_id,
-        grade: product.value.grade,
-        thread_direction_id: product.value.thread_direction_id,
-        thread_density_id: product.value.thread_density_id,
-        diameter: product.value.diameter,
-        inner_diameter: product.value.inner_diameter,
-        outer_diameter: product.value.outer_diameter,
-        diameter_unit_id: product.value.diameter_unit_id,
-        length: product.value.length,
-        length_unit_id: product.value.length_unit_id,
-        thick_head: product.value.thick_head,
-        thick_head_unit_id: product.value.thick_head_unit_id,
-        drat_length: product.value.drat_length,
-        drat_length_unit_id: product.value.drat_length_unit_id,
-        drat_size: product.value.drat_size,
-        dimensional_standart: product.value.dimensional_standart,
-        head_style: product.value.head_style,
-        drive_type: product.value.drive_type,
-        across_flats: product.value.across_flats,
-        drat_type: product.value.drat_type,
-        color_id: product.value.color_id,
+        description: product.value.description?product.value.description:'',
+        price_retail: product.value.price_retail?product.value.price_retail:'',
+        quantity_limit: product.value.quantity_limit?product.value.quantity_limit:'',
+        price_wholesale: product.value.price_wholesale?product.value.price_wholesale:'',
+        unit_id: product.value.unit? product.value.unit.id:'',
+        material_id: product.value.material?product.value.material.id:'',
+        weight: product.value.weight?product.value.weight:'',
+        weight_unit_id: product.value.weight_unit?product.value.weight_unit.id:'',
+        contents_per_box: product.value.contents_per_box?product.value.contents_per_box:'',
+        contents_per_box_unit_id: product.value.contents_per_box_unit?product.value.contents_per_box_unit.id:'',
+        grade: product.value.grade?product.value.grade:'',
+        thread_direction_id: product.value.thread_direction?product.value.thread_direction.id:'',
+        thread_density_id: product.value.thread_density?product.value.thread_density.id:'',
+        diameter: product.value.diameter?product.value.diameter:'',
+        inner_diameter: product.value.inner_diameter?product.value.inner_diameter:'',
+        outer_diameter: product.value.outer_diameter?product.value.outer_diameter:'',
+        diameter_unit_id: product.value.diameter_unit?product.value.diameter_unit.id:'',
+        length: product.value.length?product.value.length:'',
+        length_unit_id: product.value.length_unit?product.value.length_unit.id:'',
+        thick_head: product.value.thick_head?product.value.thick_head:'',
+        thick_head_unit_id: product.value.thick_head_unit?product.value.thick_head_unit.id:'',
+        drat_length: product.value.drat_length?product.value.drat_length:'',
+        drat_length_unit_id: product.value.drat_length_unit?product.value.drat_length_unit.id:'',
+        drat_size: product.value.drat_size?product.value.drat_size:'',
+        dimensional_standart: product.value.dimensional_standart?product.value.dimensional_standart:'',
+        head_style: product.value.head_style?product.value.head_style:'',
+        drive_type: product.value.drive_type?product.value.drive_type:'',
+        across_flats: product.value.across_flats?product.value.across_flats:'',
+        drat_type: product.value.drat_type?product.value.drat_type:'',
+        color_id: product.value.color?product.value.color.id:'',
+        published: product.value.published?product.value.published:0,
     };
 
+    // console.log(payload);
+    //  debugger;
+
     if (product.value.id) {
-        debugger;
+        // debugger;
         store.dispatch('updateProduct', payload)
             .then(response => {
                 loading.value = false;
@@ -429,7 +263,7 @@ function onSubmit() {
                 }
             })
     } else {
-        debugger;
+        // debugger;
         store.dispatch('createProduct', payload)
             .then(response => {
                 loading.value = false;

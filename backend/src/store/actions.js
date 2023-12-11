@@ -41,75 +41,28 @@ export function getOptionCategories({ commit }) {
 }
 
 export function getOptionTypes({ commit }) {
-    commit('setOptionTypes', [true]);
-    return axiosClient.get('/types/options')
-        .then(res => {
-            commit('setOptionTypes', [false, res.data]);
-            return res.data.data;
-        })
-        .catch(error => {
-            commit('setOptionTypes', [false]);
-        })
+    return axiosClient.get(`/types/options`)
+    
 }
 
 export function getOptionUnits({ commit }) {
-    commit('setOptionUnits', [true]);
     return axiosClient.get('/units/options')
-        .then(res => {
-            commit('setOptionUnits', [false, res.data]);
-            return res.data.data;
-        })
-        .catch(error => {
-            commit('setOptionUnits', [false]);
-        })
 }
 
 export function getOptionMaterials({ commit }) {
-    commit('setOptionMaterials', [true]);
     return axiosClient.get('/materials/options')
-        .then(res => {
-            commit('setOptionMaterials', [false, res.data]);
-            return res.data.data;
-        })
-        .catch(error => {
-            commit('setOptionMaterials', [false]);
-        })
 }
 
 export function getOptionColors({ commit }) {
-    commit('setOptionColors', [true]);
     return axiosClient.get('/colors/options')
-        .then(res => {
-            commit('setOptionColors', [false, res.data]);
-            return res.data.data;
-        })
-        .catch(error => {
-            commit('setOptionColors', [false]);
-        })
 }
 
 export function getOptionThreadDensities({ commit }) {
-    commit('setOptionThreadDensities', [true]);
     return axiosClient.get('/threadDensities/options')
-        .then(res => {
-            commit('setOptionThreadDensities', [false, res.data]);
-            return res.data.data;
-        })
-        .catch(error => {
-            commit('setOptionThreadDensities', [false]);
-        })
 }
 
 export function getOptionThreadDirections({ commit }) {
-    commit('setOptionThreadDirections', [true]);
     return axiosClient.get('/threadDirections/options')
-        .then(res => {
-            commit('setOptionThreadDirections', [false, res.data]);
-            return res.data.data;
-        })
-        .catch(error => {
-            commit('setOptionThreadDirections', [false]);
-        })
 }
 
 export function getProducts({ commit, state }, { url = null, search = '', per_page, sort_field, sort_direction } = {}) {
@@ -137,14 +90,45 @@ export function getProduct({ commit }, id) {
 }
 
 export function createProduct({ commit }, product) {
+    // debugger;
     if (product.image instanceof File) {
         const form = new FormData();
-        // form.append('type_id', product.type_id);
+        form.append('type_id', product.type_id);
         form.append('code', product.code);
         form.append('title', product.title);
+        // form.append('image', product.image);
         form.append('image', product.image);
-        form.append('description', product.description);
+        form.append('description', product.description || '');
         form.append('price_retail', product.price_retail);
+        form.append('quantity_limit', product.quantity_limit);
+        form.append('price_wholesale',product.price_wholesale);
+        form.append('unit_id',product.unit_id);
+        form.append('material_id',product.material_id);
+        form.append('weight',product.weight);
+        form.append('unit_weight_id',product.weight_unit_id);
+        form.append('contents_per_box',product.contents_per_box);
+        form.append('unit_contents_per_box_id',product.contents_per_box_unit_id);
+        form.append('grade',product.grade);
+        form.append('thread_direction_id',product.thread_direction_id);
+        form.append('thread_density_id',product.thread_density_id);
+        form.append('diameter',product.diameter);
+        form.append('inner_diameter',product.inner_diameter);
+        form.append('outer_diameter',product.outer_diameter);
+        form.append('unit_diameter_id',product.diameter_unit_id);
+        form.append('length',product.length);
+        form.append('unit_length_id',product.length_unit_id);
+        form.append('thick_head',product.thick_head);
+        form.append('unit_thick_head_id',product.thick_head_unit_id);
+        form.append('drat_length',product.drat_length);
+        form.append('unit_drat_length_id',product.drat_length_unit_id);
+        form.append('drat_size',product.drat_size);
+        form.append('dimensional_standart',product.dimensional_standart);
+        form.append('head_style',product.head_style);
+        form.append('drive_type',product.drive_type);
+        form.append('across_flats',product.across_flats);
+        form.append('drat_type',product.drat_type);
+        form.append('color_id',product.color_id);
+        form.append('published', product.published ? 1 : 0);
         product = form;
     }
 
@@ -157,12 +141,41 @@ export function updateProduct({ commit }, product) {
     if (product.image instanceof File) {
         const form = new FormData();
         form.append('id', product.id);
-        // form.append('type_id', product.type_id);
+        form.append('type_id', product.type_id);
         form.append('code', product.code);
-        form.append('title', product.name);
+        form.append('title', product.title);
         form.append('image', product.image);
-        form.append('description', product.description);
+        form.append('description', product.description || '');
         form.append('price_retail', product.price_retail);
+        form.append('quantity_limit', product.quantity_limit);
+        form.append('price_wholesale', product.price_wholesale);
+        form.append('unit_id', product.unit_id);
+        form.append('material_id', product.material_id);
+        form.append('weight', product.weight);
+        form.append('unit_weight_id', product.weight_unit_id);
+        form.append('contents_per_box', product.contents_per_box);
+        form.append('unit_contents_per_box_id', product.contents_per_box_unit_id);
+        form.append('grade', product.grade);
+        form.append('thread_direction_id', product.thread_direction_id);
+        form.append('thread_density_id', product.thread_density_id);
+        form.append('diameter', product.diameter);
+        form.append('inner_diameter', product.inner_diameter);
+        form.append('outer_diameter', product.outer_diameter);
+        form.append('unit_diameter_id', product.diameter_unit_id);
+        form.append('length', product.length);
+        form.append('unit_length_id', product.length_unit_id);
+        form.append('thick_head', product.thick_head);
+        form.append('unit_thick_head_id', product.thick_head_unit_id);
+        form.append('drat_length', product.drat_length);
+        form.append('unit_drat_length_id', product.drat_length_unit_id);
+        form.append('drat_size', product.drat_size);
+        form.append('dimensional_standart', product.dimensional_standart);
+        form.append('head_style', product.head_style);
+        form.append('drive_type', product.drive_type);
+        form.append('across_flats', product.across_flats);
+        form.append('drat_type', product.drat_type);
+        form.append('color_id', product.color_id);
+        form.append('published', product.published?1:0);
         form.append('_method', 'PUT');
         product = form;
     } else {

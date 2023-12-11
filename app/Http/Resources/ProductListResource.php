@@ -25,11 +25,11 @@ class ProductListResource extends JsonResource
             'type' => [
                 // 'id' => $type->id, 
                 // 'code' => $type->code, 
-                'name' => $type->name, 
+                'name' => $type?->name??'', 
                 'category' => [
                     // 'id' => $category->id, 
                     // 'code' => $category->code,
-                    'name' => $category->name, 
+                    'name' => $category?->name??'', 
                 ]
             ],
             'price_retail' => $this->price_retail,
