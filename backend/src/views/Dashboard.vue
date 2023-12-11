@@ -139,7 +139,7 @@
 
 <script setup>
     import { UserCircleIcon, UsersIcon, Square3Stack3DIcon, ShoppingCartIcon, BanknotesIcon, ChevronRightIcon } from '@heroicons/vue/24/outline';
-    import DoughnutChart from '../components/core/Charts/Doughnut.vue';
+    // import DoughnutChart from '../components/core/Charts/Doughnut.vue';
     import axiosClient from "../axios.js";
     import { onMounted, ref } from 'vue';
     import Spinner from '../components/core/Spinner.vue';

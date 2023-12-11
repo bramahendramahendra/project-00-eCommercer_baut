@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\ContactUsController;
 use App\Http\Controllers\Api\NewslettersController;
+use App\Http\Controllers\Api\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -74,6 +75,9 @@ Route::middleware(['auth:sanctum', 'admin'])
         Route::get('/dashboard/income-amount', [DashboardController::class, 'totalIncome']);
         Route::get('/dashboard/latest-customers', [DashboardController::class, 'latestCustomers']);
         Route::get('/dashboard/latest-orders', [DashboardController::class, 'latestOrders']);
+        
+        Route::get('/report/orders', [ReportController::class, 'orders']);
+        Route::get('/report/customers', [ReportController::class, 'customers']);
     });
 
 Route::post('/login',[AuthController::class, 'login']);

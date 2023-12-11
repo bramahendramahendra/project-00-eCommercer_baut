@@ -266,6 +266,7 @@ const navigation = [
     { name: 'Thread Densities', to: { name: 'app.threadDensities' }, icon: FunnelIcon, current: false },
     { name: 'Thread Directions', to: { name: 'app.threadDirections' }, icon: ArrowLongRightIcon, current: false },
     { name: 'Orders', to: { name: 'app.orders' }, icon: ShoppingCartIcon, current: false },
+    { name: 'Reports', to: { name: 'reports.orders' }, icon: ShoppingCartIcon, current: false },
 ]
 const settingNavigations = [
     { name: 'Users', to: { name: 'app.users' }, icon: UsersIcon, current: false },
