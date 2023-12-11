@@ -206,6 +206,27 @@ document.addEventListener('alpine:init', () => {
         }
     }));
     
+    Alpine.data('invoiceData', (items) => ({
+        items: items,
+        jumlahOngkir: 5.00,
+        jumlahpajak: 8.32,
+        discount: 0, // Anda bisa menentukan diskon di sini atau mengambil dari server
+        subtotal: 0,
+        total: 0,
+        // console.log();
+        init() {
+            this.calculateSubtotal();
+        },
+        calculateSubtotal() {
+            this.subtotal = this.items.reduce((total, item) => {
+                return total + (item.quantity * item.unit_price);
+            }, 0);
+            this.calculateTotal();
+        },
+        calculateTotal() {
+            this.total = this.subtotal + this.jumlahOngkir + this.jumlahpajak - this.discount;
+        },
+    }));
 });
 
 Alpine.start();

@@ -76,11 +76,22 @@ class CheckoutController extends Controller
 
             $adminUsers = User::where('is_admin', 1)->get();
 
-            foreach ([...$adminUsers, $order->user] as $user) {
-                Mail::to($user)->send(new NewOrderEmail($order, (bool)$user->is_admin));
-            }
+            // dimatiin dulu biar gak numpuk di mail.io 
+            // foreach ([...$adminUsers, $order->user] as $user) {
+            //     Mail::to($user)->send(new NewOrderEmail($order, (bool)$user->is_admin));
+            // }
 
-            return view('checkout.success', compact('customer'));
+            // $invoice =  Order::with('items')->find($order->id);;
+            $invoice =  Order::find($order->id);
+
+            // $invoice = Order::query()
+            //     ->where(['id' => $order->id])
+            //     ->get();
+
+            dump($invoice);
+            
+            // exit;
+            return view('checkout.success', compact('customer', 'invoice'));
         }
         catch (\Exception $e) {
             return view('checkout.failure', ['message' => $e->getMessage()]);
