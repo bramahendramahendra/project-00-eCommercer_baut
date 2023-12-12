@@ -29,3 +29,13 @@ Project eCommerce Baut
 npm i vue-chartjs chart.js
 ```
 3. buat file untuk config chart seperti pada file : backend\src\components\core\Charts\Doughnut.vue
+
+
+## install laravel-debugbar
+
+untuk mengecek sebelum di publish
+1. untuk link github https://github.com/barryvdh/laravel-debugbar
+2. cara install jalankan
+```bash
+composer require barryvdh/laravel-debugbar --dev
+```
