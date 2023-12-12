@@ -1,15 +1,16 @@
 <template>
-    <Bar v-if="chartData" :data="chartData" :options="chartOptions" />
+    <Line v-if="chartData" :data="chartData" :options="chartOptions" />
 </template>
 
 <script>
-import { Bar } from 'vue-chartjs'
+import { Line } from 'vue-chartjs'
 import {
     Chart as ChartJS,
     Title,
     Tooltip,
     Legend,
-    BarElement,
+    LineElement,
+    PointElement,
     CategoryScale,
     LinearScale
 } from 'chart.js'
@@ -18,14 +19,15 @@ ChartJS.register(
     Title,
     Tooltip,
     Legend,
-    BarElement,
+    LineElement,
+    PointElement,
     CategoryScale,
     LinearScale
 )
 
 export default {
-    name: 'BarChart',
-    components: { Bar },
+    name: 'LineChart',
+    components: { Line },
     props: {
         chartData: {
             type: Object,
