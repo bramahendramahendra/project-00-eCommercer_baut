@@ -141,20 +141,15 @@
     import { UserCircleIcon, UsersIcon, Square3Stack3DIcon, ShoppingCartIcon, BanknotesIcon, ChevronRightIcon } from '@heroicons/vue/24/outline';
     // import DoughnutChart from '../components/core/Charts/Doughnut.vue';
     import axiosClient from "../axios.js";
-    import { onMounted, ref } from 'vue';
+    import { computed, onMounted, ref } from 'vue';
     import Spinner from '../components/core/Spinner.vue';
     import CustomInput from '../components/core/CustomInput.vue';
+    import { useStore } from "vuex";
 
-    const dateOptions = ref([
-        {key : '2d', text: 'Last Day' },
-        {key : '1w', text: 'Last Week' },
-        {key : '2w', text: 'Last 2 Weeks' },
-        {key : '1m', text: 'Last Month' },
-        {key : '3m', text: 'Last 3 Months' },
-        {key : '6m', text: 'Last 6 Months' },
-        {key : '1y', text: 'Last Year' },
-        {key : 'all', text: 'All Time' },
-    ]);
+    const store = useStore();
+
+    const dateOptions = computed(() => store.state.dateOptions);
+
     const chosenDate = ref('all')
 
     const chartData = {
