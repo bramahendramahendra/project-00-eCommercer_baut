@@ -13,7 +13,15 @@
                 </a>
             </p>
         </div>
+
+       
+
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            @if (session('error'))
+                <div class="py-2 px-3 bg-red-500 text-white">
+                    {{ session('error') }}
+                </div>
+            @endif
             <form 
                 action="{{ route('register') }}" 
                 method="POST"
