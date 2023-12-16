@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -26,12 +28,7 @@ class ProfileController extends Controller
         $customer = $user->customer;
         $shippingAddress = $customer->shippingAddress ?: new CustomerAddress(['type' => AddressType::Shipping]);
         $billingAddress = $customer->billingAddress ?: new CustomerAddress(['type' => AddressType::Billing]);
-        // return view('profile.edit', [
-        //     'user' => $request->user(),
-        // ]);
-
-        // dd($customer, $shippingAddress->attributesToArray(), $billingAddress, $billingAddress->customer);
-        // dd($customer, $billingAddress, $billingAddress->customer);
+        
         return view('profile.edit', compact('customer', 'user', 'shippingAddress', 'billingAddress'));
     }
 
@@ -55,22 +52,31 @@ class ProfileController extends Controller
         }
 
         $user->save();
-        $customer->update($customerData);
+        
+        DB::beginTransaction();
+        try {
+            $customer->update($customerData);
 
-        if($customer->shippingAddress) {   
-            $customer->shippingAddress->update($shippingData);
-        } else {
-            $shippingData['customer_id'] = $customer->user_id;
-            $shippingData['type'] = AddressType::Shipping->value;
-            CustomerAddress::create($shippingData);
+            if($customer->shippingAddress) {   
+                $customer->shippingAddress->update($shippingData);
+            } else {
+                $shippingData['customer_id'] = $customer->user_id;
+                $shippingData['type'] = AddressType::Shipping->value;
+                CustomerAddress::create($shippingData);
+            }
+            if($customer->billingAddress) {   
+                $customer->billingAddress->update($billingData);
+            } else {
+                $billingData['customer_id'] = $customer->user_id;
+                $billingData['type'] = AddressType::Billing->value;
+                CustomerAddress::create($billingData);
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::critical(__METHOD__ . ' method does not work. '. $e->getMessage());
+            throw $e;
         }
-        if($customer->billingAddress) {   
-            $customer->billingAddress->update($billingData);
-        } else {
-            $billingData['customer_id'] = $customer->user_id;
-            $billingData['type'] = AddressType::Billing->value;
-            CustomerAddress::create($billingData);
-        }
+        DB::commit();
         
         $request->session()->flash('flash_message', 'Profile berhasil di update.');
 

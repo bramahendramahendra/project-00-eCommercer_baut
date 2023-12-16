@@ -56,25 +56,17 @@ class RegisteredUserController extends Controller
             $customer->first_name = $names[0];
             $customer->last_name = $names[1] ?? '';
             $customer->save();
-            
-            DB::commit();
-            
+           
             Auth::login($user);
-       
-            Cart::moveCartItemsIntoDb();
-
-            return redirect(RouteServiceProvider::HOME);
         } catch (\Exception $e) {
-            $user->delete();
-            DB::rollback();
-            return redirect()->back()->withInput()->with('error', 'Anda tidak dapat melakukan registrasi saat ini.');
-        } catch (\Throwable $e) {
-            $user->delete();
             DB::rollback();
             return redirect()->back()->withInput()->with('error', 'Anda tidak dapat melakukan registrasi saat ini.');
         }
 
-      
+        DB::commit();
+            
+        Cart::moveCartItemsIntoDb();
 
+        return redirect(RouteServiceProvider::HOME);
     }
 }
