@@ -205,8 +205,8 @@
                                 </div>
                                 {{-- New Modal Invoice  --}}
                                 <table class="mt-4 w-full text-gray-500 sm:mt-6">
-                                    <caption class="sr-only">
-                                        Products
+                                    <caption class="sr-only">                                        
+                                        {{ __('Produk') }}
                                     </caption>
                                     <thead class="sr-only text-left text-sm text-gray-500 sm:not-sr-only">
                                         <tr>
@@ -355,14 +355,10 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-                                       
-
-                                        <!-- More products... -->
                                     </tbody>
                                 </table>
                             </div>
                         @endforeach
-                        <!-- More orders... -->
                         <div>
                             {{ $orders->links() }}
                         </div>
