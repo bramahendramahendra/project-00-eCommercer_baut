@@ -31,22 +31,22 @@ class CustomerResource extends JsonResource
             'updated_at' => (new \DateTime($this->updated_at))->format('Y-m-d H:i:s'),
 
             'shippingAddress' => [
-                'id' => $shipping->id,
-                'address1' => $shipping->address1,
-                'address2' => $shipping->address2,
-                'city' => $shipping->city,
-                'state' => $shipping->state,
-                'zipcode' => $shipping->zipcode,
-                'country' => $shipping->country,
+                'id' => $shipping?->id,
+                'address1' => $shipping?->address1,
+                'address2' => $shipping?->address2,
+                'city' => $shipping?->city,
+                'state' => $shipping?->state,
+                'zipcode' => $shipping?->zipcode,
+                'country' => $shipping?->country?? 'Indonesia',
             ],
             'billingAddress' => [
-                'id' => $billing->id,
-                'address1' => $billing->address1,
-                'address2' => $billing->address2,
-                'city' => $billing->city,
-                'state' => $billing->state,
-                'zipcode' => $billing->zipcode,
-                'country' => $billing->country,
+                'id' => $billing?->id,
+                'address1' => $billing?->address1,
+                'address2' => $billing?->address2,
+                'city' => $billing?->city,
+                'state' => $billing?->state,
+                'zipcode' => $billing?->zipcode,
+                'country' => $billing?->country?? 'Indonesia',
             ]
         ];
     }

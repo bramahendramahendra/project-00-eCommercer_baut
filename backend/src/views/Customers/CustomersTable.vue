@@ -134,6 +134,26 @@
     const sortField = ref('updated_at')
     const sortDirection = ref('desc')
 
+    const errors = ref({
+        first_name: [],
+        last_name: [],
+        email: [],
+        phone: [],
+        status: [],
+        'billingAddress.address1': [],
+        'billingAddress.address2': [],
+        'billingAddress.city': [],
+        'billingAddress.state': [],
+        'billingAddress.country': [],
+        'billingAddress.zipcode': [],
+        'shippingAddress.address1': [],
+        'shippingAddress.address2': [],
+        'shippingAddress.city': [],
+        'shippingAddress.state': [],
+        'shippingAddress.country': [],
+        'shippingAddress.zipcode': [],
+    })
+
     onMounted(() => {
         getCustomers();
     })  

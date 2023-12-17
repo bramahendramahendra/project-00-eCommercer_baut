@@ -21,11 +21,11 @@
                 <table class="min-w-full divide-y divide-gray-300">
                     <thead>
                         <tr>
-                            <TableHeaderCell @click="sortType" scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3" field="id" :sort-field="sortField" :sort-direction="sortDirection">ID</TableHeaderCell>
-                            <TableHeaderCell @click="sortType" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="category_name" :sort-field="sortField" :sort-direction="sortDirection">Kategori</TableHeaderCell>
-                            <TableHeaderCell @click="sortType" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="code" :sort-field="sortField" :sort-direction="sortDirection">Kode</TableHeaderCell>
-                            <TableHeaderCell @click="sortType" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="name" :sort-field="sortField" :sort-direction="sortDirection">Nama</TableHeaderCell>
-                            <TableHeaderCell @click="sortType" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="updated_at" :sort-field="sortField" :sort-direction="sortDirection">Last Updated At</TableHeaderCell>
+                            <TableHeaderCell @click="sortType('id')" scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3" field="id" :sort-field="sortField" :sort-direction="sortDirection">ID</TableHeaderCell>
+                            <TableHeaderCell @click="sortType('category_name')" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="category_name" :sort-field="sortField" :sort-direction="sortDirection">Kategori</TableHeaderCell>
+                            <TableHeaderCell @click="sortType('code')" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="code" :sort-field="sortField" :sort-direction="sortDirection">Kode</TableHeaderCell>
+                            <TableHeaderCell @click="sortType('name')" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="name" :sort-field="sortField" :sort-direction="sortDirection">Nama</TableHeaderCell>
+                            <TableHeaderCell @click="sortType('updated_at')" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="updated_at" :sort-field="sortField" :sort-direction="sortDirection">Last Updated At</TableHeaderCell>
                             <TableHeaderCell field="actions">Actions</TableHeaderCell>
                         </tr>
                     </thead>
@@ -144,7 +144,7 @@
             sort_field: sortField.value,
             sort_direction: sortDirection.value,
             search: search.value,
-            perPage: perPage.value
+            per_page: perPage.value
         })
     }
 
@@ -171,8 +171,8 @@
         getTypes();
     }
 
-    function editType(type) {
-        emit('clickEdit', type)
+    function editType(t) {
+        emit('clickEdit', t)
     }
 
     function deleteType(type) {

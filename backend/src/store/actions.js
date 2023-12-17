@@ -26,23 +26,11 @@ export function logout({ commit }) {
 }
 
 export function getOptionCategories({ commit }) {
-    commit('setOptionCategories', [true]);
     return axiosClient.get('/categories/options')
-        .then(res => {
-            // debugger;
-            commit('setOptionCategories', [false, res.data]);
-            return res.data.data; // res.data sudah merupakan array dari kategori
-        })
-        .catch(error => {
-            commit('setOptionCategories', [false]);
-            // console.error('Error fetching categories:', error);
-            // Menangani error lebih lanjut
-        })
 }
 
 export function getOptionTypes({ commit }) {
     return axiosClient.get(`/types/options`)
-    
 }
 
 export function getOptionUnits({ commit }) {

@@ -29,7 +29,7 @@
                             </header>
                             <form @submit.prevent="onSubmit">
                                 <div class="bg-white px-4 pt-5 pb-4">
-                                    <CustomInput class="mb-2" v-model="material.name" label="Nama Bahan" />
+                                    <CustomInput class="mb-2" v-model="material.name" label="Nama Bahan" :errors="errors.name" />
                                 </div>
                                 <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"
@@ -63,6 +63,9 @@ import CustomInput from '../../components/core/CustomInput.vue';
 const material = ref({
     id: props.material.id,
     name: props.material.name,
+})
+const errors = ref({
+    name: [],
 })
 
 const loading = ref(false)
@@ -106,6 +109,11 @@ function onSubmit() {
                     closeModal()
                 }
             })
+            .catch(err => {
+                loading.value = false;
+                //  show.value = true
+                errors.value = err.response.data.errors;
+            })
     } else {
         store.dispatch('createMaterial', material.value)
             .then(response => {
@@ -115,6 +123,11 @@ function onSubmit() {
                     store.dispatch('getMaterials')
                     closeModal()
                 }
+            })
+            .catch(err => {
+                loading.value = false;
+                //  show.value = true
+                errors.value = err.response.data.errors;
             })
     }
 }

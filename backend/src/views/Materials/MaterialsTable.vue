@@ -21,9 +21,9 @@
                 <table class="min-w-full divide-y divide-gray-300">
                     <thead>
                         <tr>
-                            <TableHeaderCell @click="sortMaterial" scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3" field="id" :sort-field="sortField" :sort-direction="sortDirection">ID</TableHeaderCell>
-                            <TableHeaderCell @click="sortMaterial" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="name" :sort-field="sortField" :sort-direction="sortDirection">Nama</TableHeaderCell>
-                            <TableHeaderCell @click="sortMaterial" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="updated_at" :sort-field="sortField" :sort-direction="sortDirection">Last Updated At</TableHeaderCell>
+                            <TableHeaderCell @click="sortMaterial('id')" scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3" field="id" :sort-field="sortField" :sort-direction="sortDirection">ID</TableHeaderCell>
+                            <TableHeaderCell @click="sortMaterial('name')" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="name" :sort-field="sortField" :sort-direction="sortDirection">Nama</TableHeaderCell>
+                            <TableHeaderCell @click="sortMaterial('updated_at')" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="updated_at" :sort-field="sortField" :sort-direction="sortDirection">Last Updated At</TableHeaderCell>
                             <TableHeaderCell field="actions">Actions</TableHeaderCell>
                         </tr>
                     </thead>

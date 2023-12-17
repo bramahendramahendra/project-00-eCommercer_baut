@@ -29,11 +29,10 @@
                             </header>
                             <form @submit.prevent="onSubmit">
                                 <div class="bg-white px-4 pt-5 pb-4">
-                                    <CustomInput class="mb-2" type="combobox" v-model="selectedCategory" :options="categories" optionValue="id" optionText="name" placeholder="Pilih Kategori"  />
-                                    <CustomInput class="mb-2" v-model="type.code" label="Kode Jenis" />
-                                    <CustomInput class="mb-2" v-model="type.name" label="Nama Jenis" />
-                                    <CustomInput type="textarea" class="mb-2" v-model="type.description"
-                                        label="Deskripsi Jenis" />
+                                    <CustomInput class="mb-2" type="combobox" v-model="type.category" :options="categories" optionValue="id" optionText="name" placeholder="Pilih Kategori" :errors="errors.category" />
+                                    <CustomInput class="mb-2" v-model="type.code" label="Kode Jenis" :errors="errors.code" />
+                                    <CustomInput class="mb-2" v-model="type.name" label="Nama Jenis" :errors="errors.name" />
+                                    <CustomInput type="textarea" class="mb-2" v-model="type.description" label="Deskripsi Jenis" :errors="errors.description" />
                                 </div>
                                 <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"
@@ -52,7 +51,7 @@
 </template>
   
 <script setup>
-import { computed, ref, onMounted, watch } from 'vue'
+import { computed, ref, onUpdated } from 'vue'
 import {
     TransitionRoot,
     TransitionChild,
@@ -64,12 +63,13 @@ import Spinner from '../../components/core/Spinner.vue';
 import store from '../../store';
 import CustomInput from '../../components/core/CustomInput.vue';
 
-const type = ref({
-    id: props.type.id,
-    category_id: props.type.category_id,
-    code: props.type.code,
-    name: props.type.name,
-    description: props.type.description,
+const type = ref({})
+
+const errors = ref({
+    category: [],
+    code: [],
+    name: [],
+    description: [],
 })
 
 const loading = ref(false)
@@ -90,55 +90,48 @@ const show = computed({
 })
 
 const categories = ref([]);
-const selectedCategory = ref('');
 
-// onMounted(async () => {
-//     categories.value = await store.dispatch('getOptionCategories');
-//     if (type.value.category_id) {
-//         selectedCategory.value = categories.value.find(c => c.id === type.value.category_id) || null;
-//     }
-// });
-
-onMounted(async () => {
-    categories.value = await store.dispatch('getOptionCategories');
-    setSelectedCategory();
+onUpdated(() => {
+    getCategory();
+    getOptions();
 });
 
-watch(() => props.type, (newType) => {
-    type.value = { ...newType };
-    setSelectedCategory();
-});
-
-function setSelectedCategory() {
-    if (type.value && type.value.category_id) {
-        const category = categories.value.find(c => c.id === type.value.category_id);
-        selectedCategory.value = category || null;
-    } else {
-        selectedCategory.value = null;
-    }
+function getCategory() {
+    type.value = {
+        id: props.type.id,
+        category: props.type.category,
+        code: props.type.code,
+        name: props.type.name,
+        description: props.type.description,
+    };
 }
 
+
+function getOptions() {
+    store.dispatch('getOptionCategories')
+        .then(({ data }) => {
+            categories.value = data
+        })
+}
+
+
 function closeModal() {
-    selectedCategory.value = null;
     show.value = false
     emit('close')
 }
 
 function onSubmit() {
     loading.value = true
-    if (selectedCategory.value) {
-        type.value.category_id = selectedCategory.value.id;
-    }
 
     const payload = {
-        category_id: type.value.category_id,
-        code: type.value.code,
-        description: type.value.description,
-        id: type.value.id,
-        name: type.value.name,
+        id: type.value.id?type.value.id:'',
+        category_id: type.value.category? type.value.category.id : '',
+        code: type.value.code?type.value.code:'',
+        name: type.value.name?type.value.name:'',
+        description: type.value.description?type.value.description:'',
     };
     if (type.value.id) {
-        debugger;
+        debuagger;
         store.dispatch('updateType', payload)
             .then(response => {
                 loading.value = false;
@@ -147,6 +140,11 @@ function onSubmit() {
                     store.dispatch('getTypes')
                     closeModal()
                 }
+            })
+            .catch(err => {
+                loading.value = false;
+                //  show.value = true
+                errors.value = err.response.data.errors;
             })
     } else {
         debugger;
@@ -159,6 +157,11 @@ function onSubmit() {
                     store.dispatch('getTypes')
                     closeModal()
                 }
+            })
+            .catch(err => {
+                loading.value = false;
+                //  show.value = true
+                errors.value = err.response.data.errors;
             })
     }
 }

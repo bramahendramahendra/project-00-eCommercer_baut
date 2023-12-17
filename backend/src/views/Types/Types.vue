@@ -7,18 +7,18 @@
                 <!-- <p class="mt-2 text-sm text-gray-700">A list of all the users in your account including their name, title, email and role.</p> -->
             </div>
             <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                <button type="button" @click="showTypeModal"
+                <button type="button" @click="showAddNewModal"
                     class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah</button>
             </div>
         </div>
-        <TypeModal v-model="showModal" :type="typeModel" @close="onModalClose" />
+        <TypeModal v-model="showTypeModel" :type="typeModel" @close="onModalClose" />
         <TypesTable @clickEdit="editType" />
 
     </div>
 </template>
   
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import TypesTable from './TypesTable.vue';
 import TypeModal from './TypeModal.vue';
 import store from '../../store';
@@ -32,18 +32,20 @@ const DEFAULT_EMPTY_OBJECT = {
     description: '',
 }
 
-const showModal = ref(false)
-const typeModel = ref({ ...DEFAULT_EMPTY_OBJECT })
+const types = computed(() => store.state.types);
 
-function showTypeModal() {
-    showModal.value = true
+const typeModel = ref({ ...DEFAULT_EMPTY_OBJECT })
+const showTypeModel = ref(false)
+
+function showAddNewModal() {
+    showTypeModel.value = true
 }
 
 function editType(type) {
     store.dispatch('getType', type.id)
         .then(({ data }) => {
             typeModel.value = data
-            showTypeModal()
+            showAddNewModal()
         })
 }
 
