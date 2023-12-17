@@ -178,6 +178,7 @@
         store.dispatch('deleteColor', color.id)
             .then(res => {
                 // TODO Show notification 
+                store.commit('showToast', 'Color berhasil dihapus.');
                 store.dispatch('getColors')
             })
     }

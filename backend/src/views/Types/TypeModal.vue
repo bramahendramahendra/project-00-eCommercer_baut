@@ -137,13 +137,13 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 200) {
                     // TODO show notification 
+                    store.commit('showToast', 'Jenis berhasil diupdate.');
                     store.dispatch('getTypes')
                     closeModal()
                 }
             })
             .catch(err => {
                 loading.value = false;
-                //  show.value = true
                 errors.value = err.response.data.errors;
             })
     } else {
@@ -154,13 +154,13 @@ function onSubmit() {
 
                 if (response.status === 201) {
                     // TODO show notification 
+                    store.commit('showToast', 'Jenis berhasil ditambah.');
                     store.dispatch('getTypes')
                     closeModal()
                 }
             })
             .catch(err => {
                 loading.value = false;
-                //  show.value = true
                 errors.value = err.response.data.errors;
             })
     }

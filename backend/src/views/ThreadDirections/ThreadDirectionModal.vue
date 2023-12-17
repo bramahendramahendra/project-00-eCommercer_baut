@@ -106,13 +106,13 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 200) {
                     // TODO show notification 
+                    store.commit('showToast', 'Thread Direction berhasil diupdate.');
                     store.dispatch('getThreadDirections')
                     closeModal()
                 }
             })
             .catch(err => {
                 loading.value = false;
-                //  show.value = true
                 errors.value = err.response.data.errors;
             })
     } else {
@@ -121,13 +121,13 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 201) {
                     // TODO show notification 
+                    store.commit('showToast', 'Thread Direction berhasil ditambah.');
                     store.dispatch('getThreadDirections')
                     closeModal()
                 }
             })
             .catch(err => {
                 loading.value = false;
-                //  show.value = true
                 errors.value = err.response.data.errors;
             })
     }

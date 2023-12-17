@@ -114,13 +114,13 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 200) {
                     // TODO show notification 
+                    store.commit('showToast', 'Unit berhasil diupdate.');
                     store.dispatch('getUnits')
                     closeModal()
                 }
             })
             .catch(err => {
                 loading.value = false;
-                //  show.value = true
                 errors.value = err.response.data.errors;
             })
     } else {
@@ -129,13 +129,13 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 201) {
                     // TODO show notification 
+                    store.commit('showToast', 'Unit berhasil ditambah.');
                     store.dispatch('getUnits')
                     closeModal()
                 }
             })
             .catch(err => {
                 loading.value = false;
-                //  show.value = true
                 errors.value = err.response.data.errors;
             })
     }

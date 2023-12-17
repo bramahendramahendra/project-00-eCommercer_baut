@@ -167,8 +167,8 @@
         getCategories();
     }
 
-    function editCategory(category) {
-        emit('clickEdit', category)
+    function editCategory(c) {
+        emit('clickEdit', c)
     }
 
     function deleteCategory(category) {
@@ -178,6 +178,7 @@
         store.dispatch('deleteCategory', category.id)
             .then(res => {
                 // TODO Show notification 
+                store.commit('showToast', 'Kategori berhasil dihapus.');
                 store.dispatch('getCategories')
             })
     }

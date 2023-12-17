@@ -641,6 +641,10 @@ export function updateCustomer({ commit }, customer) {
     return axiosClient.put(`/customers/${customer.id}`, customer)
 }
 
+export function deleteCustomer({commit}, customer) {
+    return axiosClient.delete(`/customers/${customer.id}`)
+}
+
 export function getContactUses({ commit, state }, { url = null, search = '', per_page, sort_field, sort_direction } = {}) {
     commit('setContactUses', [true])
     url = url || '/contactUses'

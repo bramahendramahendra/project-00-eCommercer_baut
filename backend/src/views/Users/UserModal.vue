@@ -112,13 +112,13 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 200) {
                     // TODO show notification 
+                    store.commit('showToast', 'User berhasil diupdate.');
                     store.dispatch('getUsers')
                     closeModal()
                 }
             })
             .catch(err => {
                 loading.value = false;
-                //  show.value = true
                 errors.value = err.response.data.errors;
             })
     } else {
@@ -127,13 +127,13 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 201) {
                     // TODO show notification 
+                    store.commit('showToast', 'User berhasil ditambah.');
                     store.dispatch('getUsers')
                     closeModal()
                 }
             })
             .catch(err => {
                 loading.value = false;
-                //  show.value = true
                 errors.value = err.response.data.errors;
             })
     }

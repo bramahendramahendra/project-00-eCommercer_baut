@@ -178,6 +178,7 @@
         store.dispatch('deleteThreadDensity', threadDensity.id)
             .then(res => {
                 // TODO Show notification 
+                store.commit('showToast', 'Thread Density berhasil dihapus.');
                 store.dispatch('getThreadDensities')
             })
     }

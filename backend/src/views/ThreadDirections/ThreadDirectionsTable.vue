@@ -178,6 +178,7 @@
         store.dispatch('deleteThreadDirection', threadDirection.id)
             .then(res => {
                 // TODO Show notification 
+                store.commit('showToast', 'Thread Direction berhasil dihapus.');
                 store.dispatch('getThreadDirections')
             })
     }

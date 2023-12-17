@@ -23,10 +23,15 @@ class CheckoutController extends Controller
         /** @var \App\Models\User $user */
         $user = $request->user();
 
-        try {
-            /** @var \App\Models\Customer $customer */
-            $customer = $user->customer;
+        /** @var \App\Models\Customer $customer */
+        $customer = $user->customer;
 
+        if(!$customer->billingAdress || !$customer->shippingAdress) {
+            return redirect()->route('profile.edit')->with('error', 'Pastikan anda telah mengsisi alamat terlebih dahulu.');
+        }
+
+        try {
+            
             list($products, $cartItems) = Cart::getProductsAndCartItems();
 
             $orderItems = [];

@@ -105,6 +105,7 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 200) {
                     // TODO show notification 
+                    store.commit('showToast', 'Material berhasil diupdate.');
                     store.dispatch('getMaterials')
                     closeModal()
                 }
@@ -120,6 +121,7 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 201) {
                     // TODO show notification 
+                    store.commit('showToast', 'Material berhasil ditambah.');
                     store.dispatch('getMaterials')
                     closeModal()
                 }

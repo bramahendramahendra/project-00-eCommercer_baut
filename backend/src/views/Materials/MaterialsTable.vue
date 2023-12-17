@@ -178,6 +178,7 @@
         store.dispatch('deleteMaterial', material.id)
             .then(res => {
                 // TODO Show notification 
+                store.commit('showToast', 'Material berhasil dihapus.');
                 store.dispatch('getMaterials')
             })
     }

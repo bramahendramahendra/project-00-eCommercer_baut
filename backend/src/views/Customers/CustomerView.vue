@@ -115,11 +115,13 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 200) {
                     // TODO show notification 
+                    store.commit('showToast', 'Customer berhasil diupdate.');
                     store.dispatch('getCustomers')
                     router.push({name: 'app.dashboard'})
                 }
             })
-             .catch(err => {
+            .catch(err => {
+                loading.value = false;
                 errors.value = err.response.data.errors;
             })
     } else {
@@ -127,10 +129,15 @@ function onSubmit() {
             .then(response => {
                 loading.value = false;
                 if (response.status === 201) {
-                    // TODO show notification 
+                    // TODO show notification
+                    store.commit('showToast', 'Customer berhasil ditambah.');
                     store.dispatch('getCustomers')
                     router.push({name: 'app.dashboard'})
                 }
+            })
+            .catch(err => {
+                loading.value = false;
+                errors.value = err.response.data.errors;
             })
     }
 }

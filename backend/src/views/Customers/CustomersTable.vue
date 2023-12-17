@@ -193,17 +193,16 @@
 
     function editCustomer(c) {
         emit('clickEdit', c)
-        // console.log(c);
-
     }
 
     function deleteCustomer(customer) {
         if(!confirm('Apakah anda yakin ingin menghapus customer berikut ?')) {
             return 
         }
-        store.dispatch('deleteCustomer', customer.id)
+        store.dispatch('deleteCustomer', customer)
             .then(res => {
                 // TODO Show notification 
+                store.commit('showToast', 'Customer berhasil dihapus.');
                 store.dispatch('getCustomers')
             })
     }

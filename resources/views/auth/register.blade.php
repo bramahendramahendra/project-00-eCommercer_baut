@@ -18,7 +18,7 @@
 
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             @if (session('error'))
-                <div class="py-2 px-3 bg-red-500 text-white">
+                <div class="py-2 px-3 bg-red-500 text-white rounded">
                     {{ session('error') }}
                 </div>
             @endif

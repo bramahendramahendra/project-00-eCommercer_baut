@@ -182,6 +182,7 @@
         store.dispatch('deleteUnit', unit.id)
             .then(res => {
                 // TODO Show notification 
+                store.commit('showToast', 'Unit berhasil dihapus.');
                 store.dispatch('getUnits')
             })
     }

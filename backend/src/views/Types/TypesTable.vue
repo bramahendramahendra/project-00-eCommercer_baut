@@ -182,6 +182,7 @@
         store.dispatch('deleteType', type.id)
             .then(res => {
                 // TODO Show notification 
+                store.commit('showToast', 'Jenis berhasil dihapus.');
                 store.dispatch('getTypes')
             })
     }

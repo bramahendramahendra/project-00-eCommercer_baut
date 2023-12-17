@@ -106,6 +106,7 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 200) {
                     // TODO show notification 
+                    store.commit('showToast', 'Thread Density berhasil diupdate.');
                     store.dispatch('getThreadDensities')
                     closeModal()
                 }
@@ -121,6 +122,7 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 201) {
                     // TODO show notification 
+                    store.commit('showToast', 'Thread Density berhasil ditambah.');
                     store.dispatch('getThreadDensities')
                     closeModal()
                 }

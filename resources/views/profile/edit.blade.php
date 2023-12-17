@@ -21,6 +21,11 @@
                 }" action="{{ route('profile.update') }}" method="post">
                 @csrf
                 <div class="space-y-12">
+                     @if (session('error'))
+                        <div class="py-2 px-3 bg-red-500 text-white rounded">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <div class="border-b border-gray-900/10 pb-12">
                         <h2 class="text-base font-semibold leading-7 text-gray-900">{{ __('Profile Information') }}</h2>
                         <p class="mt-1 text-sm leading-6 text-gray-600">{{ __("Update profil informasi akun anda dan alamat email.") }}</p>

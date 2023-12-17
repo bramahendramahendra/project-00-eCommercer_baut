@@ -286,33 +286,31 @@ function onSubmit() {
     //  debugger;
 
     if (product.value.id) {
-        // debugger;
         store.dispatch('updateProduct', payload)
             .then(response => {
                 loading.value = false;
                 if (response.status === 200) {
+                    store.commit('showToast', 'Produk berhasil diupdate.');
                     store.dispatch('getProducts')
                     closeModal()
                 }
             })
             .catch(err => {
                 loading.value = false;
-                //  show.value = true
                 errors.value = err.response.data.errors;
             })
     } else {
-        // debugger;
         store.dispatch('createProduct', payload)
             .then(response => {
                 loading.value = false;
                 if (response.status === 201) {
+                    store.commit('showToast', 'Produk berhasil ditambah.');
                     store.dispatch('getProducts')
                     closeModal()
                 }
             })
             .catch(err => {
                 loading.value = false;
-                //  show.value = true
                 errors.value = err.response.data.errors;
             })
     }
