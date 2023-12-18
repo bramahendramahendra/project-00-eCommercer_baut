@@ -1,5 +1,5 @@
 <template>
-    <div v-if="currentUser.id">
+    <div class="bg-gray-200" v-if="currentUser.id">
         <TransitionRoot as="template" :show="sidebarOpen">
             <Dialog as="div" class="relative z-40 lg:hidden" @close="sidebarOpen = false">
                 <TransitionChild as="template" enter="transition-opacity ease-linear duration-300" enter-from="opacity-0"
@@ -109,14 +109,17 @@
                         <li>
                             <div class="text-xs font-semibold leading-6 text-indigo-200">Setting Parameter</div>
                             <ul role="list" class="-mx-2 mt-2 space-y-1">
-                                <li v-for="team in teams" :key="team.name">
-                                    <a :href="team.href"
-                                        :class="[team.current ? 'bg-indigo-700 text-white' : 'text-indigo-200 hover:text-white hover:bg-indigo-700', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
-                                        <span
-                                            class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-indigo-400 bg-indigo-500 text-[0.625rem] font-medium text-white">{{
-                                                team.initial }}</span>
-                                        <span class="truncate">{{ team.name }}</span>
-                                    </a>
+                                <li v-for="item in settingNavigations" :key="item.name">
+                                    <!-- <a :href="item.href" :class="[item.current ? 'bg-indigo-700 text-white' : 'text-indigo-200 hover:text-white hover:bg-indigo-700', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']"> -->
+                                    <!-- <router-link :to="item.to" :class="[item.current ? 'bg-indigo-700 text-white' : 'text-indigo-200 hover:text-white hover:bg-indigo-700', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']"> -->
+                                    <router-link :to="item.to"
+                                        :class="[isActiveRoute(item.to.name) ? 'bg-indigo-700 text-white' : 'text-indigo-200 hover:text-white hover:bg-indigo-700', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
+                                        <!-- <component :is="item.icon" :class="[item.current ? 'text-white' : 'text-indigo-200 group-hover:text-white', 'h-6 w-6 shrink-0']" aria-hidden="true" /> -->
+                                        <component :is="item.icon"
+                                            :class="[isActiveRoute(item.to.name) ? 'text-white' : 'text-indigo-200 group-hover:text-white', 'h-6 w-6 shrink-0']"
+                                            aria-hidden="true" />
+                                        {{ item.name }}
+                                    </router-link>
                                 </li>
                             </ul>
                         </li>
@@ -234,7 +237,13 @@ import {
     SwatchIcon,
     XMarkIcon,
     ShoppingCartIcon,
-    UserGroupIcon
+    UserGroupIcon, 
+    UsersIcon,
+    EnvelopeIcon,
+    NewspaperIcon,
+    BuildingOfficeIcon,
+    QuestionMarkCircleIcon,
+    DocumentTextIcon
 } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 // Router Active 
@@ -257,19 +266,15 @@ const navigation = [
     { name: 'Thread Densities', to: { name: 'app.threadDensities' }, icon: FunnelIcon, current: false },
     { name: 'Thread Directions', to: { name: 'app.threadDirections' }, icon: ArrowLongRightIcon, current: false },
     { name: 'Orders', to: { name: 'app.orders' }, icon: ShoppingCartIcon, current: false },
-    { name: 'Users', to: { name: 'app.users' }, icon: UserGroupIcon, current: false },
 ]
-const teams = [
-    // { name: 'Categories', to: { name: 'app.categories' }, icon: Square3Stack3DIcon, current: false },
-    // { name: 'Type', to: { name: 'app.type' }, icon: DocumentIcon, current: false },
-    // { name: 'Material', to: { name: 'app.material' }, icon: CubeIcon, current: false },
-    // { name: 'Unit', to: { name: 'app.unit' }, icon: ChevronDoubleRightIcon, current: false },
-    // { name: 'Color', to: { name: 'app.color' }, icon: SwatchIcon, current: false },
-    // { name: 'Thread Density', to: { name: 'app.threadDensity' }, icon: FunnelIcon, current: false },
-    // { name: 'Thread Direction', to: { name: 'app.threadDirection' }, icon: ArrowLongRightIcon, current: false },
-    // { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
-    // { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
-    // { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
+const settingNavigations = [
+    { name: 'Users', to: { name: 'app.users' }, icon: UsersIcon, current: false },
+    { name: 'Customers', to: { name: 'app.customers' }, icon: UserGroupIcon, current: false },
+    { name: 'Contact Us', to: { name: 'app.contactUses' }, icon: EnvelopeIcon, current: false },
+    { name: 'Newsletters', to: { name: 'app.newsletters' }, icon: NewspaperIcon, current: false },
+    { name: 'Information Company', to: { name: 'app.informationCompanies' }, icon: BuildingOfficeIcon, current: false },
+    { name: 'FAQ', to: { name: 'app.frequentlyAskedQuestions' }, icon: QuestionMarkCircleIcon, current: false },
+    { name: 'Terms and Conditions', to: { name: 'app.termAndConditions' }, icon: DocumentTextIcon, current: false },
 ]
 const userNavigation = [
     { name: 'Your profile', href: '#' },

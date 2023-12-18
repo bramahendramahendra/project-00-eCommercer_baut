@@ -27,10 +27,13 @@
                             <TableHeaderCell field="actions">Actions</TableHeaderCell>
                         </tr>
                     </thead>
-                    <tbody v-if="threadDirections.loading">
+                    <tbody v-if="threadDirections.loading || !threadDirections.data.length">
                         <tr>
-                            <td colspan="5">
+                            <td colspan="4">
                                 <Spinner class="my-4" v-if="threadDirections.loading" />
+                                <p v-else class="text-center py-8 text-gray-700">
+                                    There are no Thread Directions
+                                </p>
                             </td>
                         </tr>
                     </tbody>

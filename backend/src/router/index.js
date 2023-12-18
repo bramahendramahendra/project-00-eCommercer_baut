@@ -14,6 +14,14 @@ import ThreadDirections from "../views/ThreadDirections/ThreadDirections.vue";
 import Orders from "../views/Orders/Orders.vue";
 import OrderView from "../views/Orders/OrderView.vue";
 import Users from "../views/Users/Users.vue";
+import Customers from "../views/Customers/Customers.vue";
+import CustomerView from "../views/Customers/CustomerView.vue";
+import ContactUses from "../views/ContactUses/ContactUses.vue";
+import ContactUsView from "../views/ContactUses/ContactUsView.vue";
+import Newsletters from "../views/Newsletters/Newsletters.vue";
+import InformationCompanies from "../views/InformationCompanies/InformationCompanies.vue";
+import FrequentlyAskedQuestions from "../views/FrequentlyAskedQuestions/FrequentlyAskedQuestions.vue";
+import TermAndConditions from "../views/TermAndConditions/TermAndConditions.vue";
 import RequestPassword from "../views/RequestPassword.vue";
 import ResetPassword from "../views/ResetPassword.vue";
 import NotFound from "../views/NotFound.vue";
@@ -92,6 +100,46 @@ const routes = [
                 path: 'users',
                 name: 'app.users',
                 component: Users
+            },
+            {
+                path: 'customers',
+                name: 'app.customers',
+                component: Customers
+            },
+            {
+                path: 'customers/:id',
+                name: 'app.customers.view',
+                component: CustomerView
+            },
+            {
+                path: 'contact-uses',
+                name: 'app.contactUses',
+                component: ContactUses
+            },
+            {
+                path: 'contact-uses/:id',
+                name: 'app.contactUses.view',
+                component: ContactUsView
+            },
+            {
+                path: 'newsletters',
+                name: 'app.newsletters',
+                component: Newsletters
+            },
+            {
+                path: 'information-companies',
+                name: 'app.informationCompanies',
+                component: InformationCompanies
+            },
+            {
+                path: 'frequently-asked-questions',
+                name: 'app.frequentlyAskedQuestions',
+                component: FrequentlyAskedQuestions
+            },
+            {
+                path: 'term-and-conditions',
+                name: 'app.termAndConditions',
+                component: TermAndConditions
             },
         ]
     },

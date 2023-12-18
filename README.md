@@ -20,3 +20,12 @@ Project eCommerce Baut
 - backend
 - frontend admin
 - frontend web
+
+## install charts in vue vite pada admin-panel
+
+1. untuk menambah charts pada vue referensi : https://vue-chartjs.org/guide/#installation
+2. untuk insatall jalankan
+```bash
+npm i vue-chartjs chart.js
+```
+3. buat file untuk config chart seperti pada file : backend\src\components\core\Charts\Doughnut.vue

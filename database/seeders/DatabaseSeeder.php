@@ -22,6 +22,12 @@ class DatabaseSeeder extends Seeder
             UnitSeeder::class,
             TypeSeeder::class,
             ProductSeeder::class,
+            AboutSeeder::class,
+            FrequentlyAskedQuestionsSeeder::class,
+            ImageSourceSeeder::class,
+            InformationCompanySeeder::class,
+            SocialMediaSeeder::class,
+            TermsAndConditionsSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
 

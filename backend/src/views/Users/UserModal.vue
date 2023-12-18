@@ -31,7 +31,7 @@
                                 <div class="bg-white px-4 pt-5 pb-4">
                                     <CustomInput class="mb-2" v-model="user.name" label="Name " />
                                     <CustomInput class="mb-2" v-model="user.email" label="Email" />
-                                    <CustomInput type="password" class="mb-2" v-model="user.password" label="Password" />
+                                    <CustomInput type="password" class="mb-2" v-model="user.password" label="Password" autocomplete="new-password" />
                                 </div>
                                 <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"

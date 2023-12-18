@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\TypeController;
 use App\Http\Controllers\Api\CategoryController;
@@ -12,6 +13,9 @@ use App\Http\Controllers\Api\ThreadDensityController;
 use App\Http\Controllers\Api\ThreadDirectionController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\ContactUsController;
+use App\Http\Controllers\Api\NewslettersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,12 +52,28 @@ Route::middleware(['auth:sanctum', 'admin'])
         Route::apiResource('threadDensities', ThreadDensityController::class);
         Route::apiResource('threadDirections', ThreadDirectionController::class);
         Route::apiResource('users', UserController::class);
+        Route::apiResource('customers', CustomerController::class);
+        Route::apiResource('newsletters', NewslettersController::class);
+        
+        // Route::get('Newsletters', [OrderController::class, 'index']);
 
         Route::get('orders', [OrderController::class, 'index']);
         Route::get('orders/statuses', [OrderController::class, 'getStatuses']);
         Route::post('orders/change-status/{order}/{status}', [OrderController::class, 'changeStatus']);
         Route::get('orders/{order}', [OrderController::class, 'view']);
 
+        Route::get('contactUses', [ContactUsController::class, 'index']);
+        Route::get('contactUses/statuses', [ContactUsController::class, 'getStatuses']);
+        Route::post('contactUses/change-status/{contactUs}/{status}', [ContactUsController::class, 'changeStatus']);
+        // Route::get('contactUses/{contactUs}', [ContactUsController::class, 'view']);
+        Route::get('contactUs/{contactUs}', [ContactUsController::class, 'view']);
+
+        Route::get('/dashboard/customers-count', [DashboardController::class, 'activeCustomers']);
+        Route::get('/dashboard/products-count', [DashboardController::class, 'activeProducts']);
+        Route::get('/dashboard/orders-count', [DashboardController::class, 'paidOrders']);
+        Route::get('/dashboard/income-amount', [DashboardController::class, 'totalIncome']);
+        Route::get('/dashboard/latest-customers', [DashboardController::class, 'latestCustomers']);
+        Route::get('/dashboard/latest-orders', [DashboardController::class, 'latestOrders']);
     });
 
 Route::post('/login',[AuthController::class, 'login']);

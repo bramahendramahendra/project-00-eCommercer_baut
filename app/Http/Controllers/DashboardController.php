@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-// use App\Models\Type;
 use App\Models\Product;
+use App\Models\ImageSource;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -14,24 +14,35 @@ class DashboardController extends Controller
         $categoriesShop = Category::getShopByCategory(5)->get();
         $prodoctsTopSell = Product::getTopSellingProducts(4)->get();
 
-        // dump($categoriesShop);
-        // dump($prodoctsTopSell);
-        // exit;
-        // foreach ($categories as $category) {
-        //     if ($category->type->isNotEmpty() && $category->type->first()->product->isNotEmpty()) {
-        //         // continue;
-        //         dump($category->type->first()->product->first());
-        //     }
-        // }
-        // foreach ($categories as $category) {
-        //    foreach ($category->type as $type) {
-        //         foreach ( $type->product as $product) {
-        //             dump($product);
-        //         }
-        //     }
-        // }
-        // exit;
+        // 
+        $sectionImage = ImageSource::where('id', 8)->get();
+        $sectionImages = [];
+        foreach ($sectionImage as $image) {
+            if ($image->image != '') {
+                $sectionImages[] = $image;
+            } else {
+                $image->image = asset('images/featured_image_default.png');
+                $sectionImages[] = $image;
 
-        return view('dashboard', compact('categoriesShop', 'prodoctsTopSell' ));
+            }
+        }
+
+        $footerImage = ImageSource::whereIn('id', [9, 10, 11, 12, 13, 14])->get();
+        $footerImages = [];
+        foreach ($footerImage as $image) {
+            if ($image->image != '') {
+                $footerImages[] = $image;
+            } else {
+                $image->image = asset('images/product_default.png');
+                $footerImages[] = $image;
+
+            }
+        }
+
+        // dump($sectionImage);
+        // dump($footerImage);
+
+        return view('dashboard', compact('categoriesShop', 'prodoctsTopSell', 'sectionImages', 'footerImages'));
+        // return view('dashboard', compact('categoriesShop', 'prodoctsTopSell'));
     }
 }
