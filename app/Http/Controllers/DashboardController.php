@@ -14,7 +14,6 @@ class DashboardController extends Controller
         $categoriesShop = Category::getShopByCategory(5)->get();
         $prodoctsTopSell = Product::getTopSellingProducts(4)->get();
 
-        // 
         $sectionImage = ImageSource::where('id', 8)->get();
         $sectionImages = [];
         foreach ($sectionImage as $image) {
@@ -39,10 +38,6 @@ class DashboardController extends Controller
             }
         }
 
-        // dump($sectionImage);
-        // dump($footerImage);
-
         return view('dashboard', compact('categoriesShop', 'prodoctsTopSell', 'sectionImages', 'footerImages'));
-        // return view('dashboard', compact('categoriesShop', 'prodoctsTopSell'));
     }
 }

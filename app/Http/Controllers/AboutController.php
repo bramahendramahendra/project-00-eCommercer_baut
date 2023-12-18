@@ -48,10 +48,6 @@ class AboutController extends Controller
             }
         }
 
-        // dump($abouts);
-        // dump($totalCustomer);
-        // dump($totalProduct);
-        // dump($totalOrders);
         return view('about.index', compact('abouts', 'totalCustomers', 'totalProducts', 'totalOrders', 'aboutHeaderImages', 'aboutFooterImages'));
     }
 }

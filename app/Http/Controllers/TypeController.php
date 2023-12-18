@@ -26,9 +26,4 @@ class TypeController extends Controller
             FilterHelper::getMaterialsAndColors()
         ));
     }
-
-    // public function view(Product $product) {
-    //     return view('product.view', ['product' => $product]);
-    // }
-
 }

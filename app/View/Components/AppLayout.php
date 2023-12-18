@@ -49,13 +49,11 @@ class AppLayout extends Component
                 $join->on('order_items.order_id', '=', 'orders.id')
                     ->where('orders.status', 'Paid');
             })
-            ->groupBy('categories.id', 'categories.name')
+            ->groupBy('categories.id', 'categories.name', 'categories.slug')
             ->orderBy('total_quantity', 'DESC')
             ->limit(5)
             ->get();
 
-        // dump($categories);
-        // exit;
 
         // Social Media 
         $socialMedias = SocialMedia::whereNotNull('name')
@@ -64,9 +62,6 @@ class AppLayout extends Component
 
         $informationCompany = InformationCompany::where('id', 1)->get();
 
-        
-        // dump($informationCompany);
-        // exit;
 
         return view('layouts.app',compact('menu', 'headerImages', 'categories', 'socialMedias', 'informationCompany'));
     }

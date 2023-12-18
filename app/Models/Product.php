@@ -167,7 +167,6 @@ class Product extends Model
     public static function getTopSellingProducts($limit = 4)
     {
         return self::query()
-            ->leftJoin('order_items as oi', 'products.id', '=', 'oi.product_id')
             ->select(
                 'products.id',
                 'products.code',
@@ -177,7 +176,8 @@ class Product extends Model
                 DB::raw('IFNULL(SUM(oi.quantity), 0) as total_quantity'),
                 DB::raw('MAX(oi.updated_at) as last_update')
             )
-            ->groupBy('products.id')
+            ->leftJoin('order_items as oi', 'products.id', '=', 'oi.product_id')
+            ->groupBy('products.id', 'products.code','products.title', 'products.slug', 'products.image')
             ->orderByDesc('total_quantity')
             ->orderByDesc('last_update')
             ->limit($limit);
