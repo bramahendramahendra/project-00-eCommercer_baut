@@ -16,7 +16,7 @@ Project eCommerce Baut
 - laravel
 - vue
 - alpine js
-
+= tailwind css
 - backend
 - frontend admin
 - frontend web
@@ -29,3 +29,60 @@ Project eCommerce Baut
 npm i vue-chartjs chart.js
 ```
 3. buat file untuk config chart seperti pada file : backend\src\components\core\Charts\Doughnut.vue
+
+
+## install laravel-debugbar
+
+untuk mengecek sebelum di publish
+1. untuk link github https://github.com/barryvdh/laravel-debugbar
+2. cara install jalankan
+```bash
+composer require barryvdh/laravel-debugbar --dev
+```
+
+## install laravel API debugger
+
+untuk mengecek sebelum di publish
+1. untuk link https://laravel.com/docs/10.x/telescope#local-only-installation
+2. cara install jalankan
+```bash
+composer require laravel/telescope --dev
+ 
+php artisan telescope:install
+ 
+php artisan migrate
+```
+3. Tambahkan code pada file App\Providers\AppServiceProvider
+```bash
+/**
+ * Register any application services.
+ */
+public function register(): void
+{
+    if ($this->app->environment('local')) {
+        $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
+        $this->app->register(TelescopeServiceProvider::class);
+    }
+}
+```
+4. Tambahkan code pada file composer.json
+```bash
+"extra": {
+    "laravel": {
+        "dont-discover": [
+            "laravel/telescope"
+        ]
+    }
+},
+```
+
+## jika terjadi error pada storage upload gambar
+
+1. jalankan 
+```bash
+php artisan route:clear
+rmdir public\storage
+php artisan storage:link
+``` 
+pada kode diatas bertujuan untuk menghapus storage public dan menginstallnya lagi
+ 

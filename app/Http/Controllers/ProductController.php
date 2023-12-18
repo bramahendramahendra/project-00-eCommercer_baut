@@ -18,7 +18,10 @@ class ProductController extends Controller
 
         $query = Product::query();
         $query = FilterHelper::applyMaterialAndColorFilters($query, $materialIds, $colorIds);
-        $products = $query->orderBy('updated_at', 'desc')->paginate(40);
+        $products = $query
+            ->where('published', '=', 1)
+            ->orderBy('updated_at', 'desc')
+            ->paginate(40);
         
         // dump($products);
         return view('product.index', array_merge(

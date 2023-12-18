@@ -29,10 +29,9 @@
                             </header>
                             <form @submit.prevent="onSubmit">
                                 <div class="bg-white px-4 pt-5 pb-4">
-                                    <CustomInput class="mb-2" v-model="unit.symbol" label="Simbol" />
-                                    <CustomInput class="mb-2" v-model="unit.short_name" label="Satuan" />
-                                    <CustomInput type="textarea" class="mb-2" v-model="unit.full_name"
-                                        label="Nama Satuan" />
+                                    <CustomInput class="mb-2" v-model="unit.symbol" label="Simbol" :errors="errors.symbol" />
+                                    <CustomInput class="mb-2" v-model="unit.short_name" label="Satuan" :errors="errors.short_name" />
+                                    <CustomInput type="textarea" class="mb-2" v-model="unit.full_name" label="Nama Satuan" :errors="errors.full_name" />
                                 </div>
                                 <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"
@@ -69,6 +68,12 @@ const unit = ref({
     short_name: props.unit.short_name,
     description: props.unit.full_name,
 })
+const errors = ref({
+    symbol: [],
+    short_name: [],
+    full_name: [],
+})
+
 
 const loading = ref(false)
 
@@ -109,9 +114,14 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 200) {
                     // TODO show notification 
+                    store.commit('showToast', 'Unit berhasil diupdate.');
                     store.dispatch('getUnits')
                     closeModal()
                 }
+            })
+            .catch(err => {
+                loading.value = false;
+                errors.value = err.response.data.errors;
             })
     } else {
         store.dispatch('createUnit', unit.value)
@@ -119,9 +129,14 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 201) {
                     // TODO show notification 
+                    store.commit('showToast', 'Unit berhasil ditambah.');
                     store.dispatch('getUnits')
                     closeModal()
                 }
+            })
+            .catch(err => {
+                loading.value = false;
+                errors.value = err.response.data.errors;
             })
     }
 }

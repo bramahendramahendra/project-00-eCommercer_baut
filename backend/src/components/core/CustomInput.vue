@@ -15,6 +15,8 @@
                             class="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             @input="updateFilter" :display-value="(option) => option?.[optionText]"
                         />
+                            <!-- @change="onChange($event.target.value)" -->
+
                         <ComboboxButton class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
                             <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
                         </ComboboxButton>
@@ -67,6 +69,7 @@
                     @input="emit('change', $event.target.files[0])"
                     :class="inputClasses" 
                     :placeholder="label" />
+                    <!-- :value="props.modelValue" -->
             </template>
             <template v-else-if="type === 'checkbox'">
                 <input :id="id"
@@ -96,6 +99,7 @@
                 {{ append }}
             </span>
         </div>
+        <small v-if="errors && errors[0]" class="text-red-600" >{{ errors[0] }}</small>
     </div>
 </template>
 
@@ -136,7 +140,11 @@ const props = defineProps({
         type: String,
         default: ''
     },
-    selectOptions: Array
+    selectOptions: Array,
+    errors: {
+        type: Array,
+        required: false
+    }
 })
 
 const id = computed(()=>{
@@ -156,6 +164,10 @@ const inputClasses = computed(() => {
         cls.push('rounded-r-md')
     } else if (!props.prepend && !props.append) {
         cls.push('rounded-md')
+    }
+
+    if(props.errors && props.errors[0]) {
+        cls.push('border-red-600 focus:border-red-600')
     }
 
     return cls.join(' ')

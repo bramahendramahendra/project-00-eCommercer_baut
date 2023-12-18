@@ -10,6 +10,7 @@ use App\Http\Resources\ProductResource;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
+use Illuminate\Http\UploadedFile;
 
 class ProductController extends Controller
 {
@@ -77,6 +78,10 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product)
     {
         // $product->update($request->validated());
+        // var_dump($product);
+        // var_dump($request);
+        // die;
+        // exit;
         $data = $request->validated();
         $data['updated_by'] = $request->user()->id;
 
@@ -107,7 +112,7 @@ class ProductController extends Controller
         return response()->noContent();
     }
 
-    private function saveImage(\Illuminate\Http\UploadedFile $image)
+    private function saveImage(UploadedFile $image)
     {
         $path = 'images/' . Str::random();
         if(!Storage::exists($path)) {

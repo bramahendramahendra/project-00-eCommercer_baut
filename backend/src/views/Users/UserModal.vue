@@ -29,9 +29,9 @@
                             </header>
                             <form @submit.prevent="onSubmit">
                                 <div class="bg-white px-4 pt-5 pb-4">
-                                    <CustomInput class="mb-2" v-model="user.name" label="Name " />
-                                    <CustomInput class="mb-2" v-model="user.email" label="Email" />
-                                    <CustomInput type="password" class="mb-2" v-model="user.password" label="Password" autocomplete="new-password" />
+                                    <CustomInput class="mb-2" v-model="user.name" label="Name " :errors="errors.name" />
+                                    <CustomInput class="mb-2" v-model="user.email" label="Email" :errors="errors.email" />
+                                    <CustomInput type="password" class="mb-2" v-model="user.password" label="Password" autocomplete="new-password" :errors="errors.password" />
                                 </div>
                                 <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"
@@ -67,6 +67,12 @@ const user = ref({
     name: props.user.name,
     email: props.user.email,
 })
+const errors = ref({
+    name: [],
+    email: [],
+    password: [],
+})
+
 
 const loading = ref(false)
 
@@ -106,9 +112,14 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 200) {
                     // TODO show notification 
+                    store.commit('showToast', 'User berhasil diupdate.');
                     store.dispatch('getUsers')
                     closeModal()
                 }
+            })
+            .catch(err => {
+                loading.value = false;
+                errors.value = err.response.data.errors;
             })
     } else {
         store.dispatch('createUser', user.value)
@@ -116,9 +127,14 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 201) {
                     // TODO show notification 
+                    store.commit('showToast', 'User berhasil ditambah.');
                     store.dispatch('getUsers')
                     closeModal()
                 }
+            })
+            .catch(err => {
+                loading.value = false;
+                errors.value = err.response.data.errors;
             })
     }
 }

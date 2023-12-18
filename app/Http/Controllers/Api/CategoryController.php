@@ -12,11 +12,13 @@ class CategoryController extends Controller
 {
     public function getOptionCategories()
     {
-        $categories = Category::all(['id', 'code', 'name']);
+        // $categories = Category::all(['id', 'code', 'name']);
         
         // return response()->json($categories);
-        return CategoryListResource::collection($categories);
+        // return CategoryListResource::collection($categories);
         // return CategoryListResource::all($query->paginate($perPage));
+
+        return Category::all(['id', 'name']);
     }
 
     /**

@@ -24,24 +24,24 @@
                 <table class="min-w-full divide-y divide-gray-300">
                     <thead>
                         <tr>
-                            <TableHeaderCell @click="sortProduct" scope="col"
+                            <TableHeaderCell @click="sortProduct('id')" scope="col"
                                 class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3" field="id"
                                 :sort-field="sortField" :sort-direction="sortDirection">ID</TableHeaderCell>
-                            <TableHeaderCell @click="sortProduct" scope="col" class="px-3 py-3.5 text-left"
-                                field="category_name">Image</TableHeaderCell>
-                            <TableHeaderCell @click="sortProduct" scope="col"
+                            <TableHeaderCell @click="sortProduct('image_url')" scope="col" class="px-3 py-3.5 text-left"
+                                field="image_url">Image</TableHeaderCell>
+                            <TableHeaderCell @click="sortProduct('category_name')" scope="col"
                                 class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="category_name"
                                 :sort-field="sortField" :sort-direction="sortDirection">Kategori</TableHeaderCell>
-                            <TableHeaderCell @click="sortProduct" scope="col"
+                            <TableHeaderCell @click="sortProduct('type_name')" scope="col"
                                 class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="type_name"
                                 :sort-field="sortField" :sort-direction="sortDirection">Jenis</TableHeaderCell>
-                            <TableHeaderCell @click="sortProduct" scope="col"
+                            <TableHeaderCell @click="sortProduct('code')" scope="col"
                                 class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="code"
                                 :sort-field="sortField" :sort-direction="sortDirection">Kode</TableHeaderCell>
-                            <TableHeaderCell @click="sortProduct" scope="col"
+                            <TableHeaderCell @click="sortProduct('title')" scope="col"
                                 class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" fieldimage="title"
                                 :sort-field="sortField" :sort-direction="sortDirection">Judul</TableHeaderCell>
-                            <TableHeaderCell @click="sortProduct" scope="col"
+                            <TableHeaderCell @click="sortProduct('updated_at')" scope="col"
                                 class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="updated_at"
                                 :sort-field="sortField" :sort-direction="sortDirection">Last Updated At</TableHeaderCell>
                             <TableHeaderCell field="actions">Actions</TableHeaderCell>
@@ -99,7 +99,8 @@
                                                     <button :class="[
                                                             active ? 'bg-violet-500 text-white' : 'text-gray-900',
                                                             'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                                                        ]" @click="editProduct(product)">
+                                                        ]" 
+                                                        @click="editProduct(product)">
                                                         <PencilIcon :active="active" class="mr-2 h-5 w-5 text-violet-400"
                                                             aria-hidden="true" />
                                                         Edit
@@ -190,8 +191,8 @@ function sortProduct(field) {
     getProducts();
 }
 
-function editProduct(product) {
-    emit('clickEdit', product)
+function editProduct(p) {
+    emit('clickEdit', p)
 }
 
 function deleteProduct(product) {
@@ -201,6 +202,7 @@ function deleteProduct(product) {
     store.dispatch('deleteProduct', product.id)
         .then(res => {
             // TODO Show notification 
+            store.commit('showToast', 'Produk berhasil dihapus.');
             store.dispatch('getProducts')
         })
 }

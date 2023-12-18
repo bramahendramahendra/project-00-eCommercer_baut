@@ -12,8 +12,7 @@ class UnitController extends Controller
 {
     public function getOptionUnits()
     {
-        $units = Unit::all(['id', 'symbol', 'short_name', 'full_name']);
-        return UnitListResource::collection($units);
+        return Unit::all(['id', 'symbol', 'short_name', 'full_name']);
     }
     /**
      * Display a listing of the resource.

@@ -21,11 +21,11 @@
                 <table class="min-w-full divide-y divide-gray-300">
                     <thead>
                         <tr>
-                            <TableHeaderCell @click="sortUnit" scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3" field="id" :sort-field="sortField" :sort-direction="sortDirection">ID</TableHeaderCell>
-                            <TableHeaderCell @click="sortUnit" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="symbol" :sort-field="sortField" :sort-direction="sortDirection">Simbol</TableHeaderCell>
-                            <TableHeaderCell @click="sortUnit" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="short_name" :sort-field="sortField" :sort-direction="sortDirection">Satuan</TableHeaderCell>
-                            <TableHeaderCell @click="sortUnit" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="full_name" :sort-field="sortField" :sort-direction="sortDirection">Nama Satuan</TableHeaderCell>
-                            <TableHeaderCell @click="sortUnit" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="updated_at" :sort-field="sortField" :sort-direction="sortDirection">Last Updated At</TableHeaderCell>
+                            <TableHeaderCell @click="sortUnit('id')" scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3" field="id" :sort-field="sortField" :sort-direction="sortDirection">ID</TableHeaderCell>
+                            <TableHeaderCell @click="sortUnit('symbol')" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="symbol" :sort-field="sortField" :sort-direction="sortDirection">Simbol</TableHeaderCell>
+                            <TableHeaderCell @click="sortUnit('short_name')" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="short_name" :sort-field="sortField" :sort-direction="sortDirection">Satuan</TableHeaderCell>
+                            <TableHeaderCell @click="sortUnit('full_name')" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="full_name" :sort-field="sortField" :sort-direction="sortDirection">Nama Satuan</TableHeaderCell>
+                            <TableHeaderCell @click="sortUnit('updated_at')" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" field="updated_at" :sort-field="sortField" :sort-direction="sortDirection">Last Updated At</TableHeaderCell>
                             <TableHeaderCell field="actions">Actions</TableHeaderCell>
                         </tr>
                     </thead>
@@ -182,6 +182,7 @@
         store.dispatch('deleteUnit', unit.id)
             .then(res => {
                 // TODO Show notification 
+                store.commit('showToast', 'Unit berhasil dihapus.');
                 store.dispatch('getUnits')
             })
     }

@@ -30,7 +30,7 @@
                             </header>
                             <form @submit.prevent="onSubmit">
                                 <div class="bg-white px-4 pt-5 pb-4">
-                                    <CustomInput class="mb-2" v-model="threadDirection.name" label="Nama Thread Direction" />
+                                    <CustomInput class="mb-2" v-model="threadDirection.name" label="Nama Thread Direction" :errors="errors.name" />
                                 </div>
                                 <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"
@@ -64,6 +64,9 @@ import CustomInput from '../../components/core/CustomInput.vue';
 const threadDirection = ref({
     id: props.threadDirection.id,
     name: props.threadDirection.name,
+})
+const errors = ref({
+    name: [],
 })
 
 const loading = ref(false)
@@ -103,9 +106,14 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 200) {
                     // TODO show notification 
+                    store.commit('showToast', 'Thread Direction berhasil diupdate.');
                     store.dispatch('getThreadDirections')
                     closeModal()
                 }
+            })
+            .catch(err => {
+                loading.value = false;
+                errors.value = err.response.data.errors;
             })
     } else {
         store.dispatch('createThreadDirection', threadDirection.value)
@@ -113,9 +121,14 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 201) {
                     // TODO show notification 
+                    store.commit('showToast', 'Thread Direction berhasil ditambah.');
                     store.dispatch('getThreadDirections')
                     closeModal()
                 }
+            })
+            .catch(err => {
+                loading.value = false;
+                errors.value = err.response.data.errors;
             })
     }
 }

@@ -26,11 +26,15 @@ import RequestPassword from "../views/RequestPassword.vue";
 import ResetPassword from "../views/ResetPassword.vue";
 import NotFound from "../views/NotFound.vue";
 import store from "../store";
+import Report from "../views/Reports/Report.vue";
+import OrdersReport from "../views/Reports/OrdersReport.vue";
+import CustomersReport from "../views/Reports/CustomersReport.vue";
 
 const routes = [
     {
         path: '/app',
         name: 'app',
+        redirect: '/app/dashboard',
         component: AppLayout,
         meta: {
             requiresAuth: true
@@ -140,6 +144,26 @@ const routes = [
                 path: 'term-and-conditions',
                 name: 'app.termAndConditions',
                 component: TermAndConditions
+            },
+            {
+                path: '/report',
+                name: 'reports',
+                component: Report,
+                meta: {
+                    requiresAuth: true
+                },
+                children: [
+                    {
+                        path: 'orders/:date?',
+                        name: 'reports.orders',
+                        component: OrdersReport
+                    },
+                    {
+                        path: 'customers/:date?',
+                        name: 'reports.customers',
+                        component: CustomersReport
+                    },
+                ]
             },
         ]
     },

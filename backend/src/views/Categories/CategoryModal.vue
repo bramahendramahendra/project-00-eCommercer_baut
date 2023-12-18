@@ -29,10 +29,9 @@
                             </header>
                             <form @submit.prevent="onSubmit">
                                 <div class="bg-white px-4 pt-5 pb-4">
-                                    <CustomInput class="mb-2" v-model="category.code" label="Kode Kategori" />
-                                    <CustomInput class="mb-2" v-model="category.name" label="Nama Kategori" />
-                                    <CustomInput type="textarea" class="mb-2" v-model="category.description"
-                                        label="Deskripsi Kategori" />
+                                    <CustomInput class="mb-2" v-model="category.code" label="Kode Kategori" :errors="errors.code" />
+                                    <CustomInput class="mb-2" v-model="category.name" label="Nama Kategori" :errors="errors.name" />
+                                    <CustomInput type="textarea" class="mb-2" v-model="category.description" label="Deskripsi Kategori" :errors="errors.description" />
                                 </div>
                                 <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"
@@ -68,6 +67,11 @@ const category = ref({
     code: props.category.code,
     name: props.category.name,
     description: props.category.description,
+})
+const errors = ref({
+    code: [],
+    name: [],
+    description: [],
 })
 
 const loading = ref(false)
@@ -109,9 +113,14 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 200) {
                     // TODO show notification 
+                    store.commit('showToast', 'Kategori berhasil diupdate.');
                     store.dispatch('getCategories')
                     closeModal()
                 }
+            })
+            .catch(err => {
+                loading.value = false;
+                errors.value = err.response.data.errors;
             })
     } else {
         store.dispatch('createCategory', category.value)
@@ -119,9 +128,14 @@ function onSubmit() {
                 loading.value = false;
                 if (response.status === 201) {
                     // TODO show notification 
+                    store.commit('showToast', 'Kategori berhasil ditambah.');
                     store.dispatch('getCategories')
                     closeModal()
                 }
+            })
+            .catch(err => {
+                loading.value = false;
+                errors.value = err.response.data.errors;
             })
     }
 }

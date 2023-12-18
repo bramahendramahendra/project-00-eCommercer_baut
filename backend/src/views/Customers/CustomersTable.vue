@@ -134,6 +134,26 @@
     const sortField = ref('updated_at')
     const sortDirection = ref('desc')
 
+    const errors = ref({
+        first_name: [],
+        last_name: [],
+        email: [],
+        phone: [],
+        status: [],
+        'billingAddress.address1': [],
+        'billingAddress.address2': [],
+        'billingAddress.city': [],
+        'billingAddress.state': [],
+        'billingAddress.country': [],
+        'billingAddress.zipcode': [],
+        'shippingAddress.address1': [],
+        'shippingAddress.address2': [],
+        'shippingAddress.city': [],
+        'shippingAddress.state': [],
+        'shippingAddress.country': [],
+        'shippingAddress.zipcode': [],
+    })
+
     onMounted(() => {
         getCustomers();
     })  
@@ -171,17 +191,18 @@
         getCustomers();
     }
 
-    function editCustomer(p) {
-        emit('clickEdit', p)
+    function editCustomer(c) {
+        emit('clickEdit', c)
     }
 
     function deleteCustomer(customer) {
         if(!confirm('Apakah anda yakin ingin menghapus customer berikut ?')) {
             return 
         }
-        store.dispatch('deleteCustomer', customer.id)
+        store.dispatch('deleteCustomer', customer)
             .then(res => {
                 // TODO Show notification 
+                store.commit('showToast', 'Customer berhasil dihapus.');
                 store.dispatch('getCustomers')
             })
     }

@@ -9,11 +9,16 @@ use App\Http\Resources\Dashboard\OrderResource;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Order;
+use App\Traits\ReportTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+
+    use ReportTrait;
+
     public function activeCustomers()
     {
         return Customer::where('status', CustomerStatus::Active->value)->count();
@@ -22,17 +27,31 @@ class DashboardController extends Controller
     public function activeProducts()
     {
         // TODO Implement where for active products
-        return Product::count();
+        return Product::where('published', '=', 1)->count();
     }
 
     public function paidOrders()
     {
-        return Order::where('status', OrderStatus::Paid->value)->count();
+        $fromDate = $this->getFromDate();
+        $query = Order::query()->where('status', OrderStatus::Paid->value);
+        
+        if($fromDate) {
+            $query->where('created_at', '>', $fromDate);
+        }
+
+        return $query->count();
     }
 
     public function totalIncome()
     {
-        return Order::where('status', OrderStatus::Paid->value)->sum('total_price');
+        $fromDate = $this->getFromDate();
+        $query = Order::query()->where('status', OrderStatus::Paid->value);
+        
+        if($fromDate) {
+            $query->where('created_at', '>', $fromDate);
+        }
+
+        return $query->sum('total_price');
     }
 
     public function latestCustomers()  

@@ -6,9 +6,9 @@
             </div>
         </div>
         <div>
-            <div class="flex items-center">
-                <label class="mr-2 text-base font-semibold leading-6 text-gray-900 text-right">Change Date Period</label>
-                <CustomInput type="select" v-model="chosenDate" @change="onDatePickerChange" :select-options="dateOptions" class="text-base font-semibold leading-6 text-gray-900 max-w-xs ml-auto" />
+            <div class="flex justify-end items-center">
+                <label class="mr-2 text-base font-semibold leading-6 text-gray-900">Change Date Period</label>
+                <CustomInput type="select" v-model="chosenDate" @change="onDatePickerChange" :select-options="dateOptions" class="text-base font-semibold leading-6 text-gray-900 max-w-xs " />
             </div>
             <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
                 <div class="relative overflow-hidden rounded-lg bg-white px-4 pb-5 pt-5 shadow sm:px-6 sm:pt-6 sm:pb-6 animate-fade-in-down" style="animation-delay: 0.1s;">
@@ -139,22 +139,17 @@
 
 <script setup>
     import { UserCircleIcon, UsersIcon, Square3Stack3DIcon, ShoppingCartIcon, BanknotesIcon, ChevronRightIcon } from '@heroicons/vue/24/outline';
-    import DoughnutChart from '../components/core/Charts/Doughnut.vue';
+    // import DoughnutChart from '../components/core/Charts/Doughnut.vue';
     import axiosClient from "../axios.js";
-    import { onMounted, ref } from 'vue';
+    import { computed, onMounted, ref } from 'vue';
     import Spinner from '../components/core/Spinner.vue';
     import CustomInput from '../components/core/CustomInput.vue';
+    import { useStore } from "vuex";
 
-    const dateOptions = ref([
-        {key : '2d', text: 'Last Day' },
-        {key : '1w', text: 'Last Week' },
-        {key : '2w', text: 'Last 2 Weeks' },
-        {key : '1m', text: 'Last Month' },
-        {key : '3m', text: 'Last 3 Months' },
-        {key : '6m', text: 'Last 6 Months' },
-        {key : '1y', text: 'Last Year' },
-        {key : 'all', text: 'All Time' },
-    ]);
+    const store = useStore();
+
+    const dateOptions = computed(() => store.state.dateOptions);
+
     const chosenDate = ref('all')
 
     const chartData = {
@@ -213,6 +208,8 @@
         })
         axiosClient.get(`/dashboard/latest-customers`,{params: {d}}).then(({ data: customers }) => {
             latestCustomers.value = customers;
+            console.log(latestCustomers);
+
             loading.value.latestCustomers = false;
         })
         axiosClient.get(`/dashboard/latest-orders`,{params: {d}}).then(({ data: orders }) => {

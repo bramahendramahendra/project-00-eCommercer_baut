@@ -137,7 +137,17 @@ const state = {
         show: false,
         message: '',
         delay: 5000
-    }
+    },
+    dateOptions : [
+        { key: '2d ', text: 'Last Day' },
+        { key: '1w', text: 'Last Week' },
+        { key: '2w', text: 'Last 2 Weeks' },
+        { key: '1m', text: 'Last Month' },
+        { key: '3m', text: 'Last 3 Months' },
+        { key: '6m', text: 'Last 6 Months' },
+        { key: '1y', text: 'Last Year' },
+        { key: 'all', text: 'All Time' },
+    ]
 };
 
 export default state;

@@ -13,6 +13,8 @@ use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CheckoutController extends Controller
 {
@@ -20,14 +22,16 @@ class CheckoutController extends Controller
     {
         /** @var \App\Models\User $user */
         $user = $request->user();
-        // dd($user);
-        // dump();
-        // exit;
+
+        /** @var \App\Models\Customer $customer */
+        $customer = $user->customer;
+
+        if(!$customer->billingAdress || !$customer->shippingAdress) {
+            return redirect()->route('profile.edit')->with('error', 'Pastikan anda telah mengsisi alamat terlebih dahulu.');
+        }
 
         try {
-            /** @var \App\Models\Customer $customer */
-            $customer = $user->customer;
-
+            
             list($products, $cartItems) = Cart::getProductsAndCartItems();
 
             $orderItems = [];
@@ -49,38 +53,55 @@ class CheckoutController extends Controller
                 ]; 
             }
 
-            $orderData = [
-                'total_price' => $totalPrice,
-                'status' => OrderStatus::Unpaid,
-                'created_by' => $user->id,
-                'updated_by' => $user->id,
-            ];
-            $order = Order::create($orderData);
+            DB::beginTransaction();
+            try {
+                $orderData = [
+                    'total_price' => $totalPrice,
+                    'status' => OrderStatus::Unpaid,
+                    'created_by' => $user->id,
+                    'updated_by' => $user->id,
+                ];
+                $order = Order::create($orderData);
 
-            foreach ($orderItems as $orderItem) {
-                $orderItem['order_id'] = $order->id;
-                OrderItem::create($orderItem);
+                foreach ($orderItems as $orderItem) {
+                    $orderItem['order_id'] = $order->id;
+                    OrderItem::create($orderItem);
+                }
+
+                $paymentData = [
+                    'order_id' => $order->id,
+                    'amount' => $order->total_price,
+                    'status' => PaymentStatus::Pending,
+                    'type' => 'transfer',
+                    'created_by' => $user->id,
+                    'updated_by' => $user->id,
+                ];
+                $payment = Payment::create($paymentData);
+
+                CartItem::where(['user_id' => $user->id])->delete();
+            } catch (\Exception $th) {
+                DB::rollback();
+                Log::critical(__METHOD__ . ' method does not work. '. $e->getMessage());
+                throw $e;
+            }
+            DB::commit();
+
+
+            try {
+                $adminUsers = User::where('is_admin', 1)->get();
+
+                foreach ([...$adminUsers, $order->user] as $user) {
+                    Mail::to($user)->send(new NewOrderEmail($order, (bool)$user->is_admin));
+                }
+            } catch (\Exception $e) {
+                DB::rollback();
+
+                Log::critical('Gagal dalam kirim Email. '. $e->getMessage());
             }
 
-            $paymentData = [
-                'order_id' => $order->id,
-                'amount' => $order->total_price,
-                'status' => PaymentStatus::Pending,
-                'type' => 'transfer',
-                'created_by' => $user->id,
-                'updated_by' => $user->id,
-            ];
-            $payment = Payment::create($paymentData);
+            $invoice =  Order::find($order->id);
 
-            CartItem::where(['user_id' => $user->id])->delete();
-
-            $adminUsers = User::where('is_admin', 1)->get();
-
-            foreach ([...$adminUsers, $order->user] as $user) {
-                Mail::to($user)->send(new NewOrderEmail($order, (bool)$user->is_admin));
-            }
-
-            return view('checkout.success', compact('customer'));
+            return view('checkout.success', compact('customer', 'invoice'));
         }
         catch (\Exception $e) {
             return view('checkout.failure', ['message' => $e->getMessage()]);

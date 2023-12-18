@@ -36,6 +36,8 @@
                 customerModel.value = data;
                 showAddNewModal();
             })
+        // console.log(customerModel);
+
     }
 
     function onModalClose() {

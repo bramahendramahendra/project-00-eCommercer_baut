@@ -11,9 +11,8 @@
                     class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah</button>
             </div>
         </div>
-        <ProductsTable @clickEdit="editProduct" />
         <ProductModal v-model="showProductModal" :product="productModel" @close="onModalClose" />
-
+        <ProductsTable @clickEdit="editProduct" />
     </div>
 </template>
   
@@ -23,26 +22,19 @@ import store from '../../store';
 import ProductModal from './ProductModal.vue';
 import ProductsTable from './ProductsTable.vue';
 
-const DEFAULT_EMPTY_OBJECT = {
-    id: '',
-    type: '',
-    code: '',
-    title: '',
-    image: '',
-    description: '',
-    price_retail: '',
-}
+const DEFAULT_PRODUCT = {}
 
 const products = computed(() => store.state.products);
+
+const productModel = ref({ ...DEFAULT_PRODUCT })
 const showProductModal = ref(false)
-const productModel = ref({ ...DEFAULT_EMPTY_OBJECT })
 
 function showAddNewModal() {
     showProductModal.value = true
 }
 
-function editProduct(product) {
-    store.dispatch('getProduct', product.id)
+function editProduct(p) {
+    store.dispatch('getProduct', p.id)
         .then(({ data }) => {
             productModel.value = data
             showAddNewModal()
@@ -50,7 +42,7 @@ function editProduct(product) {
 }
 
 function onModalClose() {
-    productModel.value = { ...DEFAULT_EMPTY_OBJECT }
+    productModel.value = { ...DEFAULT_PRODUCT }
 }
 
 </script>

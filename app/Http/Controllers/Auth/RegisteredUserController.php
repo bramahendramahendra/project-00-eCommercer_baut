@@ -12,8 +12,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Log;
 
 class RegisteredUserController extends Controller
 {
@@ -38,23 +40,31 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        DB::beginTransaction();
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        try {
+            event(new Registered($user));
 
-        $customer = new Customer();
-        $names = explode(" ", $user->name);
-        $customer->user_id = $user->id;
-        $customer->first_name = $names[0];
-        $customer->last_name = $names[1] ?? '';
-        $customer->save();
+            $customer = new Customer();
+            $names = explode(" ", $user->name);
+            $customer->user_id = $user->id;
+            $customer->first_name = $names[0];
+            $customer->last_name = $names[1] ?? '';
+            $customer->save();
+           
+            Auth::login($user);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->withInput()->with('error', 'Anda tidak dapat melakukan registrasi saat ini.');
+        }
 
-        Auth::login($user);
-
+        DB::commit();
+            
         Cart::moveCartItemsIntoDb();
 
         return redirect(RouteServiceProvider::HOME);
