@@ -14,9 +14,10 @@ class TermsAndConditionsSeeder extends Seeder
     public function run(): void
     {
         TermsAndConditions::factory()->state([
-            'title' => 'Description'
-        ])->create();
-        TermsAndConditions::factory(20)->create();
+            'title' => 'Description',
+            'content' => 'Konten Description'
+        ])->create(); // Prod and dev
+        // TermsAndConditions::factory(20)->create(); //only dev
 
     }
 }
