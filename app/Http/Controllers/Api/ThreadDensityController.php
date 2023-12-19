@@ -31,7 +31,6 @@ class ThreadDensityController extends Controller
         }
 
         return ThreadDensityListResource::collection($query->paginate($perPage));
-        // return ThreadDensityListResource::collection(ThreadDensity::query()->paginate(10));
     }
 
     /**
@@ -46,7 +45,6 @@ class ThreadDensityController extends Controller
         $threadDensity = ThreadDensity::create($data);
 
         return new ThreadDensityResource($threadDensity);
-        // return new ThreadDensityResource(ThreadDensity::create($request->validated()));
     }
 
     /**
@@ -66,7 +64,7 @@ class ThreadDensityController extends Controller
         $data['updated_by'] = $request->user()->id;
 
         $threadDensity->update($data);
-        // $threadDensity->update($request->validated());
+
         return new ThreadDensityResource($threadDensity);
     }
 
@@ -75,14 +73,9 @@ class ThreadDensityController extends Controller
      */
     public function destroy(ThreadDensity $threadDensity)
     {
-        // Cek jika Thread Density memiliki Product
         if ($threadDensity->product()->count() > 0) {
-            // Lempar Exception dengan pesan error
             throw new \Exception("Thread Density ini memiliki product terkait dan tidak dapat dihapus.");
-            // return response()->json(['error' => 'Kategori ini memiliki tipe terkait dan tidak dapat dihapus.'], 409);
         }
-
         $threadDensity->delete();
-        return response()->noContent();
     }
 }

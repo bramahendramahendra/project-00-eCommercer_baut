@@ -39,10 +39,6 @@ class DashboardController extends Controller
             }
         }
 
-        // dump($sectionImage);
-        // dump($footerImage);
-
         return view('dashboard', compact('categoriesShop', 'prodoctsTopSell', 'sectionImages', 'footerImages'));
-        // return view('dashboard', compact('categoriesShop', 'prodoctsTopSell'));
     }
 }

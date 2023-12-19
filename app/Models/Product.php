@@ -63,119 +63,60 @@ class Product extends Model
         return  'slug';
     }
 
-    // public function type(): HasOne
-    // {
-    //     return $this->hasOne(Type::class, 'id', 'type_id');
-    // }
-
     public function type(): BelongsTo
     {
         return $this->belongsTo(Type::class, 'type_id');
     }
-
-    // public function unit(): HasOne
-    // {
-    //     return $this->hasOne(Unit::class, 'id', 'unit_id');
-    // }    
 
     public function unit(): BelongsTo
     {
         return $this->belongsTo(Unit::class, 'unit_id');
     }
 
-    // public function material(): HasOne
-    // {
-    //     return $this->hasOne(Material::class, 'id', 'material_id');
-    // }
-
     public function material(): BelongsTo
     {
         return $this->belongsTo(Material::class, 'material_id');
     }
-
-    // public function threadDensity(): HasOne
-    // {
-    //     return $this->hasOne(ThreadDensity::class, 'id', 'thread_density_id');
-    // }
 
     public function threadDensity(): BelongsTo
     {
         return $this->belongsTo(ThreadDensity::class, 'thread_density_id');
     }
 
-    // public function threadDirection(): HasOne
-    // {
-    //     return $this->hasOne(ThreadDirection::class, 'id', 'thread_direction_id');
-    // }
-
     public function threadDirection(): BelongsTo
     {
         return $this->belongsTo(ThreadDirection::class, 'thread_direction_id');
     }
 
-    // public function color(): HasOne
-    // {
-    //     return $this->hasOne(Color::class, 'id', 'color_id');
-    // }
     public function color(): BelongsTo
     {
         return $this->belongsTo(Color::class, 'color_id');
     }
-
-    // public function weightUnit(): HasOne
-    // {
-    //     return $this->hasOne(Unit::class, 'id', 'unit_weight_id');
-    // }
 
     public function weightUnit(): BelongsTo
     {
         return $this->belongsTo(Unit::class, 'unit_weight_id');
     }
 
-    // public function contentsPerBoxUnit(): HasOne
-    // {
-    //     return $this->hasOne(Unit::class, 'id', 'unit_contents_per_box_id');
-    // }
-
     public function contentsPerBoxUnit(): BelongsTo
     {
         return $this->belongsTo(Unit::class, 'unit_contents_per_box_id');
     }
-
-    // public function diameterUnit(): HasOne
-    // {
-    //     return $this->hasOne(Unit::class, 'id', 'unit_diameter_id');
-    // }
 
     public function diameterUnit(): BelongsTo
     {
         return $this->belongsTo(Unit::class, 'unit_diameter_id');
     }
 
-    // public function lengthUnit(): HasOne
-    // {
-    //     return $this->hasOne(Unit::class, 'id', 'unit_length_id');
-    // }
-
     public function lengthUnit(): BelongsTo
     {
         return $this->belongsTo(Unit::class, 'unit_length_id');
     }
 
-    // public function thickHeadUnit(): HasOne
-    // {
-    //     return $this->hasOne(Unit::class, 'id', 'unit_thick_head_id');
-    // }
-
     public function thickHeadUnit(): BelongsTo
     {
         return $this->belongsTo(Unit::class, 'unit_thick_head_id');
     }
-
-    // public function dratLengthUnit(): HasOne
-    // {
-    //     return $this->hasOne(Unit::class, 'id', 'unit_drat_length_id');
-    // }
 
     public function dratLengthUnit(): BelongsTo
     {
@@ -205,7 +146,7 @@ class Product extends Model
                 DB::raw('IFNULL(SUM(oi.quantity), 0) as total_quantity'),
                 DB::raw('MAX(oi.updated_at) as last_update')
             )
-            ->groupBy('products.id')
+            ->groupBy('products.id', 'products.code','products.title', 'products.slug', 'products.image')
             ->orderByDesc('total_quantity')
             ->orderByDesc('last_update')
             ->limit($limit);

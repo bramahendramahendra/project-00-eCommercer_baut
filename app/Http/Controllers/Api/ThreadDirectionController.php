@@ -31,7 +31,6 @@ class ThreadDirectionController extends Controller
         }
 
         return ThreadDirectionListResource::collection($query->paginate($perPage));
-        // return ThreadDirectionListResource::collection(ThreadDirection::query()->paginate(10));
     }
 
     /**
@@ -46,7 +45,6 @@ class ThreadDirectionController extends Controller
         $threadDirection = ThreadDirection::create($data);
 
         return new ThreadDirectionResource($threadDirection);
-        // return new ThreadDirectionResource(ThreadDirection::create($request->validated()));
     }
 
     /**
@@ -66,7 +64,7 @@ class ThreadDirectionController extends Controller
         $data['updated_by'] = $request->user()->id;
 
         $threadDirection->update($data);
-        // $threadDirection->update($request->validated());
+
         return new ThreadDirectionResource($threadDirection);
     }
 
@@ -75,11 +73,8 @@ class ThreadDirectionController extends Controller
      */
     public function destroy(ThreadDirection $threadDirection)
     {
-        // Cek jika Thread Direction memiliki Product
         if ($threadDirection->product()->count() > 0) {
-            // Lempar Exception dengan pesan error
             throw new \Exception("Thread Direction ini memiliki product terkait dan tidak dapat dihapus.");
-            // return response()->json(['error' => 'Kategori ini memiliki tipe terkait dan tidak dapat dihapus.'], 409);
         }
 
         $threadDirection->delete();
