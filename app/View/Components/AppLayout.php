@@ -54,14 +54,12 @@ class AppLayout extends Component
             ->limit(5)
             ->get();
 
-
         // Social Media 
         $socialMedias = SocialMedia::whereNotNull('name')
             ->whereNotNull('link')
             ->get();
 
         $informationCompany = InformationCompany::where('id', 1)->get();
-
 
         return view('layouts.app',compact('menu', 'headerImages', 'categories', 'socialMedias', 'informationCompany'));
     }

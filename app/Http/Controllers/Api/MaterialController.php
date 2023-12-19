@@ -31,7 +31,6 @@ class MaterialController extends Controller
         }
 
         return MaterialListResource::collection($query->paginate($perPage));
-        // return MaterialListResource::collection(Material::query()->paginate(10));
     }
 
     /**
@@ -46,7 +45,6 @@ class MaterialController extends Controller
         $material = Material::create($data);
 
         return new MaterialResource($material);
-        // return new MaterialResource(Material::create($request->validated()));
     }
 
     /**
@@ -67,7 +65,7 @@ class MaterialController extends Controller
         $data['updated_by'] = $request->user()->id;
 
         $material->update($data);
-        // $material->update($request->validated());
+
         return new MaterialResource($material);
     }
 
@@ -76,9 +74,7 @@ class MaterialController extends Controller
      */
     public function destroy(Material $material)
     {
-        // Cek jika Material memiliki Product
         if ($material->product()->count() > 0) {
-            // Lempar Exception dengan pesan error
             throw new \Exception("Material ini memiliki product terkait dan tidak dapat dihapus.");
             // return response()->json(['error' => 'Kategori ini memiliki tipe terkait dan tidak dapat dihapus.'], 409);
         }

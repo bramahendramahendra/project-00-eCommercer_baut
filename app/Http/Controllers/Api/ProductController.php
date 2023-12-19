@@ -50,7 +50,6 @@ class ProductController extends Controller
         $image = $data['image'] ?? null;
         if($image) {
             $relativePath = $this->saveImage($image);
-            // $data['image'] = '"' . URL::to(Storage::url($relativePath)). '"';
             $data['image'] = URL::to(Storage::url($relativePath));
             $data['image_mime'] = $image->getClientMimeType();
             $data['image_size'] = $image->getSize();
@@ -66,9 +65,6 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        // return new ProductResource($product);
-
-        // $product->load('type.category');
         return new ProductResource($product);
     }
 
@@ -77,11 +73,6 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        // $product->update($request->validated());
-        // var_dump($product);
-        // var_dump($request);
-        // die;
-        // exit;
         $data = $request->validated();
         $data['updated_by'] = $request->user()->id;
 

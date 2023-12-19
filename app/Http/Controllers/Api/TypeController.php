@@ -19,7 +19,6 @@ class TypeController extends Controller
      */
     public function index()
     {
-        // return TypeListResource::collection(Type::query()->paginate(10));
         $search = request('search', false);
         $perPage = request('per_page', 10);
         $sortField = request('sort_field', 'updated_at');
@@ -74,11 +73,8 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        // Cek jika Unit memiliki Product
         if ($unit->product()->count() > 0) {
-            // Lempar Exception dengan pesan error
             throw new \Exception("Unit ini memiliki tipe terkait dan tidak dapat dihapus.");
-            // return response()->json(['error' => 'Kategori ini memiliki tipe terkait dan tidak dapat dihapus.'], 409);
         }
         
         $type->delete();
