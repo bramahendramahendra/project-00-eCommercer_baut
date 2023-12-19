@@ -14,11 +14,13 @@ class AboutSeeder extends Seeder
     public function run(): void
     {
         About::factory()->state([
-            'title' => 'Tentang Kami'
+            'title' => 'Tentang Kami',
+            'description' => 'Tentang Kami' // prod tidak comment, dev dicomment
         ])->create();
 
         About::factory()->state([
-            'title' => 'Komitmen Kami'
+            'title' => 'Komitmen Kami',
+            'description' => 'Komitmen Kami' // prod tidak comment, dev dicomment 
         ])->create();
     }
 }

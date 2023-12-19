@@ -13,21 +13,21 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            AdminUserSeeder::class,
-            CategorySeeder::class,
-            ColorSeeder::class,
-            MaterialSeeder::class,
-            ThreadDensitySeeder::class,
-            ThreadDirectionSeeder::class,
-            UnitSeeder::class,
-            TypeSeeder::class,
-            ProductSeeder::class,
-            AboutSeeder::class,
-            FrequentlyAskedQuestionsSeeder::class,
-            ImageSourceSeeder::class,
-            InformationCompanySeeder::class,
-            SocialMediaSeeder::class,
-            TermsAndConditionsSeeder::class,
+            AdminUserSeeder::class, // Prod & dev
+            AboutSeeder::class, // Prod & dev
+            ImageSourceSeeder::class, // Prod & dev
+            InformationCompanySeeder::class, // Prod & dev
+            SocialMediaSeeder::class, // Prod & dev
+            TermsAndConditionsSeeder::class, // Prod & dev
+            // CategorySeeder::class, // only dev
+            // ColorSeeder::class, // only dev
+            // MaterialSeeder::class, // only dev
+            // ThreadDensitySeeder::class, // only dev
+            // ThreadDirectionSeeder::class, // only dev
+            // UnitSeeder::class, // only dev
+            // TypeSeeder::class, // only dev
+            // ProductSeeder::class, // only dev
+            // FrequentlyAskedQuestionsSeeder::class, // only dev
         ]);
         // \App\Models\User::factory(10)->create();
 

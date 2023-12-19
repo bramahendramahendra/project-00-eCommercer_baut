@@ -33,8 +33,6 @@ class UnitController extends Controller
         }
 
         return UnitListResource::collection($query->paginate($perPage));
-        
-        // return UnitListResource::collection(Unit::query()->paginate(10));
     }
 
     /**
