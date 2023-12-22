@@ -32,8 +32,6 @@ class ProductController extends Controller
             $query->where('code', 'like', "%{$search}%")
             ->orWhere('title', 'like', "%{$search}%");
         }
-        // return ProductListResource::collection(Product::with(['type'])->paginate(10));
-        // return ProductListResource::collection(Product::with(['type.category'])->paginate(10));
         return ProductListResource::collection($query->paginate($perPage));
     }
 
@@ -54,7 +52,6 @@ class ProductController extends Controller
             $data['image_mime'] = $image->getClientMimeType();
             $data['image_size'] = $image->getSize();
         }
-
         $product = Product::create($data);
 
         return new ProductResource($product);

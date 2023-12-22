@@ -84,7 +84,6 @@ export function createProduct({ commit }, product) {
         form.append('type_id', product.type_id);
         form.append('code', product.code);
         form.append('title', product.title);
-        // form.append('image', product.image);
         form.append('image', product.image);
         form.append('description', product.description || '');
         form.append('price_retail', product.price_retail);
@@ -124,6 +123,8 @@ export function createProduct({ commit }, product) {
 }
 
 export function updateProduct({ commit }, product) {
+    debugger;
+
     const id = product.id
 
     if (product.image instanceof File) {
@@ -688,4 +689,36 @@ export function getNewsletters({ commit, state }, { url = null, search = '', per
         .catch(() => {
             commit('setNewsletters', [false])
         })
+}
+
+export function getInformationCompanies({ commit }) {
+    return axiosClient.get(`/informationCompanies`)
+}
+
+export function updateInformationCompanies({ commit }, informationCompany) {
+    debugger;
+    const id = informationCompany.id;
+
+    if (informationCompany.image instanceof File) {
+        const form = new FormData();
+        form.append('id', informationCompany.id);
+        form.append('name', informationCompany.name);
+        form.append('description', informationCompany.description);
+        form.append('image', informationCompany.image);
+        form.append('email', informationCompany.email);
+        form.append('phone', informationCompany.phone);
+        form.append('operating_days', informationCompany.operating_days);
+        form.append('operating_hours', informationCompany.operating_hours);
+        form.append('address', informationCompany.address);
+        form.append('city', informationCompany.city);
+        form.append('state', informationCompany.state);
+        form.append('zipcode', informationCompany.zipcode);
+        form.append('country', informationCompany.country);
+        form.append('_method', 'PUT');
+        informationCompany = form;
+    } else {
+        informationCompany._method = 'PUT'
+    }
+
+    return axiosClient.post(`/informationCompanies/${id}`, informationCompany)
 }

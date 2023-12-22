@@ -19,7 +19,7 @@ class InformationCompanyResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'image' => $this->image,
+            'image_url' => $this->image,
             'email' => $this->email,
             'operating_days' => $this->operating_days,
             'operating_hours' => $this->operating_hours,

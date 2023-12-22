@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\ContactUsController;
 use App\Http\Controllers\Api\NewslettersController;
 use App\Http\Controllers\Api\ReportController;
+use App\Http\Controllers\Api\InformationCompanyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,6 +56,7 @@ Route::middleware(['auth:sanctum', 'admin'])
         Route::apiResource('users', UserController::class);
         Route::apiResource('customers', CustomerController::class);
         Route::apiResource('newsletters', NewslettersController::class);
+        Route::apiResource('informationCompanies', InformationCompanyController::class);
         
         // Route::get('Newsletters', [OrderController::class, 'index']);
 
