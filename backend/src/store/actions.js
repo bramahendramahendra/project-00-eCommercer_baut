@@ -84,7 +84,6 @@ export function createProduct({ commit }, product) {
         form.append('type_id', product.type_id);
         form.append('code', product.code);
         form.append('title', product.title);
-        // form.append('image', product.image);
         form.append('image', product.image);
         form.append('description', product.description || '');
         form.append('price_retail', product.price_retail);
@@ -124,6 +123,8 @@ export function createProduct({ commit }, product) {
 }
 
 export function updateProduct({ commit }, product) {
+    debugger;
+
     const id = product.id
 
     if (product.image instanceof File) {
@@ -521,7 +522,6 @@ export function getThreadDirection({ commit }, id) {
 }
 
 export function createThreadDirection({ commit }, threadDirection) {
-    // if(threadDirection.)
     const form = new FormData();
     form.append('name', threadDirection.name);
     threadDirection = form;
@@ -544,7 +544,6 @@ export function updateThreadDirection({ commit }, threadDirection) {
 }
 
 export function deleteThreadDirection({ commit }, id) {
-    // return axiosClient.delete('/categories/${id}')
     return axiosClient.delete(`/threadDirections/${id}`)
 }
 
@@ -688,4 +687,86 @@ export function getNewsletters({ commit, state }, { url = null, search = '', per
         .catch(() => {
             commit('setNewsletters', [false])
         })
+}
+
+export function getInformationCompanies({ commit }) {
+    return axiosClient.get(`/informationCompanies`)
+}
+
+export function updateInformationCompanies({ commit }, informationCompany) {
+    debugger;
+    const id = informationCompany.id;
+
+    if (informationCompany.image instanceof File) {
+        const form = new FormData();
+        form.append('id', informationCompany.id);
+        form.append('name', informationCompany.name);
+        form.append('description', informationCompany.description);
+        form.append('image', informationCompany.image);
+        form.append('email', informationCompany.email);
+        form.append('phone', informationCompany.phone);
+        form.append('operating_days', informationCompany.operating_days);
+        form.append('operating_hours', informationCompany.operating_hours);
+        form.append('address', informationCompany.address);
+        form.append('city', informationCompany.city);
+        form.append('state', informationCompany.state);
+        form.append('zipcode', informationCompany.zipcode);
+        form.append('country', informationCompany.country);
+        form.append('_method', 'PUT');
+        informationCompany = form;
+    } else {
+        informationCompany._method = 'PUT'
+    }
+
+    return axiosClient.post(`/informationCompanies/${id}`, informationCompany)
+}
+
+export function getFrequentlyAskedQuestions({ commit, state }, { url = null, search = '', per_page, sort_field, sort_direction } = {}) {
+    commit('setFrequentlyAskedQuestions', [true])
+    url = url || '/frequentlyAskedQuestions'
+    const params = {
+        per_page: state.frequentlyAskedQuestions.limit,
+    }
+    return axiosClient.get(url, {
+        params: {
+            ...params,
+            search, per_page, sort_field, sort_direction
+        }
+    })
+        .then((response) => {
+            commit('setFrequentlyAskedQuestions', [false, response.data])
+        })
+        .catch(() => {
+            commit('setFrequentlyAskedQuestions', [false])
+        })
+}
+
+export function getFrequentlyAskedQuestion({ commit }, id) {
+    return axiosClient.get(`/frequentlyAskedQuestions/${id}`)
+}
+
+export function createFrequentlyAskedQuestion({ commit }, frequentlyAskedQuestion) {
+    const form = new FormData();
+    form.append('question', frequentlyAskedQuestion.question);
+    form.append('answer', frequentlyAskedQuestion.answer);
+    frequentlyAskedQuestion = form;
+
+    return axiosClient.post('/frequentlyAskedQuestions', frequentlyAskedQuestion)
+}
+
+export function updateFrequentlyAskedQuestion({ commit }, frequentlyAskedQuestion) {
+    const id = frequentlyAskedQuestion.id
+
+    const form = new FormData();
+    form.append('id', frequentlyAskedQuestion.id);
+    form.append('question', frequentlyAskedQuestion.question);
+    form.append('answer', frequentlyAskedQuestion.answer);
+    form.append('_method', 'PUT');
+    frequentlyAskedQuestion = form;
+
+    return axiosClient.post(`/frequentlyAskedQuestions/${id}`, frequentlyAskedQuestion)
+}
+
+export function deleteFrequentlyAskedQuestion({ commit }, id) {
+    return axiosClient.delete(`/frequentlyAskedQuestions/${id}`)
 }

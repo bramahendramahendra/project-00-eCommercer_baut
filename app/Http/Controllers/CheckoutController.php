@@ -25,8 +25,8 @@ class CheckoutController extends Controller
 
         /** @var \App\Models\Customer $customer */
         $customer = $user->customer;
-
-        if(!$customer->billingAdress || !$customer->shippingAdress) {
+        
+        if(!$customer->billingAddress || !$customer->shippingAddress) {
             return redirect()->route('profile.edit')->with('error', 'Pastikan anda telah mengsisi alamat terlebih dahulu.');
         }
 
