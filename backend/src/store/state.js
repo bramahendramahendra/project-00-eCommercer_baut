@@ -132,7 +132,17 @@ const state = {
         page: 1,
         limit: null,
         total: null
-    }, 
+    },
+    frequentlyAskedQuestions: {
+        loading: false,
+        data: [],
+        links: [],
+        from: null,
+        to: null,
+        page: 1,
+        limit: null,
+        total: null
+    },
     toast: {
         show: false,
         message: '',

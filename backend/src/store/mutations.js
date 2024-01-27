@@ -283,6 +283,22 @@ export function setNewsletters(state, [loading, data = null]) {
     state.newsletters.loading = loading;
 }
 
+export function setFrequentlyAskedQuestions(state, [loading, data = null]) {
+    if (data) {
+        state.frequentlyAskedQuestions = {
+            ...state.frequentlyAskedQuestions,
+            data: data.data,
+            links: data.meta?.links,
+            page: data.meta.current_page,
+            limit: data.meta.per_page,
+            from: data.meta.from,
+            to: data.meta.to,
+            total: data.meta.total,
+        }
+    }
+    state.frequentlyAskedQuestions.loading = loading;
+}
+
 export function showToast(state, message) {
     state.toast.show = true;
     state.toast.message = message;
