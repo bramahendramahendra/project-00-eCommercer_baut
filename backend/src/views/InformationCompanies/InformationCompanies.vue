@@ -14,13 +14,13 @@
                     <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-3">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Nama Perusahaan</dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-3 sm:mt-0">
-                            <CustomInput class="mb-2" v-model="informationCompany.name" label="Name" :errors="errors.name" />
+                            <CustomInput class="mb-2" v-model="informationCompany.name" label="Nama Perusahaan" :errors="errors.name" />
                         </dd>
                     </div>
                     <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-3">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Deskripsi Perusahaan</dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-3 sm:mt-0">
-                            <CustomInput class="mb-2" v-model="informationCompany.description" label="Last Name" :errors="errors.description" />
+                            <CustomInput class="mb-2" v-model="informationCompany.description" label="Deskripsi Perusahaan" :errors="errors.description" />
                         </dd>
                     </div>
                     <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-3">
@@ -35,55 +35,55 @@
                     <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-3">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Email Perusahaan</dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-3 sm:mt-0">
-                            <CustomInput class="mb-2" v-model="informationCompany.email" label="Email" :errors="errors.email" />
+                            <CustomInput class="mb-2" v-model="informationCompany.email" label="Email Perusahaan" :errors="errors.email" />
                         </dd>
                     </div>
                     <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-3">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Telepon Perusahaan</dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-3 sm:mt-0">
-                            <CustomInput class="mb-2" v-model="informationCompany.phone" label="Phone" :errors="errors.phone" />
+                            <CustomInput class="mb-2" v-model="informationCompany.phone" label="Telepon Perusahaan" :errors="errors.phone" />
                         </dd>
                     </div>
                     <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-3">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Hari Operasional</dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-3 sm:mt-0">
-                            <CustomInput class="mb-2" v-model="informationCompany.operating_days" label="Phone" :errors="errors.operating_days" />
+                            <CustomInput class="mb-2" v-model="informationCompany.operating_days" label="Hari Operasional" :errors="errors.operating_days" />
                         </dd>
                     </div>
                     <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-3">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Jam Operasional</dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-3 sm:mt-0">
-                            <CustomInput class="mb-2" v-model="informationCompany.operating_hours" label="Phone" :errors="errors.operating_hours" />
+                            <CustomInput class="mb-2" v-model="informationCompany.operating_hours" label="Jam Operasional" :errors="errors.operating_hours" />
                         </dd>
                     </div>
                     <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-3">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Alamat Perusahaan</dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-3 sm:mt-0">
-                            <CustomInput type="textarea" class="mb-2" v-model="informationCompany.address" label="Phone" :errors="errors.address" />
+                            <CustomInput type="textarea" class="mb-2" v-model="informationCompany.address" label="Alamat Perusahaan" :errors="errors.address" />
                         </dd>
                     </div>
                     <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-3">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Kota </dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-3 sm:mt-0">
-                            <CustomInput class="mb-2" v-model="informationCompany.city" label="Phone" :errors="errors.city" />
+                            <CustomInput class="mb-2" v-model="informationCompany.city" label="Kota" :errors="errors.city" />
                         </dd>
                     </div>
                     <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-3">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Provinsi </dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-3 sm:mt-0">
-                            <CustomInput class="mb-2" v-model="informationCompany.state" label="Phone" :errors="errors.state" />
+                            <CustomInput class="mb-2" v-model="informationCompany.state" label="Provinsi" :errors="errors.state" />
                         </dd>
                     </div>
                     <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-3">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Kode Pos </dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-3 sm:mt-0">
-                            <CustomInput class="mb-2" v-model="informationCompany.zipcode" label="Phone" :errors="errors.zipcode" />
+                            <CustomInput class="mb-2" v-model="informationCompany.zipcode" label="Kode Pos" :errors="errors.zipcode" />
                         </dd>
                     </div>
                     <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-3">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Negara</dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-3 sm:mt-0">
-                            <CustomInput class="mb-2" v-model="informationCompany.country" label="Phone" :errors="errors.country" />
+                            <CustomInput class="mb-2" v-model="informationCompany.country" label="Negara" :errors="errors.country" />
                         </dd>
                     </div>
                 </div>

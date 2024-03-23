@@ -59,6 +59,7 @@
                     :value="props.modelValue"
                     @input="emit('update:modelValue', $event.target.value)" 
                     :class="inputClasses"
+                    :rows="10"
                     :placeholder="label"></textarea>
             </template>
             <template v-else-if="type === 'file'">

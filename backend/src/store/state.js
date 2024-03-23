@@ -143,6 +143,16 @@ const state = {
         limit: null,
         total: null
     },
+    termAndConditions: {
+        loading: false,
+        data: [],
+        links: [],
+        from: null,
+        to: null,
+        page: 1,
+        limit: null,
+        total: null
+    },
     toast: {
         show: false,
         message: '',

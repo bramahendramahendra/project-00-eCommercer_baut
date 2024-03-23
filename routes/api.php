@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\NewslettersController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\InformationCompanyController;
 use App\Http\Controllers\Api\FrequentlyAskedQuestionsController;
+use App\Http\Controllers\Api\TermAndConditionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -59,6 +60,7 @@ Route::middleware(['auth:sanctum', 'admin'])
         Route::apiResource('newsletters', NewslettersController::class);
         Route::apiResource('informationCompanies', InformationCompanyController::class);
         Route::apiResource('frequentlyAskedQuestions', FrequentlyAskedQuestionsController::class);
+        Route::apiResource('termAndConditions', TermAndConditionController::class);
         
         // Route::get('Newsletters', [OrderController::class, 'index']);
 

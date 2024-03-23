@@ -14,8 +14,6 @@
             </p>
         </div>
 
-       
-
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             @if (session('error'))
                 <div class="py-2 px-3 bg-red-500 text-white rounded">
@@ -83,7 +81,7 @@
                     </div>
                 </div>
                 <div>
-                    <x-primary-button>
+                    <x-primary-button id="register-button">
                         {{ __('Register') }}
                     </x-primary-button>
                     {{-- <button type="submit"
@@ -93,4 +91,17 @@
             </form>
         </div>
     </div>
+
 </x-app-layout>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const loginButton = document.getElementById('register-button');
+        loginButton.addEventListener('click', function() {
+            loginButton.disabled = true;
+            loginButton.classList.add('bg-gray-500', 'opacity-50');
+            loginButton.classList.remove('hover:bg-baut-color-red-200'); 
+            loginButton.form.submit(); // Pastikan form tetap terkirim
+        });
+    });
+</script>

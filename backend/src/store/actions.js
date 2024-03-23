@@ -694,7 +694,7 @@ export function getInformationCompanies({ commit }) {
 }
 
 export function updateInformationCompanies({ commit }, informationCompany) {
-    debugger;
+    // debugger;
     const id = informationCompany.id;
 
     if (informationCompany.image instanceof File) {
@@ -769,4 +769,57 @@ export function updateFrequentlyAskedQuestion({ commit }, frequentlyAskedQuestio
 
 export function deleteFrequentlyAskedQuestion({ commit }, id) {
     return axiosClient.delete(`/frequentlyAskedQuestions/${id}`)
+}
+
+export function getTermAndConditions({ commit, state }, { url = null, search = '', per_page, sort_field, sort_direction } = {}) {
+    commit('setTermAndConditions', [true])
+    // debugger;
+    url = url || '/termAndConditions'
+    const params = {
+        per_page: state.termAndConditions.limit,
+    }
+    return axiosClient.get(url, {
+        params: {
+            ...params,
+            search, per_page, sort_field, sort_direction
+        }
+    })
+
+        .then((response) => {
+            commit('setTermAndConditions', [false, response.data])
+        })
+        .catch(() => {
+            commit('setTermAndConditions', [false])
+        })
+}
+
+export function getTermAndCondition({ commit }, id) {
+    return axiosClient.get(`/termAndConditions/${id}`)
+}
+
+export function createTermAndCondition({ commit }, termAndCondition) {
+    const form = new FormData();
+    form.append('title', termAndCondition.title);
+    form.append('content', termAndCondition.content);
+    termAndCondition = form;
+
+    return axiosClient.post('/termAndConditions', termAndCondition)
+}
+
+export function updateTermAndCondition({ commit }, termAndCondition) {
+    const id = termAndCondition.id;
+
+    const form = new FormData();
+    form.append('id', termAndCondition.id);
+    form.append('title', termAndCondition.title);
+    form.append('content', termAndCondition.content);
+    form.append('_method', 'PUT');
+    termAndCondition = form;
+
+    return axiosClient.post(`/termAndConditions/${id}`, termAndCondition)
+}
+
+export function deleteTermAndCondition({ commit }, id) {
+    debugger;
+    return axiosClient.delete(`/termAndConditions/${id}`)
 }

@@ -299,6 +299,22 @@ export function setFrequentlyAskedQuestions(state, [loading, data = null]) {
     state.frequentlyAskedQuestions.loading = loading;
 }
 
+export function setTermAndConditions(state, [loading, data = null]) {
+    if (data) {
+        state.termAndConditions = {
+            ...state.termAndConditions,
+            data: data.data,
+            links: data.meta?.links,
+            page: data.meta.current_page,
+            limit: data.meta.per_page,
+            from: data.meta.from,
+            to: data.meta.to,
+            total: data.meta.total,
+        }
+    }
+    state.termAndConditions.loading = loading;
+}
+
 export function showToast(state, message) {
     state.toast.show = true;
     state.toast.message = message;

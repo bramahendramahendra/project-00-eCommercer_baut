@@ -55,7 +55,8 @@
                     </div>
                 </div>
                 <div>
-                    <x-primary-button>
+                    {{-- <x-primary-button> --}}
+                    <x-primary-button id="login-button">
                         {{ __('Login') }}
                     </x-primary-button>
                 </div>
@@ -63,3 +64,15 @@
         </div>
     </div>
 </x-app-layout>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const loginButton = document.getElementById('login-button');
+        loginButton.addEventListener('click', function() {
+            loginButton.disabled = true;
+            loginButton.classList.add('bg-gray-500', 'opacity-50');
+            loginButton.classList.remove('hover:bg-baut-color-red-200'); 
+            loginButton.form.submit(); // Pastikan form tetap terkirim
+        });
+    });
+</script>
