@@ -15,7 +15,8 @@
     "vue-chartjs": "^5.2.0",
     "vue-router": "^4.0.13",
     "vue3-select2-component": "^0.1.7",
-    "vuex": "^4.0.2"
+    "vuex": "^4.0.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@headlessui/vue": "^1.7.16",
