@@ -60,7 +60,7 @@
                                 {{ product.id }}
                             </td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                <img class="w-16" :src="product.image_url" :alt="product.title">
+                                <img class="w-16" :src="product.image_url ? product.image_url : '/product_default.png'" :alt="product.title">
                             </td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.type.category.name }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.type.name }}</td>

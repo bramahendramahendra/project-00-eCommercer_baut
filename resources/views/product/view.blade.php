@@ -6,11 +6,20 @@
                 <div class="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
                     <!-- Image gallery -->
                     <div x-data="{ selectedTab: 1, images: [
-                        { id: 1, src: '{{ $product->image }}', alt: '{{ $product->slug }}' },
+                        { id: 1, src: '{{ $product->image ? $product->image : asset('images/product_default.png') }}', alt: '{{ $product->slug }}' },
                         {{-- { id: 2, src: '{{ $product->image }}', alt: '{{ $product->slug }}' }, --}}
                         {{-- { id: 3, src: '{{ $product->image }}', alt: '{{ $product->slug }}' }, --}}
                     ]}" class="flex flex-col-reverse"
                     >
+                        <!-- Tambahkan iframe YouTube di sini -->
+                        <div class="mt-6">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID" 
+                                    title="YouTube video player" frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+
                         <!-- Image selector -->
                         <div class="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
                             <div class="grid grid-cols-4 gap-6" aria-orientation="horizontal" role="tablist">
@@ -343,7 +352,7 @@
                 </div>
                 <section aria-labelledby="related-heading"
                     class=" mt-16 border-t border-gray-200 px-4 py-16 sm:mt-24">
-                    <h2 id="related-heading" class="text-lg font-medium text-gray-900">Customers also purchased</h2>
+                    {{-- <h2 id="related-heading" class="text-lg font-medium text-gray-900">Customers also purchased</h2>
 
                     <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                         <div class="group relative">
@@ -366,7 +375,7 @@
                                 <p class="text-sm font-medium text-gray-900">$35</p>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </section>
             </div>
         </main>

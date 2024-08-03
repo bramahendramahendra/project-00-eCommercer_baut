@@ -68,4 +68,10 @@ Route::middleware('auth', 'verified')->group(function () {
     // Route::get('/orders/view/:order', [OrderController::class, 'view'])->name('order.view');
 });
 
+Route::get('/send-whatsapp', function () {
+    $phone = '+6282130600391';
+    $text = urlencode('Halo');
+    return redirect("https://api.whatsapp.com/send?phone={$phone}&text={$text}");
+});
+
 require __DIR__.'/auth.php';

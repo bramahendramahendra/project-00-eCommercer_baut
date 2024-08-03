@@ -1,0 +1,35 @@
+SET FOREIGN_KEY_CHECKS = 0;
+
+TRUNCATE TABLE `abouts`;
+TRUNCATE TABLE `cart_items`;
+TRUNCATE TABLE `categories`;
+TRUNCATE TABLE `colors`;
+TRUNCATE TABLE `contact_mes`;
+TRUNCATE TABLE `customer_addresses`;
+TRUNCATE TABLE `customers`;
+TRUNCATE TABLE `failed_jobs`;
+TRUNCATE TABLE `frequently_asked_questions`;
+TRUNCATE TABLE `image_sources`;
+TRUNCATE TABLE `information_companies`;
+TRUNCATE TABLE `materials`;
+TRUNCATE TABLE `migrations`;
+TRUNCATE TABLE `newsletters`;
+TRUNCATE TABLE `order_details`;
+TRUNCATE TABLE `order_items`;
+TRUNCATE TABLE `orders`;
+TRUNCATE TABLE `password_reset_tokens`;
+TRUNCATE TABLE `payments`;
+TRUNCATE TABLE `personal_access_tokens`;
+TRUNCATE TABLE `products`;
+TRUNCATE TABLE `social_media`;
+TRUNCATE TABLE `telescope_entries`;
+TRUNCATE TABLE `telescope_entries_tags`;
+TRUNCATE TABLE `telescope_monitoring`;
+TRUNCATE TABLE `terms_and_conditions`;
+TRUNCATE TABLE `thread_densities`;
+TRUNCATE TABLE `thread_directions`;
+TRUNCATE TABLE `types`;
+TRUNCATE TABLE `units`;
+TRUNCATE TABLE `users`;
+
+SET FOREIGN_KEY_CHECKS = 1;

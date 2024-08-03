@@ -1,4 +1,3 @@
-
 <template>
     <TransitionRoot appear :show="show" as="template">
         <Dialog as="div" @close="closeModal" class="relative z-50">
@@ -29,10 +28,13 @@
                             </header>
                             <form @submit.prevent="onSubmit">
                                 <div class="bg-white px-4 pt-5 pb-4">
-                                    <CustomInput class="mb-2" type="combobox" v-model="type.category" :options="categories" optionValue="id" optionText="name" placeholder="Pilih Kategori" :errors="errors.category" />
-                                    <CustomInput class="mb-2" v-model="type.code" label="Kode Jenis" :errors="errors.code" />
-                                    <CustomInput class="mb-2" v-model="type.name" label="Nama Jenis" :errors="errors.name" />
-                                    <CustomInput type="textarea" class="mb-2" v-model="type.description" label="Deskripsi Jenis" :errors="errors.description" />
+                                    <!-- Tambahkan v-if="!loading" untuk menyembunyikan saat loading -->
+                                    <div v-if="!loading">
+                                        <CustomInput class="mb-2" type="combobox" v-model="type.category" :options="categories" optionValue="id" optionText="name" placeholder="Pilih Kategori" :errors="errors.category" />
+                                        <CustomInput class="mb-2" v-model="type.code" label="Kode Jenis" :errors="errors.code" />
+                                        <CustomInput class="mb-2" v-model="type.name" label="Nama Jenis" :errors="errors.name" />
+                                        <CustomInput type="textarea" class="mb-2" v-model="type.description" label="Deskripsi Jenis" :errors="errors.description" />
+                                    </div>
                                 </div>
                                 <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"
@@ -49,7 +51,7 @@
         </Dialog>
     </TransitionRoot>
 </template>
-  
+
 <script setup>
 import { computed, ref, onUpdated } from 'vue'
 import {
@@ -124,11 +126,11 @@ function onSubmit() {
     loading.value = true
 
     const payload = {
-        id: type.value.id?type.value.id:'',
-        category_id: type.value.category? type.value.category.id : '',
-        code: type.value.code?type.value.code:'',
-        name: type.value.name?type.value.name:'',
-        description: type.value.description?type.value.description:'',
+        id: type.value.id ? type.value.id : '',
+        category_id: type.value.category ? type.value.category.id : '',
+        code: type.value.code ? type.value.code : '',
+        name: type.value.name ? type.value.name : '',
+        description: type.value.description ? type.value.description : '',
     };
     if (type.value.id) {
         debuagger;
@@ -166,5 +168,3 @@ function onSubmit() {
     }
 }
 </script>
-
-<style scoped></style>

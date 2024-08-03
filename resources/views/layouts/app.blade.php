@@ -11,6 +11,47 @@
     <!-- Scripts -->
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <style>
+        .whatsapp-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            background-color: rgba(37, 211, 101, 0);
+            color: white;
+            padding: 10px;
+            border-radius: 50px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: width 0.3s ease, background-color 0.3s ease;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 50px;
+        }
+
+        .whatsapp-notification img {
+            width: 40px;
+            height: 40px;
+            transition: margin-right 0.3s ease;
+        }
+
+        .whatsapp-notification:hover {
+            width: 160px;
+            background-color: rgba(18, 140, 126, 0.8);
+        }
+
+        .whatsapp-text {
+            opacity: 0;
+            margin-left: 10px;
+            transition: opacity 0.3s ease;
+        }
+
+        .whatsapp-notification:hover .whatsapp-text {
+            opacity: 1;
+        }
+    </style>
 </head>
 
 <body>
@@ -43,6 +84,12 @@
                 </div>
             </div>
         </div>
+
+        <!-- Tombol Notifikasi WhatsApp -->
+        <a href="{{ url('/send-whatsapp') }}" class="whatsapp-notification" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+            <span class="whatsapp-text">Kirim Pesan</span>
+        </a>
 
         <footer class="bg-white" aria-labelledby="footer-heading">
             <h2 id="footer-heading" class="sr-only">Footer</h2>

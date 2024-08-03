@@ -1,5 +1,6 @@
 <template>
     <div class="p-8">
+      <!-- <Spinner v-if="loading" class="absolute left-0 top-0 bg-white right-0 bottom-0 flex items-center justify-center" /> -->
       <h1 class="text-xl font-semibold mb-4">Upload Produk</h1>
       <div>
         <!-- Tombol Download Template Excel -->
@@ -244,9 +245,12 @@
 <script setup>
   import { ref } from 'vue';
   import * as XLSX from 'xlsx';
+  import store from '../../store';
   
   const uploadedData = ref([]);
   
+  // const loading = ref(false)
+
   function downloadTemplate() {
     // Membuat workbook dan worksheet
     const wb = XLSX.utils.book_new();
@@ -290,7 +294,7 @@
         ], // Header row
         [
           "1", // "type",
-          "P001", // "code",
+          "1", // "code",
           "Product Title", // "title",
           "Description here", // "description",
           "50000", // "price_retail",
@@ -303,7 +307,7 @@
           "50", // "contents_per_box",
           "4", // "contents_per_box_unit",
           "10", // "grade",
-          "45000", // "thread_direction",
+          "2", // "thread_direction",
           "2", // "thread_density",
           "3", // "diameter",
           "1.5", // "inner_diameter",
@@ -315,14 +319,14 @@
           "45000", // "thick_head_unit",
           "2", // "drat_length",
           "3", // "drat_length_unit",
-          "white", // "color",
+          "1", // "color",
           "2", // "drat_type",
           "50", // "drat_size",
           "4", // "dimensional_standart",
           "4", // "head_style",
           "4", // "drive_type",
           "4", // "across_flats",
-          "Yes"// "published",
+          "1"// "published",
         ],
     ];
     const ws = XLSX.utils.aoa_to_sheet(ws_data);
@@ -399,9 +403,135 @@
     reader.readAsArrayBuffer(file);
   }
   
-  function saveData() {
+  function saveData123() {
     console.log('Simpan data:', uploadedData.value);
 
+    // loading.value = true
+
+    const transformedData = uploadedData.value.map(item => ({
+      // Sesuaikan dengan field yang ada di API Anda
+      type: item.type,
+      code: item.code,
+      title: item.title,
+      description: item.description,
+      price_retail: item.price_retail,
+      quantity_limit: item.quantity_limit,
+      price_wholesale: item.price_wholesale,
+      unit: item.unit,
+      material: item.material,
+      weight: item.weight,
+      weight_unit: item.weight_unit,
+      contents_per_box: item.contents_per_box,
+      contents_per_box_unit: item.contents_per_box_unit,
+      grade: item.grade,
+      thread_direction: item.thread_direction,
+      thread_density: item.thread_density,
+      diameter: item.diameter,
+      inner_diameter: item.inner_diameter,
+      outer_diameter: item.outer_diameter,
+      diameter_unit: item.diameter_unit,
+      length: item.length,
+      length_unit: item.length_unit,
+      thick_head: item.thick_head,
+      thick_head_unit: item.thick_head_unit,
+      drat_length: item.drat_length,
+      drat_length_unit: item.drat_length_unit,
+      color: item.color,
+      drat_type: item.drat_type,
+      drat_size: item.drat_size,
+      dimensional_standart: item.dimensional_standart,
+      head_style: item.head_style,
+      drive_type: item.drive_type,
+      across_flats: item.across_flats,
+      published: item.published,
+    }));
+
+
+    const validData = false;
+
+    for (const item of transformedData) {
+      store.dispatch('createProduct', item)
+        .then(response => {
+          if (response.status === 201) {
+            validData = true;
+          }
+        })
+        .catch(err => {
+            validData = false;
+            errors.value = err.response.data.errors;
+        })
+    }
+
+    if (validData) {
+        // TODO show notification 
+        console.log('tesss');
+
+        store.commit('showToast', 'Thread Density berhasil ditambah.');
+        // store.dispatch('getThreadDensities')
+        // closeModal()
+    }
+
+  }
+
+  async function saveData() {
+    // Pastikan Anda memiliki action di Vuex store yang menghandle multiple create atau update
+    try {
+      // Mungkin Anda perlu transformasi data terlebih dahulu
+      const transformedData = uploadedData.value.map(item => ({
+        // Sesuaikan dengan field yang ada di API Anda
+        type_id: item.type,
+        code: item.code,
+        title: item.title,
+        image: '',
+        description: item.description,
+        price_retail: item.price_retail,
+        quantity_limit: item.quantity_limit,
+        price_wholesale: item.price_wholesale,
+        unit_id: item.unit,
+        material_id: item.material,
+        weight: item.weight,
+        weight_unit_id: item.weight_unit,
+        contents_per_box: item.contents_per_box,
+        contents_per_box_unit_id: item.contents_per_box_unit,
+        grade: item.grade,
+        thread_direction_id: item.thread_direction,
+        thread_density_id: item.thread_density,
+        diameter: item.diameter,
+        inner_diameter: item.inner_diameter,
+        outer_diameter: item.outer_diameter,
+        diameter_unit_id: item.diameter_unit,
+        length: item.length,
+        length_unit_id: item.length_unit,
+        thick_head: item.thick_head,
+        thick_head_unit_id: item.thick_head_unit,
+        drat_length: item.drat_length,
+        drat_length_unit_id: item.drat_length_unit,
+        drat_size: item.drat_size,
+        dimensional_standart: item.dimensional_standart,
+        head_style: item.head_style,
+        drive_type: item.drive_type,
+        across_flats: item.across_flats,
+        drat_type: item.drat_type,
+        color_id: item.color,
+        published: item.published,
+      }));
+
+      // Loop through data and save each item
+      for (const item of transformedData) {
+        console.log(item);
+        await store.dispatch('createProduct', item);
+      }
+
+      // Show success message
+      store.commit('showToast', 'Produk berhasil diupload.');
+
+      // Optional: clear the uploaded data after saving
+      uploadedData.value = [];
+    } catch (error) {
+      console.error('Error saving data:', error);
+      // Show error message
+      store.commit('showToast', 'Terjadi kesalahan saat mengupload produk.');
+    }
   }
 </script>
   

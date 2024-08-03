@@ -36,7 +36,7 @@
                                     <CustomInput class="mb-2 col-span-2" v-model="product.title" label="Judul Produk" :errors="errors.title" />
                                     <CustomInput class="mb-2 col-span-1" type="file" v-model="product.image" label="Gambar Produk" @change="file => product.image = file" :errors="errors.image" />
                                     <CustomInput class="mb-2 col-span-2" type="textarea" v-model="product.description" label="Deskripsi Produk" :errors="errors.description" />
-                                    <CustomInput class="mb-2 col-span-1" type="number" v-model="product.price_retail" label="Harga Eceran" prepend="Rp." :errors="errors.price_retail" />
+                                    <CustomInput class="mb-2 col-span-1" type="money" v-model="product.price_retail" label="Harga Eceran" prepend="Rp." :errors="errors.price_retail" />
                                     <CustomInput class="mb-2 col-span-1" type="number" v-model="product.quantity_limit" label="Max Kuantitas Eceran" prepend="Max" :errors="errors.quantity_limit" />
                                     <CustomInput class="mb-2 col-span-1" type="number" v-model="product.price_wholesale" label="Harga Grosir" prepend="Rp." :errors="errors.price_wholesale" />
                                     <CustomInput class="mb-2 col-span-1" type="combobox" v-model="product.unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Unit" :errors="errors.unit" />
@@ -282,8 +282,8 @@ function onSubmit() {
         published: product.value.published?product.value.published:0,
     };
 
-    // console.log(payload);
-    //  debugger;
+    console.log(payload);
+     debugger;
 
     if (product.value.id) {
         store.dispatch('updateProduct', payload)

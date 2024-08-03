@@ -86,3 +86,10 @@ php artisan storage:link
 ``` 
 pada kode diatas bertujuan untuk menghapus storage public dan menginstallnya lagi
  
+
+ ## jika database di hapus
+ ```bash
+php artisan migrate:fresh --seed
+``` 
+
+ ## Install production
