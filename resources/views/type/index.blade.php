@@ -299,12 +299,12 @@
                                             <div class="group relative">
                                                 <div
                                                     class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200">
-                                                    <img src="{{$product->image}}"
+                                                    <img src="{{ $product->image ? $product->image : asset('images/product_default.png') }}"
                                                         alt="Black machined steel pen with hexagonal grip and small white logo at top."
                                                         class="h-full w-full object-cover object-center group-hover:opacity-75">
                                                 </div>
                                                 <div class="mt-6">
-                                                    <p class="text-sm text-gray-500">{{$product->material_id}}</p>
+                                                    <p class="text-sm text-gray-500">{{$product->material->name}}</p>
                                                     <h3 class="mt-1 font-semibold text-gray-900">
                                                         <a href="{{ route('product.view', $product->slug) }}">
                                                             <span class="absolute inset-0"></span>

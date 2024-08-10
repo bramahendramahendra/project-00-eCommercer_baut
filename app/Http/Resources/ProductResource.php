@@ -129,6 +129,7 @@ class ProductResource extends JsonResource
                 'id' => $this?->color->id??'',
                 'name' => $color?->name??'',
             ],
+            'url_video' => $this->url_video,
             'published' => (bool)$this->published,
             // 'category' => new CategoryResource($this->whenLoaded('category')),
             'created_at' => (new \DateTime($this->created_at))->format('Y-m-d H:i:s'),

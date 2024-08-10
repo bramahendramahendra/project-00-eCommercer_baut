@@ -12,7 +12,7 @@
                     <Combobox as="div" v-model="innerValue">
                         <ComboboxInput
                             :placeholder="placeholder"
-                            :class="inputClasses"
+                            :class="[inputClasses, errors && errors.length ? 'border-red-600' : '']"
                             @input="updateFilter"
                             :display-value="(option) => option?.[optionText]"
                         />
@@ -118,7 +118,7 @@
                 {{ append }}
             </span>
         </div>
-        <small v-if="errors && errors[0]" class="text-red-600" >{{ errors[0] }}</small>
+        <small v-if="errors && errors.length" class="text-red-600">{{ errors[0] }}</small>
     </div>
 </template>
 
@@ -164,7 +164,7 @@ const props = defineProps({
         type: Array,
         required: false
     }
-})
+});
 
 const id = computed(() => {
     if (props.id) return props.id;
@@ -184,12 +184,12 @@ const inputClasses = computed(() => {
         cls.push('rounded-md');
     }
 
-    if (props.errors && props.errors[0]) {
+    if (props.errors && props.errors.length) {
         cls.push('border-red-600 focus:border-red-600');
     }
 
     return cls.join(' ');
-})
+});
 
 const emit = defineEmits(['update:modelValue', 'change']);
 const innerValue = ref(props.modelValue);

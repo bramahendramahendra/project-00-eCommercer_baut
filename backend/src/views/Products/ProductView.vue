@@ -44,7 +44,7 @@
                     <dt class="text-sm font-medium leading-6 text-gray-900">Gambar</dt>
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                         <div class="group aspect-h-2 aspect-w-16 block w-1/6 overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
-                            <img :src="product.image_url" alt="" class="pointer-events-none object-cover group-hover:opacity-75" />
+                            <img :src="product.image_url ? product.image_url : '/product_default.png'" alt="" class="pointer-events-none object-cover group-hover:opacity-75" />
                             <button type="button" class="absolute inset-0 focus:outline-none">
                             </button>
                         </div>
@@ -140,13 +140,30 @@
                     <dt class="text-sm font-medium leading-6 text-gray-900">Warna</dt>
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ product.color.name || '-' }}</dd>
                 </div>
+                <div class="bg-white px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">URL Video</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                        <div v-if="embedUrl">
+                            <iframe
+                            :src="embedUrl"
+                            class="w-full h-64"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div v-else>
+                            -
+                        </div>
+                    </dd>
+                </div>
             </dl>
         </div>
     </div>
 </template>
 
 <script setup>
-    import { onMounted, ref } from "vue";
+    import { onMounted, ref, computed } from "vue";
     import store from "../../store";
     import Spinner from '../../components/core/Spinner.vue';
     import { useRoute } from "vue-router";
@@ -184,6 +201,24 @@
                 product.value = data
             })
     }
+
+    const embedUrl = computed(() => {
+        console.log("Product data:", product.value);  // Cek data produk
+        const url = product.value.url_video;
+        console.log("Video URL:", url);  // Cek URL Video
+        if (!url) return null;
+
+        // Contoh konversi URL YouTube menjadi embed URL
+        const youtubePattern = /youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/;
+        const match = url.match(youtubePattern);
+
+        if (match) {
+            return `https://www.youtube.com/embed/${match[1]}`;
+        }
+
+        // Jika tidak ada pola yang cocok, kembalikan URL asli
+        return url;
+    });
 
 </script>
 <style scoped></style>

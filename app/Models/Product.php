@@ -46,6 +46,7 @@ class Product extends Model
         'across_flats',
         'drat_type',
         'color_id',
+        'url_video',
         'published', 'created_by', 'updated_by'];
 
     /**

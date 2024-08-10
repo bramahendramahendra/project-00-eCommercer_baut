@@ -16,7 +16,10 @@ class CategoryController extends Controller
 
         $query = $category->product();
         $query = FilterHelper::applyMaterialAndColorFilters($query, $materialIds, $colorIds);
-        $products = $query->orderBy('updated_at', 'desc')->paginate(40);
+        $products = $query
+            ->where('published', '=', 1)
+            ->orderBy('updated_at', 'desc')
+            ->paginate(40);
 
         return view('category.index', array_merge([
             'category' => $category,

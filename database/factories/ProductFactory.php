@@ -51,6 +51,7 @@ class ProductFactory extends Factory
             'drat_length' => fake()->randomNumber(2,2,2),
             'unit_drat_length_id' => fake()->numberBetween(1, 10),
             'color_id' => fake()->numberBetween(1, 10),
+            'url_video' => fake()->realText(190),
             'created_by' => 1,
             'updated_by' => 1,
             'created_at' => now(),

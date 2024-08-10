@@ -56,6 +56,7 @@ class ProductRequest extends FormRequest
             'across_flats' =>['nullable', 'string'],
             'drat_type' =>['nullable', 'string'],
             'color_id' =>['nullable', 'numeric'],
+            'url_video' =>['nullable', 'string'],
             'published' => ['nullable', 'boolean'],
         ];
     }

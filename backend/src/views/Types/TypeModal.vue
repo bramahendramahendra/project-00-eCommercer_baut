@@ -28,13 +28,12 @@
                             </header>
                             <form @submit.prevent="onSubmit">
                                 <div class="bg-white px-4 pt-5 pb-4">
-                                    <!-- Tambahkan v-if="!loading" untuk menyembunyikan saat loading -->
-                                    <div v-if="!loading">
-                                        <CustomInput class="mb-2" type="combobox" v-model="type.category" :options="categories" optionValue="id" optionText="name" placeholder="Pilih Kategori" :errors="errors.category" />
+                                    <template v-if="!loading">
+                                        <CustomInput class="mb-2" type="combobox" v-model="type.category" :options="categories" optionValue="id" optionText="name" placeholder="Pilih Kategori" :errors="errors.category_id" />
                                         <CustomInput class="mb-2" v-model="type.code" label="Kode Jenis" :errors="errors.code" />
                                         <CustomInput class="mb-2" v-model="type.name" label="Nama Jenis" :errors="errors.name" />
                                         <CustomInput type="textarea" class="mb-2" v-model="type.description" label="Deskripsi Jenis" :errors="errors.description" />
-                                    </div>
+                                    </template>
                                 </div>
                                 <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"

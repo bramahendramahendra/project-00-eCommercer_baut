@@ -115,6 +115,7 @@ export function createProduct({ commit }, product) {
         form.append('across_flats',product.across_flats);
         form.append('drat_type',product.drat_type);
         form.append('color_id',product.color_id);
+        form.append('url_video',product.url_video);
         form.append('published', product.published ? 1 : 0);
         product = form;
     }
@@ -160,6 +161,7 @@ export function createProductUpload({ commit }, product) {
         form.append('across_flats',product.across_flats);
         form.append('drat_type',product.drat_type);
         form.append('color_id',product.color_id);
+        form.append('url_video',product.url_video);
         form.append('published', product.published ? 1 : 0);
         product = form;
     }
@@ -209,6 +211,7 @@ export function updateProduct({ commit }, product) {
         form.append('across_flats', product.across_flats);
         form.append('drat_type', product.drat_type);
         form.append('color_id', product.color_id);
+        form.append('url_video', product.url_video);
         form.append('published', product.published?1:0);
         form.append('_method', 'PUT');
         product = form;

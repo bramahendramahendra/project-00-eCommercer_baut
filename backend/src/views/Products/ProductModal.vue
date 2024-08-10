@@ -31,41 +31,44 @@
                             <form @submit.prevent="onSubmit">
                                 <div class="bg-white grid grid-cols-3 gap-2 place-items-stretch px-4 pt-5 pb-4">
                                     <!-- <CustomInput class="mb-2" v-model="product.type_id" label="Jenis" /> -->
-                                    <CustomInput class="mb-2 col-span-3" type="combobox" v-model="product.type" :options="types" optionValue="id" optionText="name" placeholder="Pilih Jenis" :errors="errors.type" />
-                                    <CustomInput class="mb-2 col-span-1" v-model="product.code" label="Kode Produk" :errors="errors.code" />
-                                    <CustomInput class="mb-2 col-span-2" v-model="product.title" label="Judul Produk" :errors="errors.title" />
-                                    <CustomInput class="mb-2 col-span-1" type="file" v-model="product.image" label="Gambar Produk" @change="file => product.image = file" :errors="errors.image" />
-                                    <CustomInput class="mb-2 col-span-2" type="textarea" v-model="product.description" label="Deskripsi Produk" :errors="errors.description" />
-                                    <CustomInput class="mb-2 col-span-1" type="money" v-model="product.price_retail" label="Harga Eceran" prepend="Rp." :errors="errors.price_retail" />
-                                    <CustomInput class="mb-2 col-span-1" type="number" v-model="product.quantity_limit" label="Max Kuantitas Eceran" prepend="Max" :errors="errors.quantity_limit" />
-                                    <CustomInput class="mb-2 col-span-1" type="number" v-model="product.price_wholesale" label="Harga Grosir" prepend="Rp." :errors="errors.price_wholesale" />
-                                    <CustomInput class="mb-2 col-span-1" type="combobox" v-model="product.unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Unit" :errors="errors.unit" />
-                                    <CustomInput class="mb-2 col-span-2" type="combobox" v-model="product.material" :options="materials" optionValue="id" optionText="name" placeholder="Pilih Material" :errors="errors.material" />
-                                    <CustomInput class="mb-2 col-span-1" type="number" v-model="product.weight" label="Berat" prepend="" :errors="errors.weight" />
-                                    <CustomInput class="mb-2 col-span-2" type="combobox" v-model="product.weight_unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Berat" :errors="errors.weight_unit" />
-                                    <CustomInput class="mb-2 col-span-1" type="number"  v-model="product.contents_per_box" label="Isi Per Kotak" prepend="" :errors="errors.contents_per_box" />
-                                    <CustomInput class="mb-2 col-span-2" type="combobox" v-model="product.contents_per_box_unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Per Box" :errors="errors.contents_per_box_unit" />
-                                    <CustomInput class="mb-2 col-span-1" v-model="product.grade" label="Grade" :errors="errors.grade" />
-                                    <CustomInput class="mb-2 col-span-1" type="combobox" v-model="product.thread_direction" :options="threadDirections" optionValue="id" optionText="name" placeholder="Pilih Thread Direction" :errors="errors.thread_direction" />
-                                    <CustomInput class="mb-2 col-span-1" type="combobox" v-model="product.thread_density" :options="threadDensities" optionValue="id" optionText="name" placeholder="Pilih Thread Density" :errors="errors.thread_density" />
-                                    <CustomInput class="mb-2 col-span-1" type="number" v-model="product.diameter" label="Diameter" prepend="" :errors="errors.diameter" />
-                                    <CustomInput class="mb-2 col-span-1" type="number" v-model="product.inner_diameter" label="Diameter Dalam" prepend="" :errors="errors.inner_diameter" />
-                                    <CustomInput class="mb-2 col-span-1" type="number" v-model="product.outer_diameter" label="Diameter Luar" prepend="" :errors="errors.outer_diameter" />
-                                    <CustomInput class="mb-2 col-span-3" type="combobox" v-model="product.diameter_unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Diameter" :errors="errors.diameter_unit" />
-                                    <CustomInput class="mb-2 col-span-1" type="number" v-model="product.length" label="Panjang" prepend="" :errors="errors.length" />
-                                    <CustomInput class="mb-2 col-span-2" type="combobox" v-model="product.length_unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Panjang" :errors="errors.length_unit" />
-                                    <CustomInput class="mb-2 col-span-1" type="number" v-model="product.thick_head" label="Tebal Kepala" prepend="" :errors="errors.thick_head" />
-                                    <CustomInput class="mb-2 col-span-2" type="combobox" v-model="product.thick_head_unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Tebal Kepala" :errors="errors.thick_head_unit" />
-                                    <CustomInput class="mb-2 col-span-1" type="number" v-model="product.drat_length" label="Panjang drat (b)" prepend="" :errors="errors.drat_length" />
-                                    <CustomInput class="mb-2 col-span-2" type="combobox" v-model="product.drat_length_unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Panjang drat" :errors="errors.drat_length_unit" />
-                                    <CustomInput class="mb-2 col-span-3" type="combobox" v-model="product.color" :options="colors" optionValue="id" optionText="name" placeholder="Pilih Warna" :errors="errors.color" />
-                                    <CustomInput class="mb-2 col-span-1" v-model="product.drat_type" label="Tipe drat" :errors="errors.drat_type" />
-                                    <CustomInput class="mb-2 col-span-1" v-model="product.drat_size" label="Ukuran Drat" :errors="errors.drat_size" />
-                                    <CustomInput class="mb-2 col-span-1" v-model="product.dimensional_standart" label="Dimensional Standart" :errors="errors.dimensional_standart" />
-                                    <CustomInput class="mb-2 col-span-1" v-model="product.head_style" label="Head Style" :errors="errors.head_style" />
-                                    <CustomInput class="mb-2 col-span-1" v-model="product.drive_type" label="Drive Type" :errors="errors.drive_type" />
-                                    <CustomInput class="mb-2 col-span-1" v-model="product.across_flats" label="Kunci Kepala" :errors="errors.across_flats" />
-                                    <CustomInput class="mb-2" type="checkbox" v-model="product.published" label="Published" :errors="errors.published" />
+                                    <template v-if="!loading">
+                                        <CustomInput class="mb-2 col-span-3" type="combobox" v-model="product.type" :options="types" optionValue="id" optionText="name" placeholder="Pilih Jenis" :errors="errors.type_id" />
+                                        <CustomInput class="mb-2 col-span-1" v-model="product.code" label="Kode Produk" :errors="errors.code" />
+                                        <CustomInput class="mb-2 col-span-2" v-model="product.title" label="Judul Produk" :errors="errors.title" />
+                                        <CustomInput class="mb-2 col-span-1" type="file" v-model="product.image" label="Gambar Produk" @change="file => product.image = file" :errors="errors.image" />
+                                        <CustomInput class="mb-2 col-span-2" type="textarea" v-model="product.description" label="Deskripsi Produk" :errors="errors.description" />
+                                        <CustomInput class="mb-2 col-span-1" type="money" v-model="product.price_retail" label="Harga Eceran" prepend="Rp." :errors="errors.price_retail" />
+                                        <CustomInput class="mb-2 col-span-1" type="number" v-model="product.quantity_limit" label="Max Kuantitas Eceran" prepend="Max" :errors="errors.quantity_limit" />
+                                        <CustomInput class="mb-2 col-span-1" type="money" v-model="product.price_wholesale" label="Harga Grosir" prepend="Rp." :errors="errors.price_wholesale" />
+                                        <CustomInput class="mb-2 col-span-1" type="combobox" v-model="product.unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Unit" :errors="errors.unit_id" />
+                                        <CustomInput class="mb-2 col-span-2" type="combobox" v-model="product.material" :options="materials" optionValue="id" optionText="name" placeholder="Pilih Material" :errors="errors.material_id" />
+                                        <CustomInput class="mb-2 col-span-1" type="number" v-model="product.weight" label="Berat" prepend="" :errors="errors.weight" />
+                                        <CustomInput class="mb-2 col-span-2" type="combobox" v-model="product.weight_unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Berat" :errors="errors.weight_unit" />
+                                        <CustomInput class="mb-2 col-span-1" type="number"  v-model="product.contents_per_box" label="Isi Per Kotak" prepend="" :errors="errors.contents_per_box" />
+                                        <CustomInput class="mb-2 col-span-2" type="combobox" v-model="product.contents_per_box_unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Per Box" :errors="errors.contents_per_box_unit" />
+                                        <CustomInput class="mb-2 col-span-1" v-model="product.grade" label="Grade" :errors="errors.grade" />
+                                        <CustomInput class="mb-2 col-span-1" type="combobox" v-model="product.thread_direction" :options="threadDirections" optionValue="id" optionText="name" placeholder="Pilih Thread Direction" :errors="errors.thread_direction" />
+                                        <CustomInput class="mb-2 col-span-1" type="combobox" v-model="product.thread_density" :options="threadDensities" optionValue="id" optionText="name" placeholder="Pilih Thread Density" :errors="errors.thread_density" />
+                                        <CustomInput class="mb-2 col-span-1" type="number" v-model="product.diameter" label="Diameter" prepend="" :errors="errors.diameter" />
+                                        <CustomInput class="mb-2 col-span-1" type="number" v-model="product.inner_diameter" label="Diameter Dalam" prepend="" :errors="errors.inner_diameter" />
+                                        <CustomInput class="mb-2 col-span-1" type="number" v-model="product.outer_diameter" label="Diameter Luar" prepend="" :errors="errors.outer_diameter" />
+                                        <CustomInput class="mb-2 col-span-3" type="combobox" v-model="product.diameter_unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Diameter" :errors="errors.diameter_unit" />
+                                        <CustomInput class="mb-2 col-span-1" type="number" v-model="product.length" label="Panjang" prepend="" :errors="errors.length" />
+                                        <CustomInput class="mb-2 col-span-2" type="combobox" v-model="product.length_unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Panjang" :errors="errors.length_unit" />
+                                        <CustomInput class="mb-2 col-span-1" type="number" v-model="product.thick_head" label="Tebal Kepala" prepend="" :errors="errors.thick_head" />
+                                        <CustomInput class="mb-2 col-span-2" type="combobox" v-model="product.thick_head_unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Tebal Kepala" :errors="errors.thick_head_unit" />
+                                        <CustomInput class="mb-2 col-span-1" type="number" v-model="product.drat_length" label="Panjang drat (b)" prepend="" :errors="errors.drat_length" />
+                                        <CustomInput class="mb-2 col-span-2" type="combobox" v-model="product.drat_length_unit" :options="units" optionValue="id" optionText="full_name" placeholder="Pilih Satuan Panjang drat" :errors="errors.drat_length_unit" />
+                                        <CustomInput class="mb-2 col-span-3" type="combobox" v-model="product.color" :options="colors" optionValue="id" optionText="name" placeholder="Pilih Warna" :errors="errors.color" />
+                                        <CustomInput class="mb-2 col-span-1" v-model="product.drat_type" label="Tipe drat" :errors="errors.drat_type" />
+                                        <CustomInput class="mb-2 col-span-1" v-model="product.drat_size" label="Ukuran Drat" :errors="errors.drat_size" />
+                                        <CustomInput class="mb-2 col-span-1" v-model="product.dimensional_standart" label="Dimensional Standart" :errors="errors.dimensional_standart" />
+                                        <CustomInput class="mb-2 col-span-1" v-model="product.head_style" label="Head Style" :errors="errors.head_style" />
+                                        <CustomInput class="mb-2 col-span-1" v-model="product.drive_type" label="Drive Type" :errors="errors.drive_type" />
+                                        <CustomInput class="mb-2 col-span-1" v-model="product.across_flats" label="Kunci Kepala" :errors="errors.across_flats" />
+                                        <CustomInput class="mb-2 col-span-2" v-model="product.url_video" label="URL Video" :errors="errors.url_video" />
+                                        <CustomInput class="mb-2" type="checkbox" v-model="product.published" label="Published" :errors="errors.published" />
+                                    </template>
                                 </div>
                                 <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"
@@ -132,6 +135,7 @@ const errors = ref({
     head_style: [],
     drive_type: [],
     across_flats: [],
+    url_video: [],
     published: [],
 })
 
@@ -201,6 +205,7 @@ function getProduct() {
         across_flats: props.product.across_flats,
         drat_type: props.product.drat_type,
         color: props.product.color,
+        url_video: props.product.url_video,
         published: props.product.published,
     };
 }
@@ -279,11 +284,12 @@ function onSubmit() {
         across_flats: product.value.across_flats?product.value.across_flats:'',
         drat_type: product.value.drat_type?product.value.drat_type:'',
         color_id: product.value.color?product.value.color.id:'',
+        url_video: product.value.url_video?product.value.url_video:'',
         published: product.value.published?product.value.published:0,
     };
 
-    console.log(payload);
-     debugger;
+     // console.log(payload);
+    //  debugger;
 
     if (product.value.id) {
         store.dispatch('updateProduct', payload)

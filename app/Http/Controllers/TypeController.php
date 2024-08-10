@@ -18,7 +18,10 @@ class TypeController extends Controller
 
         $query = $type->product();
         $query = FilterHelper::applyMaterialAndColorFilters($query, $materialIds, $colorIds);
-        $products = $query->orderBy('updated_at', 'desc')->paginate(40);
+        $products = $query
+            ->where('published', '=', 1)
+            ->orderBy('updated_at', 'desc')
+            ->paginate(40);
         
         // dd($products);
         return view('type.index', array_merge(

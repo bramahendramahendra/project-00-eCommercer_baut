@@ -1,4 +1,5 @@
 <x-app-layout>
+    {{-- @dump($product) --}}
     <div>
         <main class="mx-auto max-w-7xl sm:px-6 sm:pt-16 lg:px-8">
             <div class="mx-auto max-w-2xl lg:max-w-none">
@@ -12,13 +13,22 @@
                     ]}" class="flex flex-col-reverse"
                     >
                         <!-- Tambahkan iframe YouTube di sini -->
-                        <div class="mt-6">
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID" 
-                                    title="YouTube video player" frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                    allowfullscreen>
-                            </iframe>
-                        </div>
+                        @if ($product->url_video)
+                            <div class="mt-6">
+                                {{-- <iframe width="560" height="315" src="{{$product->url_video}}"  --}}
+                                @php
+                                    $url = $product->url_video;
+                                    if (strpos($url, 'youtube.com/watch') !== false) {
+                                        $url = str_replace('watch?v=', 'embed/', $url);
+                                    }
+                                @endphp
+                                <iframe width="560" height="315" src="{{ $url }}" 
+                                        title="YouTube video player" frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen>
+                                </iframe>
+                            </div>
+                        @endif
 
                         <!-- Image selector -->
                         <div class="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
@@ -192,7 +202,7 @@
                                                         </td>
                                                     </tr>
                                                 @endif
-                                                @if ($product->threadDirection->name)
+                                                @if ($product->threadDirection && $product->threadDirection->name)
                                                     <tr>
                                                         <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
                                                             {{ __('Thread Direction') }}
@@ -202,7 +212,7 @@
                                                         </td>
                                                     </tr>
                                                 @endif
-                                                @if ($product->threadDensity->name)
+                                                @if ($product->threadDensity &&  $product->threadDensity->name)
                                                     <tr>
                                                         <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
                                                             {{ __('Thread Density') }}
@@ -332,7 +342,7 @@
                                                         </td>
                                                     </tr>
                                                 @endif
-                                                @if ($product->color->name)
+                                                @if ($product->color && $product->color->name)
                                                     <tr>
                                                         <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
                                                             {{ __('Warna') }}

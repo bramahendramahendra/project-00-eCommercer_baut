@@ -37,7 +37,6 @@ class DashboardController extends Controller
 
             }
         }
-
         return view('dashboard', compact('categoriesShop', 'prodoctsTopSell', 'sectionImages', 'footerImages'));
     }
 }

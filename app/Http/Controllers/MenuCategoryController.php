@@ -10,7 +10,7 @@ class MenuCategoryController extends Controller
     public function index()
     {
         $categories = Category::whereHas('type.product')->with('type.product')->get();
-
+        dump("tes");
         foreach ($categories as $category) {
             foreach ($category->type as $type) {
                 $type->setRelation('product', $type->product->take(1));
