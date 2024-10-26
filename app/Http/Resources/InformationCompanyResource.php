@@ -29,6 +29,8 @@ class InformationCompanyResource extends JsonResource
             'state' => $this->state,
             'zipcode' => $this->zipcode,
             'country' => $this->country,
+            'contact_wa' => $this->contact_wa,
+            'text_wa' => $this->text_wa,
             'created_at' => (new \DateTime($this->created_at))->format('Y-m-d H:i:s'),
             'updated_at' => (new \DateTime($this->updated_at))->format('Y-m-d H:i:s'),
         ];

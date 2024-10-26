@@ -28,6 +28,8 @@ return new class extends Migration
             $table->string('state', 45);
             $table->string('zipcode', 45);
             $table->string('country', 15);
+            $table->string('contact_wa', 20);
+            $table->string('text_wa', 50);
             $table->foreignIdFor(User::class, 'created_by')->nullable();
             $table->foreignIdFor(User::class, 'updated_by')->nullable();
             $table->timestamps();

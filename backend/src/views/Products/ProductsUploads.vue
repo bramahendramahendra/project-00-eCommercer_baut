@@ -48,6 +48,9 @@
                 Material
               </th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                URL Video
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Berat
               </th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -136,7 +139,6 @@
                 {{ data.title }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <!-- {{ data.image }} -->
                 <img :src="data.image" alt="Gambar Produk" class="w-20 h-20 object-cover"/>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
@@ -156,6 +158,9 @@
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 {{ data.material }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                {{ data.url_video }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 {{ data.weight }}
@@ -265,6 +270,7 @@
           "price_wholesale",
           "unit",
           "material",
+          "url_video",
           "weight",
           "weight_unit",
           "contents_per_box",
@@ -293,15 +299,16 @@
 
         ], // Header row
         [
-          "1", // "type",
-          "1", // "code",
-          "Product Title", // "title",
+          "1 *", // "type",
+          "1 *", // "code",
+          "Product Title  *", // "title",
           "Description here", // "description",
-          "50000", // "price_retail",
-          "10", // "quantity_limit",
-          "45000", // "price_wholesale",
-          "2", // "unit",
-          "3", // "material",
+          "50000 *", // "price_retail",
+          "10 *", // "quantity_limit",
+          "45000 *", // "price_wholesale",
+          "2 *", // "unit",
+          "3 *", // "material",
+          "https://www.youtube.com/", // "url_video",
           "1.5", // "weight",
           "2", // "weight_unit",
           "50", // "contents_per_box",
@@ -320,12 +327,12 @@
           "2", // "drat_length",
           "3", // "drat_length_unit",
           "1", // "color",
-          "2", // "drat_type",
-          "50", // "drat_size",
-          "4", // "dimensional_standart",
-          "4", // "head_style",
-          "4", // "drive_type",
-          "4", // "across_flats",
+          "Full", // "drat_type",
+          "T 20", // "drat_size",
+          "ANSI B18.2.1", // "dimensional_standart",
+          "Hex", // "head_style",
+          "External hex", // "drive_type",
+          "K11", // "across_flats",
           "1"// "published",
         ],
     ];
@@ -419,6 +426,7 @@
       price_wholesale: item.price_wholesale,
       unit: item.unit,
       material: item.material,
+      url_video: item.url_video,
       weight: item.weight,
       weight_unit: item.weight_unit,
       contents_per_box: item.contents_per_box,
@@ -489,6 +497,7 @@
         price_wholesale: item.price_wholesale,
         unit_id: item.unit,
         material_id: item.material,
+        url_video: item.url_video,
         weight: item.weight,
         weight_unit_id: item.weight_unit,
         contents_per_box: item.contents_per_box,
@@ -519,7 +528,7 @@
       // Loop through data and save each item
       for (const item of transformedData) {
         console.log(item);
-        await store.dispatch('createProduct', item);
+        await store.dispatch('createProductUpload', item);
       }
 
       // Show success message

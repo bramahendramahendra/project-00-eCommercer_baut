@@ -46,6 +46,14 @@ Route::middleware(['guestOrVerified'])->group(function(){
         Route::post('/remove/{product:slug}', [CartController::class, 'remove'])->name('remove');
         Route::post('/update-quantity/{product:slug}', [CartController::class, 'updateQuantity'])->name('update-quantity');
     });
+
+    
+    // Route::get('/send-whatsapp', function () {
+    //     $phone = '+6282130600391';
+    //     $text = urlencode('Halo');
+    //     return redirect("https://api.whatsapp.com/send?phone={$phone}&text={$text}");
+    // });
+    Route::get('/send-whatsapp', [NotificationController::class, 'sendWhatsapp'])->name('send.whatsapp');
 });
 
 Route::get('/dashboard', function () {
@@ -66,12 +74,6 @@ Route::middleware('auth', 'verified')->group(function () {
 
     Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
     // Route::get('/orders/view/:order', [OrderController::class, 'view'])->name('order.view');
-});
-
-Route::get('/send-whatsapp', function () {
-    $phone = '+6282130600391';
-    $text = urlencode('Halo');
-    return redirect("https://api.whatsapp.com/send?phone={$phone}&text={$text}");
 });
 
 require __DIR__.'/auth.php';

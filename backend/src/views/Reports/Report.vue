@@ -1,6 +1,13 @@
 <template>
-    <div>
-        <div>
+    <div class="px-4 sm:px-6 lg:px-8">
+        <div class="sm:flex sm:items-center">
+            <div class="sm:flex-auto">
+                <h1 class="text-base font-semibold leading-6 text-gray-900">Report</h1>
+                <!-- <p class="mt-2 text-sm text-gray-700">A list of all the users in your account including their name, title, email and role.</p> -->
+            </div>
+        </div>
+        <div class="mt-8 flow-root animate-fade-in-down">
+
             <div class="sm:hidden">
                 <label for="tabs-select" class="sr-only">Pilih Laporan</label>
                 <select id="tabs-select" class="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
@@ -20,12 +27,13 @@
                 </nav>
             </div>
         </div>
-        <div>
-            <div class="flex justify-end items-center">
-                <label class="mr-2 text-base font-semibold leading-6 text-gray-900">Change Date Period</label>
-                <CustomInput type="select" v-model="chosenDate" @change="onDatePickerChange" :select-options="dateOptions" class="text-base font-semibold leading-6 text-gray-900 max-w-xs " />
-            </div>
+
+        <!-- <div> -->
+        <div class="flex justify-end items-center">
+            <label class="mr-2 text-base font-semibold leading-6 text-gray-900">Change Date Period</label>
+            <CustomInput type="select" v-model="chosenDate" @change="onDatePickerChange" :select-options="dateOptions" class="text-base font-semibold leading-6 text-gray-900 max-w-xs " />
         </div>
+        <!-- </div> -->
         <!-- Bagian Tampilan Konten -->
         <div class="bg-white p-3 rounded-md mt-3 shadow-md">
             <router-view />

@@ -9,5 +9,5 @@ class InformationCompany extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'image', 'image_mime', 'image_size', 'email', 'operating_days', 'operating_hours', 'phone', 'address', 'city', 'state', 'zipcode', 'country', 'created_by', 'updated_by'];
+    protected $fillable = ['name', 'description', 'image', 'image_mime', 'image_size', 'email', 'operating_days', 'operating_hours', 'phone', 'address', 'city', 'state', 'zipcode', 'country', 'contact_wa', 'text_wa', 'created_by', 'updated_by'];
 }

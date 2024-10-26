@@ -124,8 +124,9 @@ export function createProduct({ commit }, product) {
 }
 
 export function createProductUpload({ commit }, product) {
-    debugger;
     if (product.image instanceof File) {
+        console.log(product);
+
         const form = new FormData();
         form.append('type_id', product.type_id);
         form.append('code', product.code);
@@ -163,14 +164,18 @@ export function createProductUpload({ commit }, product) {
         form.append('color_id',product.color_id);
         form.append('url_video',product.url_video);
         form.append('published', product.published ? 1 : 0);
+        console.log(form);
+        
         product = form;
+        debugger;
+
     }
 
     return axiosClient.post('/products', product)
 }
 
 export function updateProduct({ commit }, product) {
-    debugger;
+    // debugger;
 
     const id = product.id
 
@@ -760,6 +765,8 @@ export function updateInformationCompanies({ commit }, informationCompany) {
         form.append('state', informationCompany.state);
         form.append('zipcode', informationCompany.zipcode);
         form.append('country', informationCompany.country);
+        form.append('contact_wa', informationCompany.contact_wa);
+        form.append('text_wa', informationCompany.text_wa);
         form.append('_method', 'PUT');
         informationCompany = form;
     } else {

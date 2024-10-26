@@ -182,7 +182,7 @@
                 </template>
             </div>
 
-            <!-- Related products -->
+            {{-- <!-- Related products -->
             <section aria-labelledby="related-heading" class="mt-24">
                 <h2 id="related-heading" class="text-lg font-medium text-gray-900">You may also like&hellip;</h2>
 
@@ -210,7 +210,7 @@
 
                     <!-- More products... -->
                 </div>
-            </section>
+            </section> --}}
         </main>
     </div>
 </x-app-layout>

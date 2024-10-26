@@ -29,6 +29,8 @@ class InformationCompanyFactory extends Factory
             'state' => $this->faker->text(10),
             'zipcode' => fake()->numberBetween(100000,999999),
             'country' => $this->faker->text(10),
+            'contact_wa' => fake()->numberBetween(100000000000, 999999999999),
+            'text_wa' => $this->faker->text(50),
             'created_by' => 1,
             'updated_by' => 1,
             'created_at' => now(),

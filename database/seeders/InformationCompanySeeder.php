@@ -26,6 +26,8 @@ class InformationCompanySeeder extends Seeder
             'state' => 'privince',
             'zipcode' => '123456',
             'country' => 'Indonesia',
+            'contact_wa' => '081234567890',
+            'text_wa' => 'Halo',
         ])->create();
     }
 }

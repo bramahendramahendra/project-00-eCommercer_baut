@@ -137,7 +137,7 @@
             <div class="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-6">
                 <h1 class="text-4xl font-bold tracking-tight text-gray-900">Katalog</h1>
                 <div class="flex items-center">
-                    <div class="relative inline-block text-left"
+                    {{-- <div class="relative inline-block text-left"
                         x-data="{ dropdownOpen: false, selectedIndex: null }" @click.away="dropdownOpen = false">
                         <div>
                             <button type="button" @click="dropdownOpen = !dropdownOpen"
@@ -182,7 +182,7 @@
                                 d="M4.25 2A2.25 2.25 0 002 4.25v2.5A2.25 2.25 0 004.25 9h2.5A2.25 2.25 0 009 6.75v-2.5A2.25 2.25 0 006.75 2h-2.5zm0 9A2.25 2.25 0 002 13.25v2.5A2.25 2.25 0 004.25 18h2.5A2.25 2.25 0 009 15.75v-2.5A2.25 2.25 0 006.75 11h-2.5zm9-9A2.25 2.25 0 0011 4.25v2.5A2.25 2.25 0 0013.25 9h2.5A2.25 2.25 0 0018 6.75v-2.5A2.25 2.25 0 0015.75 2h-2.5zm0 9A2.25 2.25 0 0011 13.25v2.5A2.25 2.25 0 0013.25 18h2.5A2.25 2.25 0 0018 15.75v-2.5A2.25 2.25 0 0015.75 11h-2.5z"
                                 clip-rule="evenodd" />
                         </svg>
-                    </button>
+                    </button> --}}
                     <button @click="mobileMenuOpen = !mobileMenuOpen" type="button"
                         class="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden">
                         <span class="sr-only">Filters</span>

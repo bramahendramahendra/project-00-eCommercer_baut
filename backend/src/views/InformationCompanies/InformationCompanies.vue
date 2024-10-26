@@ -86,6 +86,18 @@
                             <CustomInput class="mb-2" v-model="informationCompany.country" label="Negara" :errors="errors.country" />
                         </dd>
                     </div>
+                    <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-3">
+                        <dt class="text-sm font-medium leading-6 text-gray-900">Kontak WhatsApp </dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-3 sm:mt-0">
+                            <CustomInput class="mb-2" v-model="informationCompany.contact_wa" label="Telepon Perusahaan" :errors="errors.phone" />
+                        </dd>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-1 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-3">
+                        <dt class="text-sm font-medium leading-6 text-gray-900">Text WhatsApp </dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-3 sm:mt-0">
+                            <CustomInput class="mb-2" v-model="informationCompany.text_wa" label="Telepon Perusahaan" :errors="errors.phone" />
+                        </dd>
+                    </div>
                 </div>
                 <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                     <button type="submit" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2  text-base font-medium  focus:outline-none focus:ring-2 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500">
@@ -116,6 +128,8 @@ const errors = ref({
     state: [],
     zipcode: [],
     country: [],
+    contact_wa: [],
+    text_wa: [],
 })
 const informationCompany = ref({})
 

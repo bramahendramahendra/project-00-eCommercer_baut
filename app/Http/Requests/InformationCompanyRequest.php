@@ -34,6 +34,8 @@ class InformationCompanyRequest extends FormRequest
             'state' =>['required'],
             'zipcode' =>['required'],
             'country' =>['required'],
+            'contact_wa' => ['required', 'max:20'],
+            'text_wa' => ['required', 'string', 'max:100'],
         ];
     }
 }
