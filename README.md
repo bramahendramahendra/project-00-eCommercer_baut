@@ -93,3 +93,61 @@ php artisan migrate:fresh --seed
 ``` 
 
  ## Install production
+ 
+ 1. buka putty dan letakkan di dalam folder karyahutamaperkasa.com
+
+ ```bash
+ git clone -b development https://github.com/bramahendramahendra/project-00-eCommercer_baut.git .
+``` 
+
+2. pastikan versi php  => PHP 8.1.27 (cli) (built: Jan 23 2024 15:59:24) (NTS)
+
+3.  download composer phar. copo kode diabawah :
+
+```bash
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('sha384', 'composer-setup.php') === 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+``` 
+
+4 lalu cek install composer dengan kode dibawah ini.
+
+```bash
+php composer.phar
+``` 
+
+5. lalu lakukan install install dengan code :
+
+```bash
+php composer.phar install
+``` 
+
+
+6. pundahkan env dari folder backup ke folder utama :
+
+```bash
+[u325327774@id-dci-web1091 domains]$ cp karyahutamaperkasa.com_backup_20241026/.env karyahutamaperkasa.com/
+``` 
+
+7. lalu ubah folder public menjadi public_html
+
+```bash
+ln -s public public_html
+``` 
+
+8. lakukan build pada laravel dan vite
+jangan lupa lakukan build di local. lalu di letakkan di pada server di file public_html -> public
+
+untuk admin pada public_html -> public / admin
+```bash
+npm run build
+``` 
+
+lalu pindahkan ke masing-masing public
+
+9. jika gambar tidak muncul lakukan
+
+```bash
+php artisan storage:link
+``` 
