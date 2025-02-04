@@ -17,7 +17,7 @@
                                 class="absolute left-0 top-0 bg-white right-0 bottom-0 flex items-center justify-center" />
                             <header class="py-3 px-4 flex justify-between items-center">
                                 <DialogTitle as="h3" class="text-lg leading-6 font-medium text-gray-900">
-                                    {{ termAndCondition.id ? `Update Frequently Asked Question: "${props.termAndCondition.title}"` : 'Tambah Frequently Asked Question Baru' }}
+                                    {{ termAndCondition.id ? `Update Term and Condition: "${props.termAndCondition.title}"` : 'Tambah Term and Condition Baru' }}
                                 </DialogTitle>
                                 <button @click="closeModal()"
                                     class="w-8 h-8 flex items-center justify-center rounded-full transition-colors cursor-pointer hover:bg-[rgba(0,0,0,0.2)]">
@@ -28,8 +28,8 @@
                             </header>
                             <form @submit.prevent="onSubmit">
                                 <div class="bg-white px-4 pt-5 pb-4">
-                                    <CustomInput class="mb-2" v-model="termAndCondition.title" label="Title FAQ" :errors="errors.title" />
-                                    <CustomInput class="mb-2" v-model="termAndCondition.content" label="Answer FAQ" :errors="errors.content" />
+                                    <CustomInput class="mb-2" v-model="termAndCondition.title" label="Title Term and Condition" :errors="errors.title" />
+                                    <CustomInput class="mb-2" v-model="termAndCondition.content" label="Content Term and Condition" :errors="errors.content" />
                                 </div>
                                 <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2  text-base font-medium  focus:outline-none focus:ring-2 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500">

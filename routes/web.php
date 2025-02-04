@@ -14,6 +14,7 @@ use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\NewslettersController;
 use App\Http\Controllers\TermsAndConditionsController;
 use App\Http\Controllers\FrequentlyAskedQuestionsController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['guestOrVerified'])->group(function(){
