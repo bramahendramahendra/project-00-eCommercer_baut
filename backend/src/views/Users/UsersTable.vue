@@ -172,12 +172,13 @@
     }
 
     function deleteUser(user) {
-        if(!confirm('Apakah anda yakin ingin menghapus kategori berikut ?')) {
+        if(!confirm('Apakah anda yakin ingin menghapus user berikut ?')) {
             return 
         }
         store.dispatch('deleteUser', user.id)
             .then(res => {
                 // TODO Show notification 
+                store.commit('showToast', 'User berhasil dihapus.');
                 store.dispatch('getUsers')
             })
     }

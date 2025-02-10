@@ -658,7 +658,9 @@ export function updateUser({ commit }, user) {
 
 export function deleteUser({ commit }, user) {
     // return axiosClient.delete('/categories/${id}')
-    return axiosClient.delete(`/users/${user.id}`)
+    // console.log(user);
+    
+    return axiosClient.delete(`/users/${user}`)
 }
 
 export function getCustomers({ commit, state }, { url = null, search = '', per_page, sort_field, sort_direction } = {}) {
